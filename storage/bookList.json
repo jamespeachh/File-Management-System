@@ -1,0 +1,49 @@
+{
+  "books": {
+    "1984": {
+      "url": "{{ url(route('book', ['bookName' => '1984', 'pageNumber' => 1])) }}",
+      "title": "1984",
+      "unformatted": "1984",
+      "img": {
+        "src": "1984.jpeg",
+        "alt": "1984"
+      }
+    },
+    "theStranger": {
+      "url": "{{ url(route('book', ['bookName' => '1Q84', 'pageNumber' => 1])) }}",
+      "title": "The Stranger",
+      "unformatted": "thestranger",
+      "img": {
+        "src": "TheStranger.jpg",
+        "alt": "thestranger"
+      }
+    },
+    "circe": {
+      "url": "{{ url(route('book', ['bookName' => 'circe', 'pageNumber' => 1])) }}",
+      "title": "Circe",
+      "unformatted": "circe",
+      "img": {
+        "src": "circe.jpeg",
+        "alt": "circe"
+      }
+    },
+    "1Q84": {
+      "url": "{{ url(route('book', ['bookName' => '1Q84', 'pageNumber' => 1])) }}",
+      "title": "1Q84",
+      "unformatted": "1Q84",
+      "img": {
+        "src": "1q84.jpeg",
+        "alt": "1Q84"
+      }
+    },
+    "BalladOfSongbirdsAndSnakes": {
+      "url": "{{ url(route('book', ['bookName' => 'BalladOfSongbirdsAndSnakes', 'pageNumber' => 1])) }}",
+      "title": "The Ballad Of Songbirds And Snakes",
+      "unformatted": "BalladOfSongbirdsAndSnakes",
+      "img": {
+        "src": "BalladOfSongbirdsAndSnakes.png",
+        "alt": "BalladOfSongbirdsAndSnakes"
+      }
+    }
+  }
+}

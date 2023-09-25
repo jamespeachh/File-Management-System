@@ -1,0 +1,32 @@
+
+.text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content; /* Set the height of the container to fill the viewport */
+    background-color: #f1f1f1;
+}
+
+.text-content {
+    max-width: 90%;
+    white-space: pre-wrap; /* Preserve line breaks and wrap long lines */
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family:'Lucida Sans Regular', sans-serif;
+}
+.wrap{
+    font-size: 35px;
+    white-space: pre-wrap;
+    padding: 22px;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    font-family:'Lucida Sans Regular', sans-serif;
+}
