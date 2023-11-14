@@ -11,26 +11,10 @@
 
     <title>{{$bookTitle}}</title>
     <style>
+        body {overscroll-behavior-y: none;overscroll-behavior-x: none;}
         h1{
             font-size: 100px;
             text-align: center;
-        }
-        .text-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: fit-content; /* Set the height of the container to fill the viewport */
-            background-color: #f1f1f1;
-        }
-
-        .text-content {
-            max-width: 90%;
-            white-space: pre-wrap; /* Preserve line breaks and wrap long lines */
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         #file-content{
             font-family: 'REM', sans-serif;
@@ -56,6 +40,7 @@
             width: 200px;
             height: 100px;
         }
+
         @media (max-width:1000px) {
             #file-content{
                 font-family: 'REM', sans-serif;
@@ -66,32 +51,58 @@
             }
         }
 
+        @media (min-width:1000px) {
+            .text-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: fit-content; /* Set the height of the container to fill the viewport */
+                background-color: #f1f1f1;
+            }
+
+            .text-content {
+                max-width: 90%;
+                white-space: pre-wrap; /* Preserve line breaks and wrap long lines */
+                background-color: #fff;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+        }
+
     </style>
 
-
+    <script>
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>    
 
 
 </head>
 <body>
 
-@include('bladeTemplates.header')
-<!-- @include('bladeTemplates.progressbar') -->
-<!-- <div class="text-container"> -->
-    <!-- <div class="text-content"> -->
-        <div>
-            <h1>{{$bookTitle}}:</h1>
+    @include('bladeTemplates.header')
+    <div class="text-container">    
+        <div class="text-content">
+            <div>
+                <h1>{{$bookTitle}}:</h1>
+            </div>
+            <div>
+                <p id="file-content">{{$fileContents}}</p>
+            </div>
+            <hr>
+            <div id="index" class="button-container">
+                <button onclick="window.location.href='{{ url($url . ($pageNum-1)) }}'" class="button-fnb">Previous Chapter</button>
+                <button onclick="window.location.href='{{ url($url . ($pageNum+1)) }}'" class="button-fnb">Next Chapter</button>
+            </div>
+            <button onclick="topFunction()" style="padding: 10px;font-size:20px;color: black;">Scroll to top</button>
+            <br>
+            <br>
+            <footer>I love you &lt;3</footer>
         </div>
-        <div>
-            <p id="file-content">{{$fileContents}}</p>
-        </div>
-        <div id="index" class="button-container">
-            <button onclick="window.location.href='{{ url($url . ($pageNum-1)) }}'" class="button-fnb">Previous Chapter</button>
-            <button onclick="window.location.href='{{ url($url . ($pageNum+1)) }}'" class="button-fnb">Next Chapter</button>
-        </div>
-        <br>
-        <br>
-        <footer>I love you &lt;3</footer>
-    <!-- </div> -->
-<!-- </div> -->
+    </div>
 </body>
 </html>

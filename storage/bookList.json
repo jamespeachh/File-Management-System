@@ -1,21 +1,21 @@
 {
   "books": {
-    "1984": {
-      "url": "{{ url(route('book', ['bookName' => '1984', 'pageNumber' => 1])) }}",
-      "title": "1984",
-      "unformatted": "1984",
+    "ADarkerShadeOfMagic": {
+      "url": "{{ url(route('book', ['bookName' => 'ADarkerShadeOfMagic', 'pageNumber' => 1])) }}",
+      "title": "A Darker Shade of Magic",
+      "unformatted": "ADarkerShadeOfMagic",
       "img": {
-        "src": "1984.jpeg",
-        "alt": "1984"
+        "src": "ADarkerShadeOfMagic.jpg",
+        "alt": "ADarkerShadeOfMagic"
       }
     },
-    "theStranger": {
-      "url": "{{ url(route('book', ['bookName' => '1Q84', 'pageNumber' => 1])) }}",
-      "title": "The Stranger",
-      "unformatted": "thestranger",
+    "BalladOfSongbirdsAndSnakes": {
+      "url": "{{ url(route('book', ['bookName' => 'BalladOfSongbirdsAndSnakes', 'pageNumber' => 1])) }}",
+      "title": "The Ballad Of Songbirds And Snakes",
+      "unformatted": "BalladOfSongbirdsAndSnakes",
       "img": {
-        "src": "TheStranger.jpg",
-        "alt": "thestranger"
+        "src": "BalladOfSongbirdsAndSnakes.png",
+        "alt": "BalladOfSongbirdsAndSnakes"
       }
     },
     "circe": {
@@ -27,6 +27,15 @@
         "alt": "circe"
       }
     },
+    "theStranger": {
+      "url": "{{ url(route('book', ['bookName' => '1Q84', 'pageNumber' => 1])) }}",
+      "title": "The Stranger",
+      "unformatted": "thestranger",
+      "img": {
+        "src": "TheStranger.jpg",
+        "alt": "thestranger"
+      }
+    },
     "1Q84": {
       "url": "{{ url(route('book', ['bookName' => '1Q84', 'pageNumber' => 1])) }}",
       "title": "1Q84",
@@ -36,13 +45,13 @@
         "alt": "1Q84"
       }
     },
-    "BalladOfSongbirdsAndSnakes": {
-      "url": "{{ url(route('book', ['bookName' => 'BalladOfSongbirdsAndSnakes', 'pageNumber' => 1])) }}",
-      "title": "The Ballad Of Songbirds And Snakes",
-      "unformatted": "BalladOfSongbirdsAndSnakes",
+    "1984": {
+      "url": "{{ url(route('book', ['bookName' => '1984', 'pageNumber' => 1])) }}",
+      "title": "1984",
+      "unformatted": "1984",
       "img": {
-        "src": "BalladOfSongbirdsAndSnakes.png",
-        "alt": "BalladOfSongbirdsAndSnakes"
+        "src": "1984.jpeg",
+        "alt": "1984"
       }
     }
   }

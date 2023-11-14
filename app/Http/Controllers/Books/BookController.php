@@ -9,6 +9,7 @@ class BookController extends Controller
 {
     public function index($bookName, $pageNumber)
     {
+        $data = json_decode(File::get(storage_path('bookList.json')), true);
         $fileInfo = $this->findBookFileInfo($bookName, $pageNumber);
         $pageNumber = $fileInfo[1];
 
@@ -20,13 +21,14 @@ class BookController extends Controller
             return view('Books.directory');
         }
 
-        $bookNameFormatted = $this->formatBookTitle($bookName);
+        $bookNameFormatted = $this->formatBookTitle($bookName, $data);
 
         return view('Books/index', [
             'fileContents' => $fileContents,
             'pageNum' => $pageNumber,
             'url' => '/book/' . $bookName . '/',
-            'bookTitle'=>$bookNameFormatted
+            'bookTitle'=>$bookNameFormatted,
+            'data' => $data
         ]);
     }
 
@@ -65,10 +67,8 @@ class BookController extends Controller
         return [$filePath, $pageNumber];
     }
 
-    private function formatBookTitle($originalTitle) : string
+    private function formatBookTitle($originalTitle, $data) : string
     {
-        $data = json_decode(File::get(storage_path('bookList.json')), true);
-
         foreach($data['books'] as $item){
             if(strtolower($originalTitle) == strtolower($item['unformatted'])) return $item['title'];
         }
