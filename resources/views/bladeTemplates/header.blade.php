@@ -13,7 +13,7 @@
     </nav>
 
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" class="closebtn" onclick="switch_on_off()">&times;</a>
         <a href="{{ url(route('home')) }}">Home</a>
         <a href="{{ url(route('directory')) }}">Directory</a></br></br>
         @foreach($data['books'] as $item)
