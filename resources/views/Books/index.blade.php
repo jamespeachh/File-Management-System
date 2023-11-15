@@ -10,76 +10,7 @@
 
 
     <title>{{$bookTitle}}</title>
-    <style>
-        body {overscroll-behavior-y: none;overscroll-behavior-x: none;}
-        h1{
-            font-size: 100px;
-            text-align: center;
-        }
-        #file-content{
-            font-family: 'REM', sans-serif;
-            font-size: 15pt;
-            white-space: pre-wrap;
-            padding: 27px;
-        }
-        footer{
-            font-family: 'REM', sans-serif;
-        }
-
-        .button-container {
-            font-family: 'REM', sans-serif;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-        }
-        .button-fnb {
-            color: black;
-            border-radius: 15px;
-            background-color: light-grey;
-            width: 200px;
-            height: 100px;
-        }
-
-        @media (max-width:1000px) {
-            #file-content{
-                font-family: 'REM', sans-serif;
-                font-size: 35px;
-                color: #2E2E2E;
-                white-space: pre-wrap;
-                padding: 22px;
-            }
-        }
-
-        @media (min-width:1000px) {
-            .text-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: fit-content; /* Set the height of the container to fill the viewport */
-                background-color: #f1f1f1;
-            }
-
-            .text-content {
-                max-width: 90%;
-                white-space: pre-wrap; /* Preserve line breaks and wrap long lines */
-                background-color: #fff;
-                padding: 20px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            }
-        }
-
-    </style>
-
-    <script>
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-    </script>    
-
+    <link rel="stylesheet" href="{{ asset('htmlData/css/books.css') }}">
 
 </head>
 <body>
