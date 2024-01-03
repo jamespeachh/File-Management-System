@@ -90,7 +90,12 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-
+        'filesftp' => [
+            'driver' => 'sftp',
+            'host' => env('FILES_SFTP_HOST'),
+            'username' => env('FILES_SFTP_USERNAME'),
+            'password' => env('FILES_SFTP_PASSWORD'),
+        ],
     ],
 
     /*

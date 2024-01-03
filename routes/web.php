@@ -40,5 +40,3 @@ Route::get('/calander', function(){
 Route::get('/test', [TestController::class, 'index'])
     ->name('test');
     //runtest
-
-
