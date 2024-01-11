@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    @include('bladeTemplates.comments-chapter')
+
 </body>
 </html>

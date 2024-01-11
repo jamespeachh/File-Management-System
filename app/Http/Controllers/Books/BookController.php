@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Books;
 
 use App\Http\Controllers\Controller;
+use App\Services\Cache\CacheService;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
     public function index($bookName, $pageNumber)
     {
-        $data = json_decode(File::get(storage_path('bookList.json')), true);
+        $Cache = new CacheService();
+        $data = $Cache->getBookList();
+        
         $fileInfo = $this->findBookFileInfo($bookName, $pageNumber);
         $pageNumber = $fileInfo[1];
 
