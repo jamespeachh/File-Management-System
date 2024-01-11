@@ -1,5 +1,5 @@
 body {overscroll-behavior-y: none;overscroll-behavior-x: none;}
-h1{
+.book-title{
     font-size: 100px;
     text-align: center;
 }

@@ -53,6 +53,15 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'books-sftp-up' => [
+            'driver' => 'sftp',
+            'host' => env('BOOKS_SFTP_UP_HOST'),
+            'username' => env('BOOKS_SFTP_UP_USERNAME'),
+            'password' => env('BOOKS_SFTP_UP_PASSWORD'),
+            'throw' => true,
+            'root' => env('BOOKS_SFTP_UP_ROOT'),
+        ],
+
     ],
 
     /*

@@ -16,10 +16,10 @@
 <body>
 
     @include('bladeTemplates.header')
-    <div class="text-container">    
+    <div class="text-container">
         <div class="text-content">
             <div>
-                <h1>{{$bookTitle}}:</h1>
+                <h1 class="book-title">{{$bookTitle}}:</h1>
             </div>
             <div>
                 <p id="file-content">{{$fileContents}}</p>
@@ -32,6 +32,7 @@
             <button onclick="topFunction()" style="padding: 10px;font-size:20px;color: black;">Scroll to top</button>
             <br>
             <br>
+            @include('bladeTemplates.comments-chapter')
             <footer>I love you &lt;3</footer>
         </div>
     </div>

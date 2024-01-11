@@ -6,18 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <ul>
-        @foreach($data['books'] as $item)
-            <li>
-                <a href="{{ url(route('book', ['bookName' => $item['unformatted'], 'pageNumber' => 1])) }}" class="link">
-                <div class="list-item">
-                    <img src="{{ $item['img']['src']}}"
-                        alt="{{$item['img']['alt']}}"
-                        class="test-img">
-                    {{$item['title']}}
-                </div>
-            </li>
-        @endforeach
-    </ul>
+    @include('bladeTemplates.comments-chapter')
 </body>
 </html>
