@@ -5,7 +5,7 @@ namespace App\Services\Cache;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
-class CacheService
+class BookListService
 {
     public function getBookList ()
     {
@@ -26,6 +26,6 @@ class CacheService
     private function getBookListFromSFTP()
     {
         $data = json_decode(Storage::disk('books')->get('bookList.json'), true);
-        Cache::put('bookList', $data, 600);
+        Cache::put('bookList', $data, 600); //10 mins
     }
 }

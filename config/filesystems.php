@@ -52,7 +52,12 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
-
+        'redis' => [
+            'driver' => 'redis',
+            'connection' => 'default',
+            'queue' => 'default',
+            'retry_after' => 90,
+        ],
         'books' => [
             'driver' => 'sftp',
             'host' => env('BOOKS_SFTP_UP_HOST'),

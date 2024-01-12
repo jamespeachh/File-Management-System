@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Books;
 
 use App\Http\Controllers\Controller;
-use App\Services\Cache\CacheService;
+use App\Jobs\ProcessBookPages;
+use App\Services\Cache\BookListService;
+use App\Services\Cache\BookTxtFileService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,24 +14,22 @@ class BookController extends Controller
 {
     public function index($bookName, $pageNumber)
     {
-        $Cache = new CacheService();
-        $data = $Cache->getBookList();
-        
+        $BTXTCache = new BookTxtFileService();
+        $BLCache = new BookListService();
+        $data = $BLCache->getBookList();
+
         $fileInfo = $this->findBookFileInfo($bookName, $pageNumber);
         $pageNumber = $fileInfo[1];
 
-        //make sure the file/Book exists
-        try {
-            $fileContents = File::get($fileInfo[0] . '/' . $bookName . '_' . $pageNumber . '.txt');
-        }catch (\Exception $e) {
-            dump($e);
-            return view('Books.directory');
-        }
-
+        $bookTxtFileContents = $BTXTCache->getBookTxtFile($fileInfo[0] . '/' . $bookName . '_' . $pageNumber . '.txt');
         $bookNameFormatted = $this->formatBookTitle($bookName, $data);
 
-        return view('Books/index', [
-            'fileContents' => $fileContents,
+        // get next page so it's smoother for the viewer
+//        Cache::put('nextFile', $fileInfo[0] . '/' . $bookName . '_' . ($pageNumber+1) . '.txt', 600);
+//        ProcessBookPages::dispatch()->afterResponse();
+
+        return view('Books.index', [
+            'fileContents' => $bookTxtFileContents,
             'pageNum' => $pageNumber,
             'url' => '/book/' . $bookName . '/',
             'bookTitle'=>$bookNameFormatted,
@@ -38,30 +39,17 @@ class BookController extends Controller
 
     public function indexNoVar($bookName)
     {
-        $filePath = public_path('/Book/' . $bookName);
-
-        //make sure the file/Book exists
-        try {
-            $fileContents = File::get($filePath . '/' . $bookName . '_' . 1 . '.txt');
-        }catch (\Exception $e) {
-            return view('Books.directory');
-        }
-
-        return view('Books/index', [
-            'fileContents' => $fileContents,
-            'pageNum' => 1,
-            'url' => '/book/' . $bookName . '/',
-            'bookTitle'=>$bookName
-        ]);
+        $this->index($bookName, 1);
     }
 
     private function findBookFileInfo($bookName, $pageNumber) : array
     {
-        $filePath = public_path('/Book/' . $bookName);
+        $filePath = '/'.$bookName;
 
         // count how many files are in the directory
-        if (File::isDirectory($filePath)) {
-            $files = File::files($filePath);
+        if (Storage::disk('books')->directories($filePath)) {
+            $files = Storage::disk('books')->allFiles($filePath);
+            dd($files);
             $fileCount = count($files);
             // replace pageNumber if too high or too low
             if ($pageNumber > $fileCount) $pageNumber = 1;

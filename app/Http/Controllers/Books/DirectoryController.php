@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Books;
 
-use App\Services\Cache\CacheService;
-use Illuminate\Support\Facades\File;
+use App\Services\Cache\BookListService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class DirectoryController extends Controller
 {
     public function index()
     {
-        $Cache = new CacheService();
+        $Cache = new BookListService();
         $data = $Cache->getBookList();
 
         return view('Books.directory', compact('data'));
