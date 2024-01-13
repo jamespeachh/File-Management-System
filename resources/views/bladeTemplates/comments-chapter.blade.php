@@ -18,6 +18,7 @@
     <div class="you_comment">
         <h3 style="padding-left: 20px;">Write a comment</h3>
         <form action="submit" class="comment_form">
+            @csrf
             <textarea class="form_real" id="input_text" wrap="soft" required></textarea>
             <input type="submit" class="form_real" id="input_button">
         </form>

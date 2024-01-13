@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\ProcessBookPages;
 use App\Services\Cache\BookListService;
 use App\Services\Cache\BookTxtFileService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -17,16 +18,14 @@ class BookController extends Controller
         $BTXTCache = new BookTxtFileService();
         $BLCache = new BookListService();
         $data = $BLCache->getBookList();
+        $pageNumber = $this->validatePageNumber($pageNumber, $data['books'][$bookName]['pages']);
 
-        $fileInfo = $this->findBookFileInfo($bookName, $pageNumber);
-        $pageNumber = $fileInfo[1];
-
-        $bookTxtFileContents = $BTXTCache->getBookTxtFile($fileInfo[0] . '/' . $bookName . '_' . $pageNumber . '.txt');
+        $bookTxtFileContents = $BTXTCache->getBookTxtFile($bookName . '/' . $bookName . '_' . $pageNumber . '.txt');
         $bookNameFormatted = $this->formatBookTitle($bookName, $data);
 
         // get next page so it's smoother for the viewer
-//        Cache::put('nextFile', $fileInfo[0] . '/' . $bookName . '_' . ($pageNumber+1) . '.txt', 600);
-//        ProcessBookPages::dispatch()->afterResponse();
+        Cache::put('nextFile', $bookName . '/' . $bookName . '_' . ($pageNumber+1) . '.txt', 600);
+        ProcessBookPages::dispatch()->afterResponse();
 
         return view('Books.index', [
             'fileContents' => $bookTxtFileContents,
@@ -42,21 +41,18 @@ class BookController extends Controller
         $this->index($bookName, 1);
     }
 
-    private function findBookFileInfo($bookName, $pageNumber) : array
+    private function validatePageNumber($pageNumber, $bookTotalPageNumber) : string
     {
-        $filePath = '/'.$bookName;
-
-        // count how many files are in the directory
-        if (Storage::disk('books')->directories($filePath)) {
-            $files = Storage::disk('books')->allFiles($filePath);
-            dd($files);
-            $fileCount = count($files);
-            // replace pageNumber if too high or too low
-            if ($pageNumber > $fileCount) $pageNumber = 1;
-            if ($pageNumber <= 0) $pageNumber = 1;
+        if ($pageNumber > $bookTotalPageNumber)
+        {
+            $pageNumber = $bookTotalPageNumber;
+        }
+        else if ($pageNumber <= 0)
+        {
+            $pageNumber = 1;
         }
 
-        return [$filePath, $pageNumber];
+        return $pageNumber;
     }
 
     private function formatBookTitle($originalTitle, $data) : string

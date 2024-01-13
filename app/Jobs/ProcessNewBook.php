@@ -2,17 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Services\Cache\BookTxtFileService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 
-class ProcessBookPages implements ShouldQueue
+class ProcessNewBook implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -33,9 +30,9 @@ class ProcessBookPages implements ShouldQueue
      */
     public function handle()
     {
-        $BTXTCache = new BookTxtFileService();
-        $file = Cache::get('nextFile');
-        $BTXTCache->getBookTxtFile($file);
+        // Add book to sftp
+        // Add new book to json file on sftp
+        // Re-cache the json file
+        // Picture to Files
     }
-
 }

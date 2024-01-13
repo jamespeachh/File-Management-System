@@ -14,8 +14,7 @@ class TestController extends Controller
 {
     public function index()
     {
-        Cache::put('bookName', '1Q84');
-        ProcessBookPages::dispatch()->afterResponse();
+
         return view('test');
     }
 }
