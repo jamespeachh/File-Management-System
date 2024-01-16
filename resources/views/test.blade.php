@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('htmlData/css/import.css') }}">
+
 </head>
 <body>
-testing 2 <br>
-need to vvalidate that the file isnt already in cache
+test view
 </body>
 </html>

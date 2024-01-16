@@ -35,6 +35,7 @@ class ProcessBookPages implements ShouldQueue
     {
         $BTXTCache = new BookTxtFileService();
         $file = Cache::get('nextFile');
+        error_log('NEXT FILE CONFIRMATION // ' . $file);
         $BTXTCache->getBookTxtFile($file);
     }
 

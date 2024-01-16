@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Books;
 
 use App\Services\Cache\BookListService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 
 class DirectoryController extends Controller
 {

@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\books;
+namespace App\Http\Controllers\Books;
 
 use App\Http\Controllers\Controller;
+use App\Services\BookListAppendService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ImportController extends Controller
 {
@@ -17,27 +21,42 @@ class ImportController extends Controller
         return view('import');
     }
 
-    public function processUpload(Request $request)
+    public function submitForm(Request $request)
     {
-        return redirect()->route('upload.form')->with('success', 'Files uploaded successfully.');
-    }
-//    {
-//        $uploadedFiles = $request->file('files');
-//        $folderName = $request->input('folder-name"');
-//        $dirName = public_path('Book/' . $folderName);
-//
-//        if (!File::exists($dirName)) {
-//            File::makeDirectory($dirName, 0775, true); // Create the directory recursively
-//            $this->info("Directory '$dirName' created successfully.");
-//        }
-//
-//        foreach ($uploadedFiles as $file) {
-//            $filename = $file->getClientOriginalName();
-//            $file->storeAs('Book/', $filename);
-//        }
-//
-//
-//        return redirect()->route('upload.form')->with('success', 'Files uploaded successfully.');
-//    }
+        $BLCache = new BookListAppendService();
+        $BLData = $BLCache->getBookList();
 
+        // Get New book information from the form
+        $bookName = $request->input('bookName');
+        $password = $request->input('password');
+        $cover = $request->input('cover_img');
+
+        if ($password == env('JSON_UPDATE_PASSWORD')) {
+            $data = json_decode($BLData, true);
+
+            // Get ready all the new data for addition
+            $data['books'][$bookName] = [
+                "url" => $request->input('url'),
+                "title" => $request->input('title_formatted'),
+                "unformatted" => $bookName,
+                "pages" => $request->input('pages'),
+                "img" => [
+                    "src" => $request->input('img_src'),
+                    "alt" => $request->input('img_alt')
+                ]
+            ];
+
+            // Encode the modified data back to json
+            $newJsonContents = json_encode($data, JSON_PRETTY_PRINT);
+
+            File::put(public_path('BookCover/' . $cover), $cover);
+            Storage::disk('books')->delete('bookList.json');
+            Storage::disk('books')->put('bookList.json', $newJsonContents);
+            Cache::forget('bookList');
+
+        }
+
+        return redirect(route('directory'))->with('success', 'Files uploaded successfully.');
+
+    }
 }

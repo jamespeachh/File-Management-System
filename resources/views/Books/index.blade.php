@@ -32,7 +32,7 @@
             <button onclick="topFunction()" style="padding: 10px;font-size:20px;color: black;">Scroll to top</button>
             <br>
             <br>
-            @include('bladeTemplates.comments-chapter')
+{{--            @include('bladeTemplates.comments-chapter')--}}
             <footer>I love you &lt;3</footer>
         </div>
     </div>

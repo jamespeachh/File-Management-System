@@ -26,8 +26,6 @@ Route::get('/directory', [DirectoryController::class, 'index'])
 
 // Route::get('/import', [ImportController::class, 'index'])->name('import');
 
-Route::get('/upload', [ImportController::class, 'showUploadForm'])->name('upload.form');
-Route::post('/upload', [ImportController::class, 'processUpload'])->name('upload.process');
 
 //testing out a new book path
 Route::get('/book/{bookName}/{pageNumber}', [BookController::class, 'index'])
@@ -39,4 +37,6 @@ Route::get('/calander', function(){
 
 Route::get('/test', [TestController::class, 'index'])
     ->name('test');
-    //runtest
+
+Route::get('/upload', [ImportController::class, 'showUploadForm'])->name('upload.form');
+Route::post('/submit-form', [ImportController::class, 'submitForm'])->name('submit-form');

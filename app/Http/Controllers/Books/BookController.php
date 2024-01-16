@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\ProcessBookPages;
 use App\Services\Cache\BookListService;
 use App\Services\Cache\BookTxtFileService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -24,7 +21,7 @@ class BookController extends Controller
         $bookNameFormatted = $this->formatBookTitle($bookName, $data);
 
         // get next page so it's smoother for the viewer
-        Cache::put('nextFile', $bookName . '/' . $bookName . '_' . ($pageNumber+1) . '.txt', 600);
+        Cache::put('nextFile', $bookName . '/' . $bookName . '_' . (intval($pageNumber)+1) . '.txt', 600);
         ProcessBookPages::dispatch()->afterResponse();
 
         return view('Books.index', [
