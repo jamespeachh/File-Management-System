@@ -16,7 +16,7 @@
     <input type="text" placeholder="pages" name="pages" class="form-inputs"><br>
     <input type="text" placeholder="img src" name="img_src" class="form-inputs"><br>
     <input type="text" placeholder="img alt" name="img_alt" class="form-inputs"><br>
-    <input type="file" placeholder="Cover image" name="cover_img" class="form-inputs"><br>
+    <input type="file" placeholder="Cover image" name="cover_img" class="form-inputs" accept=".png,.jpeg,.jpg"><br>
     <input type="text" placeholder="password" name="password" class="form-inputs"><br>
     <button>submit</button>
 </form>

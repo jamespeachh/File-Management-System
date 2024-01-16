@@ -49,10 +49,15 @@ class ImportController extends Controller
             // Encode the modified data back to json
             $newJsonContents = json_encode($data, JSON_PRETTY_PRINT);
 
-            File::put(public_path('BookCover/' . $cover), $cover);
             Storage::disk('books')->delete('bookList.json');
             Storage::disk('books')->put('bookList.json', $newJsonContents);
             Cache::forget('bookList');
+
+            $allowed = array('gif', 'png', 'jpg', 'jpeg');
+            $ext = pathinfo($cover, PATHINFO_EXTENSION);
+            if (in_array($ext, $allowed)) {
+                File::put(public_path('BookCover/' . $cover), $cover);
+            }
 
         }
 
