@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Books\BookController;
 use App\Http\Controllers\Books\DirectoryController;
-use App\Http\Controllers\books\ImportController;
+use App\Http\Controllers\Books\ImportController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,7 +53,7 @@ Route::get('/book/{bookName}', [BookController::class, 'indexNoVar']);//->middle
 | IMPORT
 |--------------------------------------------------------------------------
 */
-Route::get('/import', [ImportController::class, 'showUploadForm'])->name('upload.form');
+Route::get('/import', [ImportController::class, 'showUploadForm'])->name('import.form');
 Route::post('/submit-form', [ImportController::class, 'submitForm'])->name('submit-form');
 
 /*
