@@ -9,6 +9,6 @@ class TestController extends Controller
 {
     public function index()
     {
-        dd( yclDatabase::query()->select('title'));
+        dd( yclDatabase::query()->select('title')->get());
     }
 }
