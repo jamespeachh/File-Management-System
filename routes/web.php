@@ -3,6 +3,7 @@
 use App\Http\Controllers\Books\BookController;
 use App\Http\Controllers\Books\DirectoryController;
 use App\Http\Controllers\Books\ImportController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 | Directory
 |--------------------------------------------------------------------------
 */
-Route::get('/', [DirectoryController::class, 'index'])->name('directory');//->middleware('auth');
+//Route::get('/', [DirectoryController::class, 'index'])->name('directory');//->middleware('auth');
 Route::get('/home', [DirectoryController::class, 'index'])->name('home');//->middleware('auth');
 Route::get('/directory', [DirectoryController::class, 'index'])->name('directory');//->middleware('auth');
 
@@ -64,4 +65,16 @@ Route::post('/submit-form', [ImportController::class, 'submitForm'])->name('subm
 Route::get('/test', [TestController::class, 'index'])
     ->name('test');
 
+
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
 
