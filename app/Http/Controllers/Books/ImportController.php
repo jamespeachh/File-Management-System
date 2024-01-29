@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Books;
 use App\Http\Controllers\Controller;
 use App\Services\BookListAppendService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -13,55 +14,69 @@ class ImportController extends Controller
 {
     public function index()
     {
-        return view('import');
+        $user = json_decode(Auth::user(), true);
+        $group = $user['auth_group'];
+
+        if($group == 9){
+            return view('import');
+        } else return view('welcome');
     }
 
     public function showUploadForm()
     {
-        return view('import');
+        $user = json_decode(Auth::user(), true);
+        $group = $user['auth_group'];
+
+        if($group == 9){
+            return view('import');
+        } else return view('welcome');
     }
 
     public function submitForm(Request $request)
     {
-        $BLCache = new BookListAppendService();
-        $BLData = $BLCache->getBookList();
+        $user = json_decode(Auth::user(), true);
+        $group = $user['auth_group'];
 
-        // Get New book information from the form
-        $bookName = $request->input('bookName');
-        $password = $request->input('password');
-        $cover = $request->input('cover_img');
+        if($group == 9){
+            $BLCache = new BookListAppendService();
+            $BLData = $BLCache->getBookList();
 
-        if ($password == env('JSON_UPDATE_PASSWORD')) {
-            $data = json_decode($BLData, true);
+            // Get New book information from the form
+            $bookName = $request->input('bookName');
+            $password = $request->input('password');
+            $cover = $request->input('cover_img');
 
-            // Get ready all the new data for addition
-            $data['books'][$bookName] = [
-                "url" => $request->input('url'),
-                "title" => $request->input('title_formatted'),
-                "unformatted" => $bookName,
-                "pages" => $request->input('pages'),
-                "img" => [
-                    "src" => $request->input('img_src'),
-                    "alt" => $request->input('img_alt')
-                ]
-            ];
+            if ($password == env('JSON_UPDATE_PASSWORD')) {
+                $data = json_decode($BLData, true);
 
-            // Encode the modified data back to json
-            $newJsonContents = json_encode($data, JSON_PRETTY_PRINT);
+                // Get ready all the new data for addition
+                $data['books'][$bookName] = [
+                    "url" => $request->input('url'),
+                    "title" => $request->input('title_formatted'),
+                    "unformatted" => $bookName,
+                    "pages" => $request->input('pages'),
+                    "img" => [
+                        "src" => $request->input('img_src'),
+                        "alt" => $request->input('img_alt')
+                    ]
+                ];
 
-            Storage::disk('books')->delete('bookList.json');
-            Storage::disk('books')->put('bookList.json', $newJsonContents);
-            Cache::forget('bookList');
+                // Encode the modified data back to json
+                $newJsonContents = json_encode($data, JSON_PRETTY_PRINT);
 
-            $allowed = array('gif', 'png', 'jpg', 'jpeg');
-            $ext = pathinfo($cover, PATHINFO_EXTENSION);
-            if (in_array($ext, $allowed)) {
-                File::put(public_path('BookCover/' . $cover), $cover);
+                Storage::disk('books')->delete('bookList.json');
+                Storage::disk('books')->put('bookList.json', $newJsonContents);
+                Cache::forget('bookList');
+
+                $allowed = array('gif', 'png', 'jpg', 'jpeg');
+                $ext = pathinfo($cover, PATHINFO_EXTENSION);
+                if (in_array($ext, $allowed)) {
+                    File::put(public_path('BookCover/' . $cover), $cover);
+                }
+
             }
 
-        }
-
-        return redirect(route('directory'))->with('success', 'Files uploaded successfully.');
-
+            return redirect(route('directory'))->with('success', 'Files uploaded successfully.');
+        } else return view('welcome');
     }
 }

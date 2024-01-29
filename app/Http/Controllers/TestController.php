@@ -12,10 +12,12 @@ class TestController extends Controller
     {
          $test = yclDatabase::query()->get()->toArray();
          dump($test);
-        $user = Auth::user();
-
-// Retrieve the currently authenticated user's ID...
+        $user = json_decode(Auth::user(), true);
+        $group = $user['auth_group'];
+        if($group == 9){
+            dump(true);
+        }
         $id = Auth::id();
-        dd($user, $id);
+        dd($user, $id,$group);
     }
 }

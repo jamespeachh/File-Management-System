@@ -3,7 +3,7 @@
 use App\Http\Controllers\Books\BookController;
 use App\Http\Controllers\Books\DirectoryController;
 use App\Http\Controllers\Books\ImportController;
-use App\Http\Controllers\ProfileController;
+//use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +25,12 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 //Route::get('/', [DirectoryController::class, 'index'])->name('directory');//->middleware('auth');
-Route::get('/home', [DirectoryController::class, 'index'])->name('home');//->middleware('auth');
-Route::get('/directory', [DirectoryController::class, 'index'])->name('directory');//->middleware('auth');
+Route::get('/home', [DirectoryController::class, 'index'])
+    ->name('home')
+    ->middleware('auth');
+Route::get('/directory', [DirectoryController::class, 'index'])
+    ->name('directory')
+    ->middleware('auth');
 
 // Route::get('/import', [ImportController::class, 'index'])->name('import');
 
@@ -37,8 +41,11 @@ Route::get('/directory', [DirectoryController::class, 'index'])->name('directory
 */
 //testing out a new book path
 Route::get('/book/{bookName}/{pageNumber}', [BookController::class, 'index'])
-    ->name('book');//->middleware('auth');
-Route::get('/book/{bookName}', [BookController::class, 'indexNoVar']);//->middleware('auth');
+    ->name('book')
+    ->middleware('auth');
+
+Route::get('/book/{bookName}', [BookController::class, 'indexNoVar'])
+    ->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +70,8 @@ Route::post('/submit-form', [ImportController::class, 'submitForm'])->name('subm
 |--------------------------------------------------------------------------
 */
 Route::get('/test', [TestController::class, 'index'])
-    ->name('test');
+    ->name('test')
+    ->middleware('auth');
 
 
 
@@ -74,7 +82,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})  ->middleware(['auth'])
+    ->name('dashboard');
 
 require __DIR__.'/auth.php';
 
