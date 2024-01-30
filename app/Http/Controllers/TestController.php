@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\yclDatabase;
+use App\Services\BookListAppendService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class TestController extends Controller
 {
@@ -18,6 +20,10 @@ class TestController extends Controller
             dump(true);
         }
         $id = Auth::id();
-        dd($user, $id,$group);
+//        dd($user, $id,$group);
+        $BLCache = new BookListAppendService();
+        $BLData = $BLCache->getBookList();
+        $hi = json_decode($BLData);
+        dd($hi);
     }
 }
