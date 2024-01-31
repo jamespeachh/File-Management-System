@@ -26,7 +26,7 @@ class BookController extends Controller
         // get next page so it's smoother for the viewer
         Cache::put('nextFile', $bookName . '/' . $bookName . '_' . (intval($pageNumber)+1) . '.txt', 600);
         ProcessBookPages::dispatch()->afterResponse();
-        $this->upsertPageNum($bookName, $pageNumber);
+        $this->updatePage($bookName, $pageNumber);
 
 
         return view('Books.index', [
@@ -64,6 +64,16 @@ class BookController extends Controller
         }
 
     }
+    public function updatePage($bookName, $pageNumber) {
+        $id = Auth::id();
+        $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
+        UserBookMapping::query()->update(
+            [
+                ['book_id' => intval($curBook), 'user_id' => intval($id), 'page_number' => intval($pageNumber)],
+            ]
+        );
+    }
+
 
     public function upsertPageNum($bookName, $pageNumber) {
         $id = Auth::id();
