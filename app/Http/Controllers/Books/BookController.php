@@ -80,7 +80,7 @@ class BookController extends Controller
             ->where(['user_id'=>$id])
             ->count();
 
-        if ($data <= 1)
+        if ($data >= 1)
             return true;
         else
             return false;
