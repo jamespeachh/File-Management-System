@@ -74,13 +74,11 @@ class BookController extends Controller
     private function userMappingExists($bookName): bool {
         $id = Auth::id();
         $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
-        dump($id, $curBook);
         $data = UserBookMapping::query()
             ->select()
             ->where(['book_id'=>$curBook])
             ->where(['user_id'=>$id])
             ->count();
-        dump($data);
         if ($data >= 1)
             return true;
         else
