@@ -79,7 +79,7 @@ class BookController extends Controller
             ->where(['book_id'=>$curBook])
             ->where(['user_id'=>$id])
             ->count();
-
+        dump($data);
         if ($data >= 1)
             return true;
         else
