@@ -72,10 +72,12 @@ class BookController extends Controller
                 ->get()
                 ->toArray()[0]['page_number'];
             dump($pageNumber);
+            return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
             redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
         } else {
             dump('sending to index');
 //            $this->index($bookName, 1);
+            return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>1]);
             redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>1]);
         }
 
