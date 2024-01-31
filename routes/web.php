@@ -40,10 +40,10 @@ Route::get('/directory', [DirectoryController::class, 'index'])
 */
 //testing out a new book path
 Route::get('/book/{bookName}/{pageNumber}', [BookController::class, 'index'])
-    ->name('book')
     ->middleware('auth');
 
 Route::get('/book/{bookName}', [BookController::class, 'indexNoVar'])
+    ->name('book')
     ->middleware('auth');
 
 /*
