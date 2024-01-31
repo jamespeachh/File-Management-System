@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\yclDatabase;
+use App\Models\book;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use stdClass;

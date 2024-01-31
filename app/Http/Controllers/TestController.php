@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\yclDatabase;
+use App\Models\UserBookMapping;
+use App\Models\book;
 use App\Services\BookListAppendService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,18 +13,20 @@ class TestController extends Controller
 {
     public function index()
     {
-         $test = yclDatabase::query()->get()->toArray();
-         dump($test);
-        $user = json_decode(Auth::user(), true);
-        $group = $user['auth_group'];
-        if($group == 9){
-            dump(true);
-        }
-        $id = Auth::id();
-//        dd($user, $id,$group);
-        $BLCache = new BookListAppendService();
-        $BLData = $BLCache->getBookList();
-        $hi = json_decode($BLData);
-        dd($hi);
+        $bookName = 'circe';
+        $userID = Auth::id();
+        $bookID = book::query()
+            ->select('id')
+            ->where('title', $bookName)
+            ->get()
+            ->toArray()[0]['id'];
+
+        $data = UserBookMapping::query()
+            ->select('page_number')
+            ->where('book_id', $bookID)
+            ->where('user_id',$userID)
+            ->get()
+            ->toArray();
+        dd($data);
     }
 }

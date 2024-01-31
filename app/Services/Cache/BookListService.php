@@ -2,7 +2,7 @@
 
 namespace App\Services\Cache;
 
-use App\Models\yclDatabase;
+use App\Models\book;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,7 +27,7 @@ class BookListService
     private function getBookListFromSFTP()
     {
         $jsonOBJ = ['books'=>[]];
-        $books = yclDatabase::query()->get()->toArray();
+        $books = book::query()->get()->toArray();
         foreach($books as $book){
             $jsonOBJ['books'][$book['title']] = [
                 'url'=>$book['url'],
