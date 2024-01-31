@@ -23,6 +23,11 @@ class BookController extends Controller
         $bookTxtFileContents = $BTXTCache->getBookTxtFile($bookName . '/' . $bookName . '_' . $pageNumber . '.txt');
         $bookNameFormatted = $this->formatBookTitle($bookName, $data);
 
+
+        dd($this->userMappingExists($bookName));
+
+
+
         // get next page so it's smoother for the viewer
         Cache::put('nextFile', $bookName . '/' . $bookName . '_' . (intval($pageNumber)+1) . '.txt', 600);
         ProcessBookPages::dispatch()->afterResponse();
@@ -64,6 +69,22 @@ class BookController extends Controller
         }
 
     }
+
+    private function userMappingExists($bookName): bool {
+        $id = Auth::id();
+        $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
+        UserBookMapping::query()
+            ->select()
+            ->where(['book_id'=>$curBook])
+            ->where(['user_id'=>$id])
+            ->count();
+
+        if ($curBook <= 1)
+            return true;
+        else
+            return false;
+    }
+
     public function updatePage($bookName, $pageNumber) {
         $id = Auth::id();
         $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
