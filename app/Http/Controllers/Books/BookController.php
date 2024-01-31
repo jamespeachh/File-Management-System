@@ -67,11 +67,10 @@ class BookController extends Controller
     public function updatePage($bookName, $pageNumber) {
         $id = Auth::id();
         $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
-        UserBookMapping::query()->update(
-            [
-                ['book_id' => intval($curBook), 'user_id' => intval($id), 'page_number' => intval($pageNumber)],
-            ]
-        );
+        UserBookMapping::query()
+            ->where(['book_id'=>$curBook])
+            ->where(['user_id'=>$id])
+            ->update(['page_number' => intval($pageNumber)]);
     }
 
 
