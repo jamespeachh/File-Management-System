@@ -14,9 +14,10 @@ class TestController extends Controller
 {
     public function index()
     {
-        BookBody::query()
+        $data = BookBody::query()
             ->select()
             ->get()
             ->toArray();
+        dd($data);
     }
 }
