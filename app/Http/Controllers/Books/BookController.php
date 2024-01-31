@@ -71,6 +71,7 @@ class BookController extends Controller
                 ->where('user_id',$userID)
                 ->get()
                 ->toArray()[0]['page_number'];
+            dump($pageNumber);
             redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
         } else {
             dump('sending to index');
