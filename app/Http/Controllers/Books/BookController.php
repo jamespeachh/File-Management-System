@@ -28,6 +28,7 @@ class BookController extends Controller
         ProcessBookPages::dispatch()->afterResponse();
         $this->upsertPageNum($bookName, $pageNumber);
 
+
         return view('Books.index', [
             'fileContents' => $bookTxtFileContents,
             'pageNum' => $pageNumber,
@@ -37,11 +38,9 @@ class BookController extends Controller
         ]);
     }
 
-    public function indexNoVar($bookName)
+    public function indexNoVar($bookName) : \Illuminate\Http\RedirectResponse
     {
-        dump($bookName);
         $userID = Auth::id();
-        dump($userID);
         $bookID = book::query()->select('id')->where('title', $bookName)
             ->get()
             ->toArray()[0]['id'];
@@ -60,7 +59,6 @@ class BookController extends Controller
                 ->toArray()[0]['page_number'];
             return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
         } else {
-            dump('sending to index');
 //            $this->index($bookName, 1);
             return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>1]);
         }
@@ -72,7 +70,7 @@ class BookController extends Controller
         $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
         UserBookMapping::query()->upsert(
             [
-                ['book_id' => $curBook, 'user_id' => $id, 'page_number' => intval($pageNumber)],
+                ['book_id' => intval($curBook), 'user_id' => intval($id), 'page_number' => intval($pageNumber)],
             ],
             ['book_id', 'user_id'],
             ['page_number']
