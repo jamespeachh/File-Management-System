@@ -24,14 +24,15 @@ class BookController extends Controller
         $bookNameFormatted = $this->formatBookTitle($bookName, $data);
 
 
-        dd($this->userMappingExists($bookName));
-
+        if($this->userMappingExists($bookName))
+            $this->updatePage($bookName, $pageNumber);
+        else
+            $this->insertPage($bookName, $pageNumber);
 
 
         // get next page so it's smoother for the viewer
         Cache::put('nextFile', $bookName . '/' . $bookName . '_' . (intval($pageNumber)+1) . '.txt', 600);
         ProcessBookPages::dispatch()->afterResponse();
-        $this->updatePage($bookName, $pageNumber);
 
 
         return view('Books.index', [
@@ -96,16 +97,14 @@ class BookController extends Controller
     }
 
 
-    public function upsertPageNum($bookName, $pageNumber) {
+    public function insertPage($bookName, $pageNumber) {
         $id = Auth::id();
         $curBook = book::query()->select('id')->where(['title'=>$bookName])->get()->toArray()[0]['id'];
-        UserBookMapping::query()->upsert(
-            [
-                ['book_id' => intval($curBook), 'user_id' => intval($id), 'page_number' => intval($pageNumber)],
-            ],
-            ['book_id', 'user_id'],
-            ['page_number']
-        );
+        UserBookMapping::query()->insert([
+            'book_id' => intval($curBook),
+            'user_id' => intval($id),
+            'page_number' => intval($pageNumber)
+        ]);
     }
 
     private function validatePageNumber($pageNumber, $bookTotalPageNumber) : string
