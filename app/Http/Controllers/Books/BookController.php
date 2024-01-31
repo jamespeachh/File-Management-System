@@ -15,29 +15,19 @@ class BookController extends Controller
 {
     public function index($bookName, $pageNumber)
     {
-        dump('inside index');
         $BTXTCache = new BookTxtFileService();
         $BLCache = new BookListService();
         $data = $BLCache->getBookList();
-        dump($data);
         $pageNumber = $this->validatePageNumber($pageNumber, $data['books'][$bookName]['pages']);
 
         $bookTxtFileContents = $BTXTCache->getBookTxtFile($bookName . '/' . $bookName . '_' . $pageNumber . '.txt');
         $bookNameFormatted = $this->formatBookTitle($bookName, $data);
-//        dump($bookTxtFileContents);
 
         // get next page so it's smoother for the viewer
         Cache::put('nextFile', $bookName . '/' . $bookName . '_' . (intval($pageNumber)+1) . '.txt', 600);
         ProcessBookPages::dispatch()->afterResponse();
         $this->upsertPageNum($bookName, $pageNumber);
 
-        dump([
-            'fileContents' => $bookTxtFileContents,
-            'pageNum' => $pageNumber,
-            'url' => '/book/' . $bookName . '/',
-            'bookTitle'=>$bookNameFormatted,
-            'data' => $data
-        ]);
         return view('Books.index', [
             'fileContents' => $bookTxtFileContents,
             'pageNum' => $pageNumber,
@@ -55,30 +45,24 @@ class BookController extends Controller
         $bookID = book::query()->select('id')->where('title', $bookName)
             ->get()
             ->toArray()[0]['id'];
-        dump($bookID);
         $mappings = UserBookMapping::query()
             ->select('page_number')
             ->where('book_id', $bookID)
             ->where('user_id',$userID)
             ->count();
-        dump($mappings);
 
         if($mappings!=0){
-            dump('not null');
             $pageNumber = UserBookMapping::query()
                 ->select('page_number')
                 ->where('book_id', $bookID)
                 ->where('user_id',$userID)
                 ->get()
                 ->toArray()[0]['page_number'];
-            dump($pageNumber);
             return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
-            redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
         } else {
             dump('sending to index');
 //            $this->index($bookName, 1);
             return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>1]);
-            redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>1]);
         }
 
     }
