@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookBody;
 use App\Models\UserBookMapping;
 use App\Models\book;
 use App\Services\BookListAppendService;
@@ -13,20 +14,9 @@ class TestController extends Controller
 {
     public function index()
     {
-        $bookName = 'circe';
-        $userID = Auth::id();
-        $bookID = book::query()
-            ->select('id')
-            ->where('title', $bookName)
-            ->get()
-            ->toArray()[0]['id'];
-
-        $data = UserBookMapping::query()
-            ->select('page_number')
-            ->where('book_id', $bookID)
-            ->where('user_id',$userID)
+        BookBody::query()
+            ->select()
             ->get()
             ->toArray();
-        dd($data);
     }
 }
