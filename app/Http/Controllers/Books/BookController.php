@@ -71,10 +71,11 @@ class BookController extends Controller
                 ->where('user_id',$userID)
                 ->get()
                 ->toArray()[0]['page_number'];
-            $this->index($bookName, $pageNumber);
+            redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>$pageNumber]);
         } else {
             dump('sending to index');
-            $this->index($bookName, 1);
+//            $this->index($bookName, 1);
+            redirect('/book/{bookName}/{pageNumber}', ['bookName'=>$bookName,'pageNumber'=>1]);
         }
 
     }
