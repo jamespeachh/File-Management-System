@@ -21,9 +21,10 @@ class ProcessBookPages implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    private $nextFile;
+    public function __construct($nextFile)
     {
-        //
+        $this->nextFile = $nextFile;
     }
 
     /**
@@ -34,9 +35,8 @@ class ProcessBookPages implements ShouldQueue
     public function handle()
     {
         $BTXTCache = new BookTxtFileService();
-        $file = Cache::get('nextFile');
-        error_log('NEXT FILE CONFIRMATION // ' . $file);
-        $BTXTCache->getBookTxtFile($file);
+        error_log('NEXT FILE CONFIRMATION // ' . $this->nextFile);
+        $BTXTCache->getBookTxtFile($this->nextFile);
     }
 
 }

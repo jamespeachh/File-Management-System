@@ -42,6 +42,6 @@ class BookListService
         }
         $myJSON = json_encode($jsonOBJ);
         $myJSON = json_decode($myJSON,true);
-        Cache::put('bookList', $myJSON, 600); //10 mins
+        Cache::put('bookList', $myJSON, 3600); //1 hour
     }
 }

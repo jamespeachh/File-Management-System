@@ -18,6 +18,6 @@ class TestController extends Controller
             ->select()
             ->get()
             ->toArray();
-        dd($data);
+        dd($data[0]['body_text']);
     }
 }
