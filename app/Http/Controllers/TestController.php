@@ -8,16 +8,14 @@ use App\Models\book;
 use App\Services\BookListAppendService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use stdClass;
 
 class TestController extends Controller
 {
+    // 1984 = 23
     public function index()
     {
-        $data = BookBody::query()
-            ->select()
-            ->get()
-            ->toArray();
-        dd($data[0]['body_text']);
+        dd('nothing here');
     }
 }

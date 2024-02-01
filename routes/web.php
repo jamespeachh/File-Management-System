@@ -69,8 +69,8 @@ Route::post('/submit-form', [ImportController::class, 'submitForm'])->name('subm
 |--------------------------------------------------------------------------
 */
 Route::get('/test', [TestController::class, 'index'])
-    ->name('test')
-    ->middleware('auth');
+    ->name('test');
+//    ->middleware('auth');
 
 
 

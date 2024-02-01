@@ -14,5 +14,15 @@ class BookBody extends Authenticatable
 
     protected $connection = 'ycl';
     protected $table = 'book_body';
-    
+
+    public function getBody($book_id, $page_number)
+    {
+        return $this->query()
+            ->select()
+            ->where(['book_id'=>$book_id])
+            ->where(['page_number'=>$page_number])
+            ->get()
+            ->toArray()[0]['body_text'];
+    }
+
 }

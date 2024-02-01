@@ -2,15 +2,16 @@
 
 namespace App\Services\Cache;
 
+use App\Models\BookBody;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 
 class BookTxtFileService
 {
-    public function getBookTxtFile($file)
+    public function getBookTxtFile($bookID, $pageNumber)
     {
+        $file = $bookID .'_'. $pageNumber;
         if(!$this->bookTxtFileExists($file)){
-            $this->getBookTxtFileFromSFTP($file);
+            $this->getBookTxtFileFromSFTP($bookID,$pageNumber,$file);
         }
         return Cache::get($file);
     }
@@ -23,9 +24,11 @@ class BookTxtFileService
         return true;
     }
 
-    private function getBookTxtFileFromSFTP($file)
+    public function getBookTxtFileFromSFTP($book_id, $pageNumber, $fileName)
     {
-        $data = Storage::disk('books')->get($file);
-        Cache::put($file, $data, 600); //10 mins
+        $body = new BookBody;
+        $data = $body->getBody($book_id, $pageNumber);
+
+        Cache::put($fileName, $data, 600); //10 mins
     }
 }

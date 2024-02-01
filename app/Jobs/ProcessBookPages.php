@@ -4,13 +4,10 @@ namespace App\Jobs;
 
 use App\Services\Cache\BookTxtFileService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 
 class ProcessBookPages implements ShouldQueue
 {
@@ -21,10 +18,12 @@ class ProcessBookPages implements ShouldQueue
      *
      * @return void
      */
-    private $nextFile;
-    public function __construct($nextFile)
+    private $bookID;
+    private $pageNumber;
+    public function __construct($bookID, $pageNumber)
     {
-        $this->nextFile = $nextFile;
+        $this->bookID = $bookID;
+        $this->pageNumber = $pageNumber;
     }
 
     /**
@@ -35,8 +34,11 @@ class ProcessBookPages implements ShouldQueue
     public function handle()
     {
         $BTXTCache = new BookTxtFileService();
-        error_log('NEXT FILE CONFIRMATION // ' . $this->nextFile);
-        $BTXTCache->getBookTxtFile($this->nextFile);
+
+        $fileName = $this->bookID.'_'. $this->pageNumber;
+
+        error_log('NEXT FILE CONFIRMATION // ' . $fileName);
+        $BTXTCache->getBookTxtFile($this->bookID, $this->pageNumber);
     }
 
 }

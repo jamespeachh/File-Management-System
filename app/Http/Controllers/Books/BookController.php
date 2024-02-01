@@ -16,26 +16,19 @@ class BookController extends Controller
      public function index($bookName, $pageNumber)
      {
          $BLCache = new BookListService;
-         $BTXTCache = new BookTxtFileService();
+         $BTXTCache = new BookTxtFileService;
          $query_builder = new GetBookInformation;
 
          // book information
          $book = $query_builder->FullBookFromTitle($bookName);
-         $bookNameFormatted = $query_builder->getBookFormattedTitle($bookName);
-
-
          //book text
          $pageNumber = $this->validatePageNumber($pageNumber, $book[0]['pages']);
-         $data = $BLCache->getBookList();
-
-         $bookTxtFileContents = $BTXTCache->getBookTxtFile($bookName . '/' . $bookName . '_' . $pageNumber . '.txt');
-
+         $bookTxtFileContents = $BTXTCache->getBookTxtFile($book[0]['id'], $pageNumber);
 
 
          // JOBS
-         // get next page so it's smoother for the viewer
-         ProcessBookPages::dispatch()->afterResponse();
-
+         // get next page, so it's smoother for the viewer
+         ProcessBookPages::dispatch($book[0]['id'], intval($pageNumber)+1)->afterResponse();
          UpsertUserInformation::dispatch($book[0]['id'], $pageNumber)->afterResponse();
 
 
@@ -43,8 +36,8 @@ class BookController extends Controller
              'fileContents' => $bookTxtFileContents,
              'pageNum' => $pageNumber,
              'url' => '/book/' . $bookName . '/',
-             'bookTitle'=>$bookNameFormatted,
-             'data' => $data
+             'bookTitle'=>$book[0]['formatted_title'],
+             'data' => $BLCache->getBookList()
          ]);
      }
 
@@ -67,7 +60,6 @@ class BookController extends Controller
          } else {
              return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookName,'pageNumber'=>1]);
          }
-
      }
 
      private function validatePageNumber($pageNumber, $bookTotalPageNumber) : string
