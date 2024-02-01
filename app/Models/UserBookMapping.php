@@ -18,4 +18,13 @@ class UserBookMapping extends Model
         'user_id',
         'page_number'
     ];
+
+    public function allMappingsForUser($user_id) : array
+    {
+        return $this->query()
+            ->select()
+            ->where(['user_id'=>$user_id])
+            ->get()
+            ->toArray();
+    }
 }

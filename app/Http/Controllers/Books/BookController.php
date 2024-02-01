@@ -31,7 +31,6 @@ class BookController extends Controller
          ProcessBookPages::dispatch($book[0]['id'], intval($pageNumber)+1)->afterResponse();
          UpsertUserInformation::dispatch($book[0]['id'], $pageNumber)->afterResponse();
 
-
          return view('Books.index', [
              'fileContents' => $bookTxtFileContents,
              'pageNum' => $pageNumber,
