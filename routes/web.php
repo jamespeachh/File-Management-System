@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 | Directory
 |--------------------------------------------------------------------------
 */
-Route::get('/', [DirectoryController::class, 'index'])
-    ->name('directory')
-    ->middleware('auth');
+//Route::get('/', [DirectoryController::class, 'index'])
+//    ->name('directory')
+//    ->middleware('auth');
 Route::get('/directory', [DirectoryController::class, 'index'])
     ->name('directory')
     ->middleware('auth');
