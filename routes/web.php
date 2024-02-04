@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 | Directory
 |--------------------------------------------------------------------------
 */
-//Route::get('/', [DirectoryController::class, 'index'])
-//    ->name('directory')
-//    ->middleware('auth');
+Route::get('/', [DirectoryController::class, 'index'])
+    ->name('directory')
+    ->middleware('auth');
 Route::get('/directory', [DirectoryController::class, 'index'])
     ->name('directory')
     ->middleware('auth');
@@ -78,9 +78,9 @@ Route::get('/home',function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+//Route::get('/', function () {
+//    return view('welcome');
+//})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
