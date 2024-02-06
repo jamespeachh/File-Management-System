@@ -11,10 +11,12 @@
                         <hr>
                         <p class="comment_text">{{$item['comment_body']}}</p>
                     </div>
-                    <a
-                        href="{{ url(route('deleteComment', ['comment'=>$item['id'],'bookID'=>$bookID,'pageNumber'=>$pageNum])) }}"
-                        style="border-style: solid;text-align:center;border-radius: 10px"
-                    >delete</a>
+                    @if($item['user_id'] == \Illuminate\Support\Facades\Auth::id())
+                        <a
+                            href="{{ url(route('deleteComment', ['comment'=>$item['id'],'bookID'=>$bookID,'pageNumber'=>$pageNum])) }}"
+                            style="border-style: solid;text-align:center;border-radius: 10px"
+                        >delete</a>
+                    @endif
                 </div>
             </li>
         @endif
