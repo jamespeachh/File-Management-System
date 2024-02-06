@@ -42,6 +42,6 @@ class BookTxtFileService
         $body = new BookBody;
         $data = $body->getBody($book_id, $pageNumber);
 
-        Cache::put($fileName, $data, 600); //10 mins
+        Cache::put($fileName, $data, 86400); //24 hours
     }
 }

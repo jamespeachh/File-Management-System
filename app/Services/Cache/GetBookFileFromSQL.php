@@ -32,6 +32,6 @@ class GetBookFileFromSQL
             ->where(['page_number'=>$pnum])
             ->get()
             ->toArray();
-        Cache::put($fileName, $data[0]['body_text'], 3600); //1 hour
+        Cache::put($fileName, $data[0]['body_text'], 86400); //24 hour
     }
 }

@@ -11,7 +11,7 @@ class BookListService
     public function getBookList ()
     {
         if(!$this->bookListExists()){
-            $this->getBookListFromSFTP();
+            $this->getBookListFromSQL();
         }
         return Cache::get('bookList');
     }
@@ -24,7 +24,7 @@ class BookListService
         return true;
     }
 
-    private function getBookListFromSFTP()
+    private function getBookListFromSQL()
     {
         $jsonOBJ = ['books'=>[]];
         $books = book::query()->get()->toArray();
@@ -42,6 +42,6 @@ class BookListService
         }
         $myJSON = json_encode($jsonOBJ);
         $myJSON = json_decode($myJSON,true);
-        Cache::put('bookList', $myJSON, 3600); //1 hour
+        Cache::put('bookList', $myJSON, 604800); //1 week
     }
 }
