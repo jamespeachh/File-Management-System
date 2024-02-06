@@ -16,7 +16,7 @@ class comments extends Model
     public function getAllByBookAndPage($bookID,$pageNumber)
     {
         return $this->query()
-            ->select('comments.comment_body', 'users.name', 'comments.book_id', 'comments.id', 'comments.active_comment')
+            ->select('comments.comment_body', 'users.name', 'comments.book_id', 'comments.id', 'comments.active_comment', 'users.id as user_id')
             ->join('users', 'comments.user_id', '=', 'users.id')
             ->where(['book_id'=>$bookID])
             ->where(['page_number'=>$pageNumber])
