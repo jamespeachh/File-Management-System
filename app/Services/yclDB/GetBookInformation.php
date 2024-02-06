@@ -24,10 +24,13 @@ class GetBookInformation
     }
     private function queryBuilder($key,$value) : array
     {
-        return book::query()
+        $return = book::query()
             ->select()
             ->where([$key=>$value])
             ->get()
             ->toArray();
+
+        if($return != []) return $return;
+        else return [0 => ['error/non existent', 'key' => $key, 'value' => $value, 'id'=>'none']];
     }
 }

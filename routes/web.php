@@ -45,6 +45,13 @@ Route::get('/book/{bookName}/{pageNumber}', [BookController::class, 'index'])
 Route::get('/book/{bookName}', [BookController::class, 'indexNoVar'])
     ->name('book')
     ->middleware('auth');
+Route::post('/submit-comment', [BookController::class, 'submitComment'])
+    ->name('submit-comment')
+    ->middleware('auth');
+Route::get('/deleteComment/{comment}/{bookID}/{pageNumber}', [BookController::class, 'deleteComment'])
+    ->name('deleteComment')
+    ->middleware('auth');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +68,7 @@ Route::get('/book/{bookName}', [BookController::class, 'indexNoVar'])
 |--------------------------------------------------------------------------
 */
 Route::get('/import', [ImportController::class, 'showUploadForm'])->name('import.form');
-Route::post('/submit-form', [ImportController::class, 'submitForm'])->name('submit-form');
+Route::post('/submit-form/{bookID}/{pageNumber}', [ImportController::class, 'submitForm'])->name('submit-form');
 
 /*
 |--------------------------------------------------------------------------
