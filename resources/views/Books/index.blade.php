@@ -26,8 +26,8 @@
             </div>
             <hr>
             <div id="index" class="button-container">
-                <button onclick="window.location.href='{{ url($url . ($pageNum-1)) }}'" class="button-fnb">Previous Chapter</button>
-                <button onclick="window.location.href='{{ url($url . ($pageNum+1)) }}'" class="button-fnb">Next Chapter</button>
+                <button onclick="window.location.href='{{ url($url . '&pageNumber=' . ($pageNum - 1)) }}'" class="button-fnb">Previous Chapter</button>
+                <button onclick="window.location.href='{{ url($url .'&pageNumber=' . ($pageNum + 1)) }}'" class="button-fnb">Next Chapter</button>
             </div>
             <button onclick="topFunction()" style="padding: 10px;font-size:20px;color: black;">Scroll to top</button>
             <br>

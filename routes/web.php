@@ -52,6 +52,9 @@ Route::get('/deleteComment/{comment}/{bookID}/{pageNumber}', [BookController::cl
     ->name('deleteComment')
     ->middleware('auth');
 
+Route::get('/book', [BookController::class, 'bookBuilder'])->name('run');
+
+
 
 /*
 |--------------------------------------------------------------------------
