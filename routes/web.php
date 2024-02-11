@@ -48,9 +48,14 @@ Route::get('/book/{bookName}', [BookController::class, 'indexNoVar'])
 Route::post('/submit-comment', [BookController::class, 'submitComment'])
     ->name('submit-comment')
     ->middleware('auth');
-Route::get('/deleteComment/{comment}/{bookID}/{pageNumber}', [BookController::class, 'deleteComment'])
+Route::get('/deleteComment', [BookController::class, 'deleteComment'])
     ->name('deleteComment')
     ->middleware('auth');
+
+Route::get('/book', [BookController::class, 'bookBuilder'])
+    ->name('run')
+    ->middleware('auth');
+
 
 
 /*

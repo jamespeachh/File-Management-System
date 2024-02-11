@@ -9,5 +9,11 @@
 </head>
 <body>
 test view
+<p>
+    {{$data}}
+</p>
+{{$data}}
+<img src="{{$data}}" alt="">
+{{Storage::disk('assets')->get('covers/1q84.jpeg')}}
 </body>
 </html>

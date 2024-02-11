@@ -16,5 +16,18 @@
         @include('bladeTemplates.directory-body')
     </div>
 </div>
+
+<script>
+    @if($alertExists)
+        alertExists({{$alertMessage}});
+    @endif
+    function alertExists(alertMessage){
+        switch(alertMessage) {
+            case 1:
+                alert("You need to chose a book to continue!!!\nRedirecting you to selection.");
+                break;
+        }
+    }
+</script>
 </body>
 </html>
