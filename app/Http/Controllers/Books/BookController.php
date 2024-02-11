@@ -70,15 +70,19 @@ class BookController extends Controller
 
      }
 
-     public function deleteComment($comment, $bookID, $pageNumber)
-     {
-         $b = new GetBookInformation();
-         $c = new comments();
-         $c->deleteCommentByID($comment);
 
-         $bookTitle = $b->FullBookFromID($bookID)[0]['title'];
-         return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookTitle,'pageNumber'=>$pageNumber]);
-     }
+    public function deleteComment(Request $request)
+    {
+        $b = new GetBookInformation();
+        $c = new comments();
+        $comment = $request->query('comment');
+        $bookID = $request->query('bookID');
+        $pageNumber = $request->query('pageNumber');
+        $c->deleteCommentByID($comment);
+
+        $bookTitle = $b->FullBookFromID($bookID)[0]['title'];
+        return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookTitle,'pageNumber'=>$pageNumber]);
+    }
 
      public function bookBuilder(Request $request)
      {
