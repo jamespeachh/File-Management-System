@@ -36,5 +36,12 @@
             <footer>I love you &lt;3</footer>
         </div>
     </div>
+<script>
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Optional: smooth scrolling behavior
+        });
+    }</script>
 </body>
 </html>
