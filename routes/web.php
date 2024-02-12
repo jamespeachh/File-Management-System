@@ -73,7 +73,8 @@ Route::get('/book', [BookController::class, 'bookBuilder'])
 |--------------------------------------------------------------------------
 */
 Route::get('/import', [ImportController::class, 'showUploadForm'])->name('import.form');
-Route::post('/submit-form/{bookID}/{pageNumber}', [ImportController::class, 'submitForm'])->name('submit-form');
+Route::post('/submit-form/{bookID}/{pageNumber}', [ImportController::class, 'submitForm'])
+    ->name('submit-form');
 
 /*
 |--------------------------------------------------------------------------
