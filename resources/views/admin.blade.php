@@ -18,6 +18,30 @@
     <input type="submit">
 
 </form>
+
+
+<hr>
+<hr>
+<form method="POST" action="{{ route('test-submit') }}" enctype="multipart/form-data">
+
+    <label for="add_book_final_check">CHECK THIS BOX ONCE YOU ARE SURE YOU WANT TO ADD THIS BOOK</label>
+    <input type="checkbox" id="add_book_final_check" name="add_book_final_check"><br>
+
+    <label for="bookTitle">Book Title(shortened that will show up in sftp)</label><br>
+    <input type="text" id="bookTitle" name="bookTitle"><br>
+
+    <label for="full_book">Full Book Text File</label><br>
+    <input type="file" id="full_book" name="full_book"><br>
+
+    <label for="sub_title_file">Sub-title file</label><br>
+    <input type="file" id="sub_title_file" name="sub_title_file"><br>
+
+
+
+
+    <input type="submit">
+
+</form>
 {{--possibly one day make a loop with check boxes that add or take away different books--}}
 </body>
 </html>
