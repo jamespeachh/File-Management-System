@@ -13,10 +13,9 @@ class adminController extends Controller
     {
         $id = Auth::id();
         if($id == 1){
-//            $this->buildAllBooksFromSFTP();
-            dump('inside auth');
+            return view('admin');
         }
-        return view('admin');
+        return view('home');
     }
     private function buildAllBooksFromSFTP()
     {
