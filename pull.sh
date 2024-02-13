@@ -4,7 +4,7 @@ output=$(git pull)
 if [[ "$output" == *"Already up to date."* ]]; then
     test="             ★★★      This repository is up to date.      ★★★                "
 else
-        test=""
+        test="             ★★★              Changes made!               ★★★                "
     echo output
 fi
 

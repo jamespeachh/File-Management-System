@@ -14,6 +14,7 @@ class TestController extends Controller
 {
     public function index()
     {
+        dd(BookBody::query()->count('book_int'));
 //        dd(shell_exec('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh'));
         return view('test');
     }

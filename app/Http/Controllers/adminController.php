@@ -35,8 +35,7 @@ class adminController extends Controller
             $curBook = Storage::disk('books')
                 ->get($bookTitle.'/'.$bookTitle.'_'.$i.'.txt');
 
-            dd(BookBody::query()->count('book_int', $bookID));
-            die();
+            dd("do not have wipe yet, just wait or change this");
             BookBody::query()->insert([
                 'book_id'=>$bookID,
                 'page_number'=>$i,
@@ -45,13 +44,17 @@ class adminController extends Controller
         }
     }
 
+    public function pullChanges()
+    {
+        dump(shell_exec('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh'));
+    }
+
     public function submit(Request $request)
     {
         $BookBodies = $request->input('book_bodies');
         $pull = $request->input('pull');
 
         if($BookBodies == 'on') $this->buildAllBooksFromSFTP();
-        if($pull == 'on') dump('pull: wow');
-
+        if($pull == 'on') $this->pullChanges();
     }
 }

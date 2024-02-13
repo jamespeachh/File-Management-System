@@ -37,7 +37,7 @@ class PullChanges extends Command
      */
     public function handle()
     {
-        shell_exec('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh');
+        dump(shell_exec('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh'));
         return 0;
     }
 }
