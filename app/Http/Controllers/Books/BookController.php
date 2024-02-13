@@ -7,7 +7,6 @@ use App\Jobs\GetAllComments;
 use App\Jobs\ProcessBookPages;
 use App\Jobs\UpsertUserInformation;
 use App\Models\comments;
-use App\Models\User;
 use App\Models\UserBookMapping;
 use App\Services\Cache\BookListService;
 use App\Services\Cache\BookTxtFileService;

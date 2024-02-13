@@ -84,7 +84,8 @@ Route::post('/submit-form/{bookID}/{pageNumber}', [ImportController::class, 'sub
 Route::get('/test', [TestController::class, 'index'])
     ->name('test');
 //    ->middleware('auth');
-
+Route::post('/test-submit', [TestController::class, 'submit'])
+    ->name('test-submit');
 
 
 Route::get('/home',function () {
@@ -104,7 +105,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/admin', [\App\Http\Controllers\adminController::class, 'index'])
     ->middleware(['auth'])
-    ->name('dashboard');
-Route::get('/admin-submit', [\App\Http\Controllers\adminController::class, 'submit'])
+    ->name('admin');
+Route::post('/admin-submit', [\App\Http\Controllers\adminController::class, 'submit'])
     ->middleware(['auth'])
     ->name('admin-submit');

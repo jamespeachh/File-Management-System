@@ -1,19 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('htmlData/css/import.css') }}">
-
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
 </head>
 <body>
-test view
-<p>
-    {{$data}}
-</p>
-{{$data}}
-<img src="{{$data}}" alt="">
-{{Storage::disk('assets')->get('covers/1q84.jpeg')}}
+<form method="POST" action="{{ route('test-submit') }}">
+    @csrf
+    <label for="book_bodies">Wipe and replace all the book bodies from files to sql</label>
+    <input type="checkbox" id="book_bodies" name="book_bodies">
+    <label for="pull">Pull changes to the website</label>
+    <input type="checkbox" id="pull" name="pull">
+    <input type="submit">
+
+</form>
+{{--possibly one day make a loop with check boxes that add or take away different books--}}
 </body>
 </html>
