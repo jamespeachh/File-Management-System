@@ -20,21 +20,25 @@ class adminController extends Controller
     }
     private function buildAllBooksFromSFTP()
     {
-        $this->insert(23, '1984', 1);
-        $this->insert(79, '1Q84', 2);
-        $this->insert(60, 'ADarkerShadeOfMagic', 3);
-        $this->insert(31, 'BalladOfSongbirdsAndSnakes', 4);
-        $this->insert(28, 'circe', 5);
-        $this->insert(11, 'thestranger', 6);
+        $this->insertOrReplace(23, '1984', 1);
+        $this->insertOrReplace(79, '1Q84', 2);
+        $this->insertOrReplace(60, 'ADarkerShadeOfMagic', 3);
+        $this->insertOrReplace(31, 'BalladOfSongbirdsAndSnakes', 4);
+        $this->insertOrReplace(28, 'circe', 5);
+        $this->insertOrReplace(11, 'thestranger', 6);
     }
 
-    public function insert($pages, $bookTitle, $bookID)
+    public function insertOrReplace($pages, $bookTitle, $bookID)
     {
         for($i=1; $i<=$pages; $i++)
         {
             $curBook = Storage::disk('books')
                 ->get($bookTitle.'/'.$bookTitle.'_'.$i.'.txt');
 
+            dd(BookBody::query()->count()
+                ->where('book_id', $bookID)
+                ->where('page_number', $i));
+            die();
             BookBody::query()->insert([
                 'book_id'=>$bookID,
                 'page_number'=>$i,
