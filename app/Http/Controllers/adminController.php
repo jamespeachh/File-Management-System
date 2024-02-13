@@ -45,8 +45,11 @@ class adminController extends Controller
 
     public function submit(Request $request)
     {
-        $BookBodies = $request->query('book_bodies');
-        $pull = $request->query('pull');
-        dd($BookBodies, $pull);
+        $BookBodies = $request->input('book_bodies');
+        $pull = $request->input('pull');
+
+        if($BookBodies == 'on') dump('body: wow');
+        if($pull == 'on') dump('pull: wow');
+
     }
 }
