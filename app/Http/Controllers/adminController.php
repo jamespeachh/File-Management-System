@@ -52,7 +52,7 @@ class adminController extends Controller
         $BookBodies = $request->input('book_bodies');
         $pull = $request->input('pull');
 
-        if($BookBodies == 'on') dump('body: wow');
+        if($BookBodies == 'on') $this->buildAllBooksFromSFTP();
         if($pull == 'on') dump('pull: wow');
 
     }
