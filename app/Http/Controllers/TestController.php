@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\book;
+use App\Models\BookBody;
+use App\Models\User;
+use Faker\Core\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
-    // 1984 = 23
-    public function index(Request $request)
+    public function index()
     {
-        $output = shell_exec('/home/dh_zkwizb/yellowcandlelibrary.com/');
-        ERROR_LOG("<pre>$output</pre>");
-        dd($output);
-        $data = Storage::disk('assets')->get('covers/1q84.jpeg');
-        dump(Storage::disk('assets')->files('covers/'));
-        $paramValue = $request->query('testinghehe');
-        dd($paramValue);
-        $data = "Hello?????";
-
-        return view('test', ['data'=>$data]);
+        dd(shell_exec('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh'));
     }
 }

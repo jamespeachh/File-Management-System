@@ -7,6 +7,7 @@ use App\Jobs\GetAllComments;
 use App\Jobs\ProcessBookPages;
 use App\Jobs\UpsertUserInformation;
 use App\Models\comments;
+use App\Models\User;
 use App\Models\UserBookMapping;
 use App\Services\Cache\BookListService;
 use App\Services\Cache\BookTxtFileService;
@@ -61,13 +62,10 @@ class BookController extends Controller
          $bookID = $request->input('bookID');
          $pageNumber = intval($request->input('pageNumber'));
          $id = Auth::id();
-
          $bookTitle = $b->FullBookFromID($bookID)[0]['title'];
          if($bookID != 'none') $c->insertComment($body, $bookID, $pageNumber, $id);
 
          return redirect()->action([BookController::class, 'index'], ['bookName'=>$bookTitle,'pageNumber'=>$pageNumber]);
-
-
      }
 
 
@@ -109,7 +107,6 @@ class BookController extends Controller
          $pageNumber = $this->validatePageNumber($pageNumber, $book[0]['pages']);
          $bookTxtFileContents = $BTXTCache->getBookTxtFile($book[0]['id'], $pageNumber);
          GetAllComments::dispatch($book[0]['id'], $pageNumber);
-
 
          // JOBS
          // get next page, so it's smoother for the viewer

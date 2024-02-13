@@ -102,3 +102,9 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/admin', [\App\Http\Controllers\adminController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+Route::get('/admin-submit', [\App\Http\Controllers\adminController::class, 'submit'])
+    ->middleware(['auth'])
+    ->name('dashboard');

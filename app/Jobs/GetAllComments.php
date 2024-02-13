@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
+use PhpOption\None;
 
 class GetAllComments implements ShouldQueue
 {
@@ -39,6 +40,11 @@ class GetAllComments implements ShouldQueue
         error_log('getting comments now!');
         $commentQuery = new comments();
         $comments = $commentQuery->getAllByBookAndPage($this->bookID, $this->pageNumber);
+        for($i = 0; $i < count($comments); $i++)
+        {
+            if($comments[$i]['profile_picture'] == "")
+                $comments[$i]['profile_picture'] = 'cuteie.png';
+        }
         Cache::put('cur_comments', $comments);
     }
 }

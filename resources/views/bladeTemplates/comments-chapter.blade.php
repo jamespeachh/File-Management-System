@@ -5,7 +5,7 @@
         @if($item['active_comment']==1)
             <li class="comment">
                 <div class="comment_block">
-                    <img class="comment_user_pfp" src="{{asset('Comments/assets/pfp.png')}}" alt="pfp">
+                    <img class="comment_user_pfp" src="{{asset('accountImages/'.$item['profile_picture'])}}" alt="pfp">
                     <div class="name_and_body">
                         <h3>{{$item['name']}}</h3>
                         <hr>

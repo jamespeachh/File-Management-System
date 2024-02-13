@@ -16,7 +16,15 @@ class comments extends Model
     public function getAllByBookAndPage($bookID,$pageNumber)
     {
         return $this->query()
-            ->select('comments.comment_body', 'users.name', 'comments.book_id', 'comments.id', 'comments.active_comment', 'users.id as user_id')
+            ->select(
+                'comments.comment_body',
+                'users.name',
+                'comments.book_id',
+                'comments.id',
+                'comments.active_comment',
+                'users.id as user_id',
+                'users.profile_picture'
+            )
             ->join('users', 'comments.user_id', '=', 'users.id')
             ->where(['book_id'=>$bookID])
             ->where(['page_number'=>$pageNumber])
@@ -31,7 +39,7 @@ class comments extends Model
             'page_number' => intval($pageNumber),
             'user_id' => intval($userID),
             'comment_body' => $body,
-            'active_comment' => 1
+            'active_comment' => 1,
         ]);
     }
 
