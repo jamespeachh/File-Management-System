@@ -107,4 +107,4 @@ Route::get('/admin', [\App\Http\Controllers\adminController::class, 'index'])
     ->name('dashboard');
 Route::get('/admin-submit', [\App\Http\Controllers\adminController::class, 'submit'])
     ->middleware(['auth'])
-    ->name('dashboard');
+    ->name('admin-submit');
