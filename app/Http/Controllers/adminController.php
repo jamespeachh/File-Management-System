@@ -35,9 +35,7 @@ class adminController extends Controller
             $curBook = Storage::disk('books')
                 ->get($bookTitle.'/'.$bookTitle.'_'.$i.'.txt');
 
-            dd(BookBody::query()->count()
-                ->where('book_id', $bookID)
-                ->where('page_number', $i));
+            dd(BookBody::query()->count('book_int', $bookID));
             die();
             BookBody::query()->insert([
                 'book_id'=>$bookID,
