@@ -22,7 +22,7 @@
 
 <hr>
 <hr>
-<form method="POST" action="{{ route('test-submit') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin-submit') }}" enctype="multipart/form-data">
 
     <label for="add_book_final_check">CHECK THIS BOX ONCE YOU ARE SURE YOU WANT TO ADD THIS BOOK</label>
     <input type="checkbox" id="add_book_final_check" name="add_book_final_check"><br>
