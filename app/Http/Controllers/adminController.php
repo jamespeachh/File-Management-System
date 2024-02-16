@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BookBody;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class adminController extends Controller
@@ -51,6 +52,7 @@ class adminController extends Controller
 
     public function submit(Request $request)
     {
+        $cover = $request->input('cover_img');
         $BookBodies = $request->input('book_bodies');
         $pull = $request->input('pull');
 
@@ -75,13 +77,26 @@ class adminController extends Controller
 
             if ($request->hasFile('sub_title_file') && $request->hasFile('full_book') && $bookTitle != Null)
             {
+                $allowed = array('gif', 'png', 'jpg', 'jpeg');
+                $ext = pathinfo($cover, PATHINFO_EXTENSION);
+
+                if (in_array($ext, $allowed)) {
+                    File::put(public_path('BookCover/' . $cover), $cover);
+                }
+                dd('EXTENSION: ',$ext, "COVER: $cover", pathinfo($cover, PATHINFO_EXTENSION));
+
+
                 $this->convertBook($bookTitle, $subTitleContent, $fullBookContent);
-            }
+
+
+            }else dd('failed');
         }
     }
 
-    public function convertBook($bookTitle, $subTitleContent, $fullBookContent)
+    public function convertBook($bookTitle, $subTitleContent, $fullBookContent, $cover)
     {
+
+
         dump(Storage::disk('books')->delete($bookTitle.'/'));
         dump(Storage::disk('books')->delete('defa/'));
         $pattern = "/\n{1}(.*?)(?=\n{1}|$)/s";
@@ -113,7 +128,9 @@ class adminController extends Controller
         $pattern = "/\n{5}(.*?)(?=\n{5}|$)/s";
         Storage::disk('books')->makeDirectory($bookTitle);
         $j = 0;
+        $numberInArray = [];
         for ($i = 1; $i <= count($subtitleArray); $i++) {
+            $numberInArray[$i] = 0;
             $addition = $j;
             $fileContent = Storage::disk('books')->get("defa/$i");
             $prefix = $subtitleArray[$i];
@@ -125,8 +142,9 @@ class adminController extends Controller
                     $filename = $bookTitle.'/'.$bookTitle.'_'.($index+1+$addition).'.txt';
                     Storage::disk('books')->makeDirectory($bookTitle);
                     Storage::disk('books')->put($filename, ($prefix ."\n\n". $section));
-
-                    dump("Section saved to $filename\n");
+                    if (!$numberInArray[$i]) $numberInArray[$subtitleArray[$i]] = 0;
+                    $numberInArray[$i]++;
+                    dump("Section saved to $filename\n From: $subtitleArray[$i]");
                     ERROR_LOG( "Section saved to $filename\n");
                     $j++;
                 }
@@ -134,6 +152,7 @@ class adminController extends Controller
                 echo "No matches found\n";
             }
         }
+        dump($numberInArray);
         dump(Storage::disk('books')->delete('defa/'));
     }
 }

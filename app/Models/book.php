@@ -15,9 +15,19 @@ class book extends Model
     protected $fillable = [
         'id',
         'title',
-        'url',
         'formatted_title',
         'pages',
         'cover_pic'
     ];
+
+    public function addBook($book)
+    {
+        $this::query()->insert([
+            'id' => $book['id'],
+            'title' => $book['title'],
+            'formatted_title' => $book['formatted_title'],
+            'pages' => $book['pages'],
+            'cover_pic' => $book['cover_pic']
+        ]);
+    }
 }

@@ -23,18 +23,22 @@
 <hr>
 <hr>
 <form method="POST" action="{{ route('admin-submit') }}" enctype="multipart/form-data">
+    @csrf
 
     <label for="add_book_final_check">CHECK THIS BOX ONCE YOU ARE SURE YOU WANT TO ADD THIS BOOK</label>
     <input type="checkbox" id="add_book_final_check" name="add_book_final_check"><br>
+
+{{--    accept=".png,.jpeg,.jpg"--}}
+    <input type="file" placeholder="Cover image" name="cover_img" class="form-inputs"  required><br>
 
     <label for="bookTitle">Book Title(shortened that will show up in sftp)</label><br>
     <input type="text" id="bookTitle" name="bookTitle"><br>
 
     <label for="full_book">Full Book Text File</label><br>
-    <input type="file" id="full_book" name="full_book"><br>
+    <input type="file" id="full_book" name="full_book" accept=".txt"><br>
 
     <label for="sub_title_file">Sub-title file</label><br>
-    <input type="file" id="sub_title_file" name="sub_title_file"><br>
+    <input type="file" id="sub_title_file" name="sub_title_file" accept=".txt"><br>
 
 
 
