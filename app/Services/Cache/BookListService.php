@@ -30,7 +30,6 @@ class BookListService
         $books = book::query()->get()->toArray();
         foreach($books as $book){
             $jsonOBJ['books'][$book['title']] = [
-                'url'=>$book['url'],
                 'title'=>$book['formatted_title'],
                 'unformatted'=>$book['title'],
                 'pages'=>$book['pages'],
