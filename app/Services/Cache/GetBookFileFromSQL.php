@@ -3,6 +3,7 @@
 namespace App\Services\Cache;
 
 use App\Models\BookBody;
+use App\Models\UserBookMapping;
 use Illuminate\Support\Facades\Cache;
 
 class GetBookFileFromSQL
@@ -33,5 +34,19 @@ class GetBookFileFromSQL
             ->get()
             ->toArray();
         Cache::put($fileName, $data[0]['body_text'], 86400); //24 hour
+    }
+
+    public function allUserMappings()
+    {
+        $mappings = UserBookMapping::query()
+            ->select()
+            ->get()
+            ->toArray();
+
+        foreach($mappings as $mapping)
+        {
+            $this->getBookTxtFile($mapping["book_id"], $mapping["page_number"]);
+            ERROR_LOG("ADDING BOOK: ".$mapping['book_id'] . "AND PAGE: " . $mapping["page_number"]);
+        }
     }
 }
