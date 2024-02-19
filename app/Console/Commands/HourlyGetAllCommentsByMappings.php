@@ -39,6 +39,7 @@ class HourlyGetAllCommentsByMappings extends Command
     public function handle()
     {
         $commentS = new getCommentService;
+        error_log("Getting all comments by mappings");
         $commentS->getComments();
         return 0;
     }

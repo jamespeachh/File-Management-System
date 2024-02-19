@@ -39,7 +39,6 @@ class hourlyGetList extends Command
      */
     public function handle()
     {
-        error_log("in getlist");
         Cache::forget('bookList');
         $BLServe = new BookListService;
         $BLServe->getBookList();

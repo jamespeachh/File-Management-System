@@ -16,6 +16,7 @@ class getCommentService
         $mappings = $ubm->allMappings();
         foreach($mappings as $mapping)
         {
+            error_log("Book ID // ".$mapping['book_id'] . "\nPage Num // " . $mapping['page_number']);
             $comments = $commentQuery->getAllByBookAndPage($mapping['book_id'], $mapping['page_number']);
             Cache::put('cur_comments', $comments, 3600);//1 hour
         }
