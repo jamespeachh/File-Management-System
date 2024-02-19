@@ -15,8 +15,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('books:get-list')->hourly();
-        $schedule->command('books:get-files')->daily();
+        $schedule->call(function(){
+            error_log(shell_exec('php artisan books:get-list'));
+        })->hourlyAt(15);
+
+        $schedule->call(function(){
+            error_log(shell_exec('php artisan books:get-files'));
+        })->hourlyAt(30);
+
     }
 
     /**

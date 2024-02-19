@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Console\Commands;
 
 use App\Services\Cache\GetBookFileFromSQL;
 use Illuminate\Console\Command;
@@ -37,6 +38,7 @@ class DailyUserMappings extends Command
      */
     public function handle()
     {
+        error_log("in mappings");
         $service = new GetBookFileFromSQL;
         $service->allUserMappings();
         return 0;

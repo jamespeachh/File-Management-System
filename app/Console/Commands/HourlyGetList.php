@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Books-Scheduling;
+namespace App\Console\Commands;
 
 use App\Services\Cache\BookListService;
 use Illuminate\Console\Command;
@@ -39,9 +39,9 @@ class hourlyGetList extends Command
      */
     public function handle()
     {
+        error_log("in getlist");
+        Cache::forget('bookList');
         $BLServe = new BookListService;
-        $output = shell_exec('php artisan cache:clear');
-        ERROR_LOG("CACHE CLEARING // $output");
         $BLServe->getBookList();
         ERROR_LOG('CACHE UPDATED //' . Cache::has('bookList'));
         return 0;
