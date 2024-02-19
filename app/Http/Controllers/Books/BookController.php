@@ -24,11 +24,6 @@ class BookController extends Controller
          return redirect()->route('run', ['bookID' => $bookID, 'pageNumber' => $pageNumber]);
      }
 
-    public function getComments() : array
-    {
-        $c = new getCommentService;
-        return $c->getComments();
-    }
 
      public function indexNoVar($bookName) : \Illuminate\Http\RedirectResponse
      {

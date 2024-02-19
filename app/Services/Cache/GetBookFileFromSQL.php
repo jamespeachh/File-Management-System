@@ -38,10 +38,8 @@ class GetBookFileFromSQL
 
     public function allUserMappings()
     {
-        $mappings = UserBookMapping::query()
-            ->select()
-            ->get()
-            ->toArray();
+        $ubm = new UserBookMapping;
+        $mappings = $ubm->allMappings();
 
         foreach($mappings as $mapping)
         {

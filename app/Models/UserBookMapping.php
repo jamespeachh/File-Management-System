@@ -27,4 +27,12 @@ class UserBookMapping extends Model
             ->get()
             ->toArray();
     }
+
+    public function allMappings(): array
+    {
+        return $this->query()
+            ->select()
+            ->get()
+            ->toArray();
+    }
 }

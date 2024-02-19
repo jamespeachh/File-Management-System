@@ -23,6 +23,10 @@ class Kernel extends ConsoleKernel
             error_log(shell_exec('php artisan books:get-files'));
         })->hourlyAt(30);
 
+        $schedule->call(function(){
+            error_log(shell_exec('php artisan comments:all-comments-by-mapping'));
+        })->hourlyAt(45);
+
     }
 
     /**
