@@ -17,7 +17,7 @@ class getCommentService
         foreach($mappings as $mapping)
         {
             $comments = $commentQuery->getAllByBookAndPage($mapping['book_id'], $mapping['page_number']);
-            Cache::put('cur_comments', $comments);
+            Cache::put('cur_comments', $comments, 3600);//1 hour
         }
     }
 }
