@@ -46,6 +46,7 @@ class adminController extends Controller
     public function pullChanges()
     {
         dump('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh');
+        dump(env('LOCAL_PATH_TO_PROJECT'));
         dump(shell_exec('sh '.env('LOCAL_PATH_TO_PROJECT').'pull.sh'));
     }
 
