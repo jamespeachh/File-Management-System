@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\BooksScheduling;
 
 use App\Services\Cache\GetBookFileFromSQL;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
-class DailyUserMappings extends Command
+class HourlyUserMappings extends Command
 {
     /**
      * The name and signature of the console command.
@@ -38,9 +40,10 @@ class DailyUserMappings extends Command
      */
     public function handle()
     {
-        error_log("in mappings");
+        $currentDateTime = Carbon::now();
+        Log::info("$currentDateTime // Caching book mappings by user");
         $service = new GetBookFileFromSQL;
-        $service->allUserMappings();
+        $service->allUQserMappings();
         return 0;
     }
 }

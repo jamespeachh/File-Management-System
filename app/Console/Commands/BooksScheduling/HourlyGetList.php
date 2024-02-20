@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\BooksScheduling;
 
 use App\Services\Cache\BookListService;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class hourlyGetList extends Command
 {
@@ -39,10 +41,12 @@ class hourlyGetList extends Command
      */
     public function handle()
     {
+        $currentDateTime = Carbon::now();
+        Log::info("$currentDateTime // Caching booklist");
         Cache::forget('bookList');
         $BLServe = new BookListService;
         $BLServe->getBookList();
-        ERROR_LOG('CACHE UPDATED //' . Cache::has('bookList'));
+        Log::info('CACHE UPDATED //' . Cache::has('bookList'));
         return 0;
     }
 }

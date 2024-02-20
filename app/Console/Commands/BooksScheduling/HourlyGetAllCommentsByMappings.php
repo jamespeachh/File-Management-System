@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\BooksScheduling;
 
 use App\Services\yclDB\getCommentService;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class HourlyGetAllCommentsByMappings extends Command
 {
@@ -38,6 +40,8 @@ class HourlyGetAllCommentsByMappings extends Command
      */
     public function handle()
     {
+        $currentDateTime = Carbon::now();
+        Log::info("$currentDateTime // Caching the comments by user mappings");
         $commentS = new getCommentService;
         error_log("Getting all comments by mappings");
         $commentS->getComments();

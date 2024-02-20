@@ -27,7 +27,6 @@ echo "             ★★★               View Cached!               ★★★ 
 output=$(php artisan route:cache)
 echo "             ★★★             Route is Cached!               ★★★                "
 echo "└─────────────────────────────────────────────────────────────────────────────┘"
-echo.
 echo "Jobs scheduled:"
 php artisan schedule:list
 

@@ -5,6 +5,7 @@ namespace App\Services\Cache;
 use App\Models\BookBody;
 use App\Models\UserBookMapping;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class GetBookFileFromSQL
 {
@@ -44,7 +45,7 @@ class GetBookFileFromSQL
         foreach($mappings as $mapping)
         {
             $this->getBookTxtFile($mapping["book_id"], $mapping["page_number"]);
-            ERROR_LOG("ADDING BOOK: ".$mapping['book_id'] . "AND PAGE: " . $mapping["page_number"]);
+            Log::info("ADDING BOOK: ".$mapping['book_id'] . "AND PAGE: " . $mapping["page_number"]);
         }
     }
 }
