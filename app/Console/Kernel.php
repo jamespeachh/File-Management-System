@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
                 shell_exec('php artisan books:get-list');
             })
             ->hourlyAt(15);
-        $schedule->call('books:get-files')
+        $schedule->command('books:get-files')
             ->name('get-body-files')
             ->onSuccess(function () {
                 Log::info('get body success');
@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
                 shell_exec('php artisan books:get-files');
             })
             ->hourlyAt(30);
-        $schedule->call('comments:all-comments-by-mapping')
+        $schedule->command('comments:all-comments-by-mapping')
             ->name('get-comments')
             ->onSuccess(function () {
                 Log::info('get comments success');

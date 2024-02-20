@@ -43,7 +43,7 @@ class HourlyUserMappings extends Command
         $currentDateTime = Carbon::now();
         Log::info("$currentDateTime // Caching book mappings by user");
         $service = new GetBookFileFromSQL;
-        $service->allUQserMappings();
+        $service->allUserMappings();
         return 0;
     }
 }
