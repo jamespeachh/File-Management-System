@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookBody;
+use App\Models\passwords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class adminController extends Controller
 {
@@ -60,6 +62,22 @@ class adminController extends Controller
 
         $bookTitle = $request->input('bookTitle');
         $finalCheck = $request->input('add_book_final_check');
+
+        if($request->input('create_link') == 'on')
+        {
+            $passwordIDLinkGen = $request->input('passwordID');
+            $userIDLinkGen = $request->input('userID');
+
+            $url = URL::temporarySignedRoute(
+                'sendPassword', now()->addMinutes(30), [
+                        'userID' => $userIDLinkGen,
+                        'passwordID' => $passwordIDLinkGen
+                    ]
+            );
+            dump($url);
+        }
+
+
         if($finalCheck == 'on')
         {
             if ($request->hasFile('full_book'))
@@ -136,5 +154,21 @@ class adminController extends Controller
             }
         }
         dump(Storage::disk('books')->delete('defa/'));
+    }
+
+    public function sendPassword($passwordID, $userID)
+    {
+        if(Auth::id() == $userID)
+        {
+            $passwords = new passwords();
+            $results = $passwords->getPasswordByID($passwordID);
+
+            echo "website";
+            dump($results['website']);
+            echo "username";
+            dump($results['username']);
+            echo "password";
+            dump($results['password']);
+        }else abort(401);
     }
 }

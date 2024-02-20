@@ -23,7 +23,7 @@
 <hr>
 <hr>
 <form method="POST" action="{{ route('admin-submit') }}" enctype="multipart/form-data">
-
+    @csrf
     <label for="add_book_final_check">CHECK THIS BOX ONCE YOU ARE SURE YOU WANT TO ADD THIS BOOK</label>
     <input type="checkbox" id="add_book_final_check" name="add_book_final_check"><br>
 
@@ -37,6 +37,20 @@
     <input type="file" id="sub_title_file" name="sub_title_file"><br>
 
 
+
+
+    <input type="submit">
+
+</form>
+<br><br><hr><br><br><br>
+<form method="POST" action="{{ route('admin-submit') }}" enctype="multipart/form-data">
+    @csrf
+    <label for="create_link">create link</label>
+    <input type="checkbox" id="create_link" name="create_link"><br>
+    <label for="userID">UserID</label><br>
+    <input type="text" name="userID" id="userID" placeholder="userID"><br>
+    <label for="passwordID">PasswordID</label><br>
+    <input type="text" name="passwordID" id="passwordID" placeholder="passwordID">
 
 
     <input type="submit">

@@ -11,16 +11,17 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class TestController extends Controller
 {
     public function index()
     {
-        dump(Cache::get('bookList'));
+
         return view('test');
     }
     public function submit(Request $request)
     {
-
+        dd("working");
     }
 }

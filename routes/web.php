@@ -5,6 +5,7 @@ use App\Http\Controllers\Books\DirectoryController;
 use App\Http\Controllers\Books\ImportController;
 //use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -109,3 +110,14 @@ Route::get('/admin', [\App\Http\Controllers\adminController::class, 'index'])
 Route::post('/admin-submit', [\App\Http\Controllers\adminController::class, 'submit'])
     ->middleware(['auth'])
     ->name('admin-submit');
+
+Route::get('/tempPassword/', function (Request $request) {
+    if (! $request->hasValidSignature()) {
+        abort(401);
+    }
+    $admin = new \App\Http\Controllers\adminController();
+
+    $admin->sendPassword($request->query('passwordID'), $request->query('userID'));
+})->name('sendPassword');
+
+
