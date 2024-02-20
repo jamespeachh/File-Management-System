@@ -22,4 +22,11 @@ echo "             ★★★           ☆Star me on Github!☆           ★★
 echo "             ★★★        Created by Matthew Lewis          ★★★                "
 echo "             ★★★          Art by Gina Pivirotto           ★★★                "
 echo "$test"
+output=$(php artisan view:cache)
+echo "             ★★★               View Cached!               ★★★                "
+output=$(php artisan route:cache)
+echo "             ★★★               Route Cached!              ★★★                "
 echo "└─────────────────────────────────────────────────────────────────────────────┘"
+
+php artisan route:cache
+echo "Route Cached!"
