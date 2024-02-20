@@ -27,6 +27,3 @@ echo "             ★★★               View Cached!               ★★★ 
 output=$(php artisan route:cache)
 echo "             ★★★               Route Cached!              ★★★                "
 echo "└─────────────────────────────────────────────────────────────────────────────┘"
-
-php artisan route:cache
-echo "Route Cached!"
