@@ -47,6 +47,13 @@
     @csrf
     <label for="create_link">create link</label>
     <input type="checkbox" id="create_link" name="create_link"><br>
+
+    <label for="life">Lifetime</label>
+    <select id="life" name="life">
+        <option value="1">30 Minutes</option>
+        <option value="2">Permanent</option>
+    </select><br>
+
     <label for="userID">UserID</label><br>
     <input type="text" name="userID" id="userID" placeholder="userID"><br>
     <label for="passwordID">PasswordID</label><br>
