@@ -13,7 +13,38 @@
         <div class="header-div">
             <h1>Pick a Book :3</h1>
         </div>
-        @include('bladeTemplates.directory-body')
+
+        <div class="checkbox-wrapper-65">
+            <label for="cbk1-65">
+                <input type="checkbox" id="cbk1-65" onclick="toggleGridLayout(), adjustItemWidth()">
+                <span class="cbx">
+                    <svg width="12px" height="11px" viewBox="0 0 12 11">
+                      <polyline points="1 6.29411765 4.5 10 11 1"></polyline>
+                    </svg>
+                </span>
+                <span>Grid View?</span>
+            </label>
+        </div>
+        <div class="container">
+            <ul class="link-list">
+                <div class="grid" id="grid">
+                    @foreach($data['books'] as $item)
+
+                        <li class="grid-item">
+                            <a href="{{ url(route('book', ['bookName' => $item['unformatted'], 'pageNumber' => 1])) }}" class="link">
+                                <div class="list-item">
+                                    <img src="{{ asset('BookCover/' . $item['img']['src']) }}"
+                                         alt="{{$item['img']['alt']}}"
+                                         class="test-img">
+                                    {{$item['title']}}
+                                </div>
+                        </li>
+                    @endforeach
+
+                </div>
+            </ul>
+        </div>
+        <script src="script.js"></script>
     </div>
 </div>
 
@@ -29,5 +60,6 @@
         }
     }
 </script>
+<script src="{{asset('htmlData/scripts/checkbox.js')}}"></script>
 </body>
 </html>
