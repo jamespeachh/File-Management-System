@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
                 Log::error('GET LIST FAILED; RUNNING FROM SHELL');
                 shell_exec('php artisan books:get-list');
             })
-            ->hourlyAt(15);
+            ->everyMinute();
         $schedule->command('books:get-files')
             ->name('get-body-files')
             ->onSuccess(function () {
@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
                 Log::error('GET BODY FAILED; RUNNING FROM SHELL');
                 shell_exec('php artisan books:get-files');
             })
-            ->hourlyAt(30);
+            ->everyMinute();
         $schedule->command('comments:all-comments-by-mapping')
             ->name('get-comments')
             ->onSuccess(function () {
@@ -45,7 +45,7 @@ class Kernel extends ConsoleKernel
                 Log::error('GET COMMENTS FAILED; RUNNING FROM SHELL');
                 shell_exec('php artisan comments:all-comments-by-mapping');
             })
-            ->hourlyAt(45);
+            ->everyMinute();
 
     }
 
