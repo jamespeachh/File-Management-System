@@ -13,7 +13,7 @@
                     </div>
                     @if($item['user_id'] == \Illuminate\Support\Facades\Auth::id())
                         <a
-                            href="{{ url(route('deleteComment', ['comment'=>$item['id'],'bookID'=>$bookID,'pageNumber'=>$pageNum])) }}"
+                            href="{{ url(route('comment.delete', ['comment'=>$item['id'],'bookID'=>$bookID,'pageNumber'=>$pageNum])) }}"
                             style="border-style: solid;text-align:center;border-radius: 10px"
                         >delete</a>
                     @endif
@@ -25,7 +25,7 @@
     <!-- comment form -->
     <div class="you_comment">
         <h3 style="padding-left: 20px;">Write a comment</h3>
-        <form method="POST" action="{{ route('submit-comment') }}" class="comment_form">
+        <form method="POST" action="{{ route('comment.submit') }}" class="comment_form">
             @csrf
             <textarea class="form_real" id="input_text" wrap="soft" name="body" required></textarea>
             <input type="hidden" class="form_real" id="bookName" name="bookID" value="{{$bookID}}">

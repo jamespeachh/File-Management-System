@@ -8,7 +8,7 @@
     <title>ADMIN</title>
 </head>
 <body>
-<form method="POST" action="{{ route('admin-submit') }}">
+<form method="POST" action="{{ route('admin.submit') }}">
     @csrf
     <label for="book_bodies">Wipe and replace all the book bodies from files to sql</label>
     <input type="checkbox" id="book_bodies" name="book_bodies"><br>
@@ -22,7 +22,7 @@
 
 <hr>
 <hr>
-<form method="POST" action="{{ route('admin-submit') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.submit') }}" enctype="multipart/form-data">
     @csrf
     <label for="add_book_final_check">CHECK THIS BOX ONCE YOU ARE SURE YOU WANT TO ADD THIS BOOK</label>
     <input type="checkbox" id="add_book_final_check" name="add_book_final_check"><br>
@@ -43,7 +43,7 @@
 
 </form>
 <br><br><hr><br><br><br>
-<form method="POST" action="{{ route('admin-submit') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.submit') }}" enctype="multipart/form-data">
     @csrf
     <label for="create_link">create link</label>
     <input type="checkbox" id="create_link" name="create_link"><br>

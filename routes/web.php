@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\Books\BookController;
 use App\Http\Controllers\Books\DirectoryController;
 use App\Http\Controllers\Books\ImportController;
@@ -27,12 +28,13 @@ use App\Http\Controllers\CommentController;
 | Directory
 |--------------------------------------------------------------------------
 */
-Route::get('/', [DirectoryController::class, 'index'])
-    ->name('directory')
-    ->middleware('auth');
-Route::get('/directory', [DirectoryController::class, 'index'])
-    ->name('directory')
-    ->middleware('auth');
+Route::prefix('directory')->middleware('auth')->group(function () {
+    Route::controller(DirectoryController::class)
+        ->group(function () {
+            Route::get('/', 'index')
+                ->name('directory');
+        });
+});
 
 // Route::get('/import', [ImportController::class, 'index'])->name('import');
 
@@ -41,9 +43,14 @@ Route::get('/directory', [DirectoryController::class, 'index'])
 | Books
 |--------------------------------------------------------------------------
 */
-Route::get('/book', [BookController::class, 'index'])
-    ->name('book')
-    ->middleware('auth');
+Route::prefix('book')->middleware('auth')->group(function () {
+    Route::controller(BookController::class)
+        ->group(function () {
+            Route::get('/', 'index')
+                ->name('book');
+        });
+});
+
 
 
 /*
@@ -51,12 +58,26 @@ Route::get('/book', [BookController::class, 'index'])
 | Comments
 |--------------------------------------------------------------------------
 */
-Route::post('/submit-comment', [CommentController::class, 'submitComment'])
-    ->name('submit-comment')
-    ->middleware('auth');
-Route::get('/deleteComment', [CommentController::class, 'deleteComment'])
-    ->name('deleteComment')
-    ->middleware('auth');
+Route::prefix('comment')->name('comment.')->middleware('auth')->group(function () {
+    Route::controller(CommentController::class)
+        ->group(function () {
+            Route::post('/submit', 'submitComment')
+                ->name('submit');
+            Route::get('/delete', 'deleteComment')
+                ->name('delete');
+        });
+});
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::controller(adminController::class)
+        ->group(function () {
+            Route::get('/', 'index')
+                ->name('admin');
+            Route::post('/submit', 'submit')
+                ->name('submit');
+        });
+});
+
 
 
 /*
@@ -65,6 +86,7 @@ Route::get('/deleteComment', [CommentController::class, 'deleteComment'])
 |--------------------------------------------------------------------------
 |
 | Allows a user to add a book to the list
+| Trying to get rid of this soon.
 |
 */
 Route::get('/import', [ImportController::class, 'showUploadForm'])->name('import.form');
@@ -76,12 +98,19 @@ Route::post('/submit-form', [ImportController::class, 'submitForm'])
 | TESTING
 |--------------------------------------------------------------------------
 */
-Route::get('/test', [TestController::class, 'index'])
-    ->name('test');
-//    ->middleware('auth');
-Route::post('/test-submit', [TestController::class, 'submit'])
-    ->name('test-submit');
+Route::prefix('test')->name('test.')->group(function () {
+    Route::controller(TestController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/submit', 'submit')->name('test-submit');
+        });
+});
 
+    Route::get('/', [TestController::class, 'index'])
+        ->name('test');
+    //    ->middleware('auth');
+    Route::post('/test-submit', [TestController::class, 'submit'])
+        ->name('test-submit');
 
 Route::get('/home',function () {
     return view('welcome');
@@ -98,12 +127,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/admin', [\App\Http\Controllers\adminController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('admin');
-Route::post('/admin-submit', [\App\Http\Controllers\adminController::class, 'submit'])
-    ->middleware(['auth'])
-    ->name('admin-submit');
 
 Route::get('/tempPassword/', function (Request $request) {
     if (! $request->hasValidSignature()) {
