@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,39 +41,31 @@ Route::get('/directory', [DirectoryController::class, 'index'])
 | Books
 |--------------------------------------------------------------------------
 */
-//testing out a new book path
-Route::get('/book/{bookName}/{pageNumber}', [BookController::class, 'index'])
-    ->middleware('auth');
-
-Route::get('/book/{bookName}', [BookController::class, 'indexNoVar'])
+Route::get('/book', [BookController::class, 'index'])
     ->name('book')
     ->middleware('auth');
-Route::post('/submit-comment', [BookController::class, 'submitComment'])
-    ->name('submit-comment')
-    ->middleware('auth');
-Route::get('/deleteComment', [BookController::class, 'deleteComment'])
-    ->name('deleteComment')
-    ->middleware('auth');
-
-Route::get('/book', [BookController::class, 'bookBuilder'])
-    ->name('run')
-    ->middleware('auth');
-
 
 
 /*
 |--------------------------------------------------------------------------
-| Calendar
+| Comments
 |--------------------------------------------------------------------------
 */
-//Route::get('/calander', function(){
-//    return view('calanders');
-//});//->middleware('auth');
+Route::post('/submit-comment', [CommentController::class, 'submitComment'])
+    ->name('submit-comment')
+    ->middleware('auth');
+Route::get('/deleteComment', [CommentController::class, 'deleteComment'])
+    ->name('deleteComment')
+    ->middleware('auth');
+
 
 /*
 |--------------------------------------------------------------------------
 | IMPORT
 |--------------------------------------------------------------------------
+|
+| Allows a user to add a book to the list
+|
 */
 Route::get('/import', [ImportController::class, 'showUploadForm'])->name('import.form');
 Route::post('/submit-form', [ImportController::class, 'submitForm'])

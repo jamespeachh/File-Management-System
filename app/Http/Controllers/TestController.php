@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\book;
 use App\Models\BookBody;
+use App\Models\categories;
 use App\Models\User;
 use App\Services\Cache\GetBookFileFromSQL;
 use Faker\Core\File;
@@ -17,8 +18,14 @@ class TestController extends Controller
 {
     public function index()
     {
+        $cat = new categories();
+        $items = $cat->getActive();
+        Cache::put('testiesss', $items, 60);
+        $array = [
+            'items'=>$items
+        ];
 
-        return view('test');
+        return view('test', ['hello']);
     }
     public function submit(Request $request)
     {

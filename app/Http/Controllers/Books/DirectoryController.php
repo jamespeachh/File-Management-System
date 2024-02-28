@@ -19,7 +19,7 @@ class DirectoryController extends Controller
         {
             return view('Books.directory', [
                 'alertExists'=>true,
-                'alertMessage'=>$request->has('alertMessage'),
+                'alertMessage'=>$request->get('alertMessage'),
                 'data'=>$data
             ]);
         }
