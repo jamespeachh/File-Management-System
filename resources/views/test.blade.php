@@ -6,34 +6,40 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<form id="myForm">
-    <label for="name">Name:</label>
-    <select id="name" name="name">
-        @foreach(\Illuminate\Support\Facades\Cache::get('testiesss') as $item)
-            <option value="{{$item['id']}}">{{$item['title']}}</option>
-            <p>{{$item['title']}}</p>
-        @endforeach
-    </select>
-</form>
-<div id="result"></div>
+<select id="selectList">
+    <option value="">Select an option</option>
+    @foreach($items as $item)
+        <option value="{{$item['title']}}">{{$item['title']}}</option>
+    @endforeach
+</select>
 
 <script>
-    var nameInput = document.getElementById('name');
-    var result = document.getElementById('result');
+    $(document).ready(function(){
+        $('#selectList').change(function(){
+            var selectedOption = $(this).val();
+            var redirectUrl = '';
 
-    nameInput.addEventListener("input", (event) => {
-        result.textContent = `You like ${event.target.value}`;
-        test = event.target.value;
+            // Construct the redirect URL based on the selected option
+            switch(selectedOption) {
+                @foreach($items as $item)
+                    case '{{$item['title']}}':
+                        redirectUrl = '?id={{$item['id']}}'
+                    break;
+                @endforeach
+                default:
+                    // Default redirect if no option is selected
+                    redirectUrl = '/';
+                    break;
 
+            }
 
-        // console.log(array);
-        for (var i = 0; i < array.length; i++){
-            console.log(array[i]);
-        }
+            // Redirect to the constructed URL
+            window.location.href = redirectUrl;
+        });
     });
-
 </script>
 
 </body>

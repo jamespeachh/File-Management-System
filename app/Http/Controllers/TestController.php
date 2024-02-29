@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Models\BookBody;
 use App\Models\categories;
+use App\Models\category_book_mappings;
 use App\Models\User;
 use App\Services\Cache\GetBookFileFromSQL;
 use Faker\Core\File;
@@ -16,19 +17,30 @@ use Illuminate\Support\Facades\URL;
 
 class TestController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if($request->has('id')){
+            dump($request->get('id'));
+            $catMap = new category_book_mappings;
+            $catMap->getByCatID($request->get('id'));
+            dd($catMap->getByCatID($request->get('id')));
+        }else{
+            //all books
+        }
+
         $cat = new categories();
         $items = $cat->getActive();
-        Cache::put('testiesss', $items, 60);
         $array = [
             'items'=>$items
         ];
+//        dd($array);
 
-        return view('test', ['hello']);
+        return view('test', $array);
     }
     public function submit(Request $request)
     {
+        dd($request->get('option'));
         dd("working");
+
     }
 }

@@ -4,12 +4,11 @@ use App\Http\Controllers\adminController;
 use App\Http\Controllers\Books\BookController;
 use App\Http\Controllers\Books\DirectoryController;
 use App\Http\Controllers\Books\ImportController;
-//use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -132,7 +131,7 @@ Route::get('/tempPassword/', function (Request $request) {
     if (! $request->hasValidSignature()) {
         abort(401);
     }
-    $admin = new \App\Http\Controllers\adminController();
+    $admin = new adminController();
 
     $admin->sendPassword($request->query('passwordID'), $request->query('userID'));
 })->name('sendPassword');
