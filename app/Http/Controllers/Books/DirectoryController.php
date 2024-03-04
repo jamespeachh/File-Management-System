@@ -42,13 +42,13 @@ class DirectoryController extends Controller
                 }
             }
             if(count($temp) !== 0)
-                return view('Books.directory', ['data'=>$temp, 'alertExists'=>$alert, 'items'=>$items, 'alertMessage'=>$alertMessage]);
+                return view('Books.directory', ['data'=>$temp, 'alertExists'=>$alert, 'items'=>$items, 'alertMessage'=>$alertMessage, 'name'=>" - " . $items[$selected-3]['title']]);
             else {
                 $alert = true;
                 $alertMessage=2;
             }
         }
-        return view('Books.directory', ['data'=>$data, 'alertExists'=>$alert, 'items'=>$items, 'alertMessage'=>$alertMessage]);
+        return view('Books.directory', ['data'=>$data, 'alertExists'=>$alert, 'items'=>$items, 'alertMessage'=>$alertMessage, 'name'=>'']);
 
     }
 }
