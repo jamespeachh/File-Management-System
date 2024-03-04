@@ -33,7 +33,7 @@
             <br>
             <br>
             @include('bladeTemplates.comments-chapter')
-            <footer>I love you &lt;3</footer>
+{{--            <footer>I love you &lt;3</footer>--}}
         </div>
     </div>
 <script>

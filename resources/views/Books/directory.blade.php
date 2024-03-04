@@ -12,7 +12,7 @@
 <div class="text-container">
     <div class="text-content">
         <div class="header-div">
-            <h1>Pick a Book :3</h1>
+            <h1>Pick a Book</h1>
         </div>
         @include("bladeTemplates.category-select")
         <div class="container">
