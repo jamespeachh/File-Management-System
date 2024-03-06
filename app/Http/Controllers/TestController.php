@@ -19,27 +19,12 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->has('id')){
-            dump($request->get('id'));
-            $catMap = new category_book_mappings;
-            $catMap->getByCatID($request->get('id'));
-            dd($catMap->getByCatID($request->get('id')));
-        }else{
-            //all books
-        }
 
-        $cat = new categories();
-        $items = $cat->getActive();
-        $array = [
-            'items'=>$items
-        ];
-//        dd($array);
 
-        return view('test', $array);
+        return view('test');
     }
     public function submit(Request $request)
     {
-        dd($request->get('option'));
         dd("working");
 
     }

@@ -27,6 +27,7 @@ class adminController extends Controller
         $this->insertOrReplace(31, 'BalladOfSongbirdsAndSnakes', 4);
         $this->insertOrReplace(28, 'circe', 5);
         $this->insertOrReplace(11, 'thestranger', 6);
+        $this->insertOrReplace(61, 'dune_vol_1', 7);
     }
 
     public function insertOrReplace($pages, $bookTitle, $bookID)
