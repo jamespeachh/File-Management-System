@@ -18,6 +18,13 @@
     @include('bladeTemplates.header')
     <div class="text-container">
         <div class="text-content">
+
+            <a href="{{ url(route('book', ['bookID'=>$bookID,'pageNumber'=>$pageNum, 'reported'=>1])) }}">
+                Report page
+            </a>
+            @if(request()->has('reported'))
+                <p>Thank you for reporting this page!  I will look into it.  If you want to help, leave a comment!</p>
+            @endif
             <div>
                 <h1 class="book-title">{{$bookTitle}}:</h1>
             </div>

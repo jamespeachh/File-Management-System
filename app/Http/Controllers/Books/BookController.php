@@ -14,6 +14,7 @@ use App\Services\yclDB\GetBookInformation;
 use App\Services\yclDB\getCommentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -36,6 +37,17 @@ class BookController extends Controller
              $pageNumber = $this->getPageNumber($book);
          } else $pageNumber = $request->query('pageNumber');
 
+         if ($request->has('reported'))
+         {
+             Log::error('');
+             Log::error('PAGE REPORTED // PAGE REPORTED // PAGE REPORTED // PAGE REPORTED');
+             Log::error('');
+             Log::error('BOOK ID // ' . $bookID);
+             Log::error('PAGE NUM // ' . $pageNumber);
+             Log::error('');
+             Log::error('PAGE REPORTED // PAGE REPORTED // PAGE REPORTED // PAGE REPORTED');
+             Log::error('');
+         }
 
          // book information
          //book text
