@@ -23,10 +23,6 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $p = new passwords();
-
-        dump($test = $p->addPassword('username', 'passwororororod', 'site'));
-        $p->getPasswordByID(3);
 
         return view('test');
     }
