@@ -45,7 +45,7 @@
 <br><br><hr><br><br><br>
 <form method="POST" action="{{ route('admin.submit') }}" enctype="multipart/form-data">
     @csrf
-    <label for="create_link">create link</label>
+    <label for="create_link">create link!</label>
     <input type="checkbox" id="create_link" name="create_link"><br>
 
     <label for="life">Lifetime</label>
