@@ -70,10 +70,8 @@
     @csrf
     <label for="password">Password</label>
     <input type="text" id="password" name="password"><br>
-    <hr>
     <label for="username">username</label>
     <input type="text" id="username" name="username"><br>
-    <hr>
     <label for="website">website</label>
     <input type="text" id="website" name="website"><br>
     <input type="submit">
