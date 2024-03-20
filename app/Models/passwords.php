@@ -36,7 +36,7 @@ class passwords extends Model
     public function addPassword($username, $password, $site)
     {
         $test = Crypt::encryptString($password);
-        dd($test);
+        return $test;
         $this->query()->insert([
             'password' => $password,
             'username' => $username,
