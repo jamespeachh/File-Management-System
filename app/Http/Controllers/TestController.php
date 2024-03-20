@@ -26,7 +26,7 @@ class TestController extends Controller
         $p = new passwords();
 
         dump($test = $p->addPassword('username', 'passwororororod', 'site'));
-        $p->getPasswordByID(2);
+        $p->getPasswordByID(3);
 
         return view('test');
     }
