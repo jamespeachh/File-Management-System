@@ -9,38 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<select id="selectList">
-    <option value="">Select an option</option>
-    @foreach($items as $item)
-        <option value="{{$item['title']}}">{{$item['title']}}</option>
-    @endforeach
-</select>
-
-<script>
-    $(document).ready(function(){
-        $('#selectList').change(function(){
-            var selectedOption = $(this).val();
-            var redirectUrl = '';
-
-            // Construct the redirect URL based on the selected option
-            switch(selectedOption) {
-                @foreach($items as $item)
-                    case '{{$item['title']}}':
-                        redirectUrl = '?id={{$item['id']}}'
-                    break;
-                @endforeach
-                default:
-                    // Default redirect if no option is selected
-                    redirectUrl = '/';
-                    break;
-
-            }
-
-            // Redirect to the constructed URL
-            window.location.href = redirectUrl;
-        });
-    });
-</script>
-
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0GgN4MhR5GKn5IcKN0e0rG?utm_source=generator" width="40%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<script src="https://gist.github.com/ClementNerma/1dd94cb0f1884b9c20d1ba0037bdcde2.js"></script>
 </body>
 </html>

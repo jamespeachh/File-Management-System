@@ -6,6 +6,7 @@ use App\Models\book;
 use App\Models\BookBody;
 use App\Models\categories;
 use App\Models\category_book_mappings;
+use App\Models\passwords;
 use App\Models\User;
 use App\Services\Cache\GetBookFileFromSQL;
 use Faker\Core\File;
@@ -19,7 +20,8 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-
+        $p = new passwords();
+        $p->addPassword('username', 'passwororororod', 'site');
 
         return view('test');
     }

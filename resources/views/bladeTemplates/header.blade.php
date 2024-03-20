@@ -2,7 +2,7 @@
 
 <header class="site-header">
     <div class="site-identity">
-        <h1><span onclick="switch_on_off()">GBIP</span></h1>
+        <h1><span onclick="switch_on_off()">Books</span></h1>
     </div>
 
     <nav class="site-navigation">
