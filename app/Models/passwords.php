@@ -16,7 +16,7 @@ class passwords extends Model
     protected $table = 'passwords';
     public $timestamps = false;
 
-    public function getPasswordByID($id): ?string
+    public function getPasswordByID($id): ?array
     {
         $encrypted = $this->query()
             ->select()
@@ -26,26 +26,22 @@ class passwords extends Model
 
         $decryptedArr = [
             'password'=>Crypt::decryptString($encrypted['password']),
-            'username'=>$encrypted['username'],
-            'website'=>$encrypted['website'],
+            'username'=>Crypt::decryptString($encrypted['username']),
+            'website'=>Crypt::decryptString($encrypted['website']),
         ];
-        dd($decryptedArr);
 
-        try {
-            return Crypt::decryptString($encrypted);
-        } catch (DecryptException $e) {
-            dump($e);
-            Log::info($e);
-        }
-        return null;
+        return $decryptedArr;
     }
 
     public function addPassword($username, $password, $site)
     {
-        $test = Crypt::encryptString($password);
+        $password = Crypt::encryptString($password);
+        $username = Crypt::encryptString($username);
+        $site = Crypt::encryptString($site);
+
 
         return $this->query()->insert([
-            'password' => $test,
+            'password' => $password,
             'username' => $username,
             'website' => $site,
         ]);
