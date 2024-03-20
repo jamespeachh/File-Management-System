@@ -24,6 +24,13 @@ class passwords extends Model
             ->get()
             ->toArray()[0];
 
+        $decryptedArr = [
+            'password'=>Crypt::decryptString($encrypted['password']),
+            'username'=>$encrypted['username'],
+            'website'=>$encrypted['website'],
+        ];
+        dd($decryptedArr);
+
         try {
             return Crypt::decryptString($encrypted);
         } catch (DecryptException $e) {
@@ -36,9 +43,9 @@ class passwords extends Model
     public function addPassword($username, $password, $site)
     {
         $test = Crypt::encryptString($password);
-        return $test;
-        $this->query()->insert([
-            'password' => $password,
+
+        return $this->query()->insert([
+            'password' => $test,
             'username' => $username,
             'website' => $site,
         ]);

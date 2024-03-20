@@ -26,13 +26,8 @@ class TestController extends Controller
         $p = new passwords();
 
         dump($test = $p->addPassword('username', 'passwororororod', 'site'));
-        try {
-            $new =  Crypt::decryptString($test);
-        } catch (DecryptException $e) {
-            dump($e);
-            Log::info($e);
-        }
-        dd($new);
+        $p->getPasswordByID(2);
+
         return view('test');
     }
     public function submit(Request $request)
