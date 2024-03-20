@@ -66,6 +66,7 @@
 
 <br><br><hr><br><br><br>
 {{--password--}}
+<h1>test</h1>
 <form method="POST" action="{{ route('admin.submitNewPassword') }}">
     @csrf
     <label for="password">Password</label>
