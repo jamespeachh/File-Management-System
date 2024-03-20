@@ -63,6 +63,22 @@
     <input type="submit">
 
 </form>
+
+<br><br><hr><br><br><br>
+{{--password--}}
+<form method="POST" action="{{ route('admin.submitNewPassword') }}">
+    @csrf
+    <label for="password">Password</label>
+    <input type="text" id="password" name="password"><br>
+    <hr>
+    <label for="username">username</label>
+    <input type="text" id="username" name="username"><br>
+    <hr>
+    <label for="website">website</label>
+    <input type="text" id="website" name="website"><br>
+    <input type="submit">
+
+</form>
 {{--possibly one day make a loop with check boxes that add or take away different books--}}
 </body>
 </html>

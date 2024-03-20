@@ -100,6 +100,27 @@ class adminController extends Controller
         }
     }
 
+    public function addPassword(Request $request)
+    {
+        $p = new passwords();
+        if ($request->has('password'))
+        {
+            $password = $request->input('password');
+        }
+        if ($request->has('username'))
+        {
+            $username = $request->input('username');
+        }
+        if ($request->has('website'))
+        {
+            $website = $request->input('website');
+        }
+        if($password != null && $username != null && $website != null)
+        {
+            $p->addPassword($password, $username, $website);
+        } else dd('password not submitted');
+    }
+
     public function convertBook($bookTitle, $subTitleContent, $fullBookContent)
     {
         dump(Storage::disk('books')->delete($bookTitle.'/'));

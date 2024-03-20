@@ -33,7 +33,7 @@ class passwords extends Model
         return $decryptedArr;
     }
 
-    public function addPassword($username, $password, $site)
+    public function addPassword($password, $username, $site)
     {
         $password = Crypt::encryptString($password);
         $username = Crypt::encryptString($username);

@@ -74,6 +74,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
                 ->name('admin');
             Route::post('/submit', 'submit')
                 ->name('submit');
+            Route::post('/submitNewPassword', 'addPassword')
+                ->name('submitNewPassword');
         });
 });
 
