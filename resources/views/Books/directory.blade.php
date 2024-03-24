@@ -29,6 +29,7 @@
                                          alt="{{$item['img']['alt']}}"
                                          class="test-img">{{--<br>--}}
                                     {{$item['title']}}
+                                    test
                                 </div>
                             </a>
                         </li>
