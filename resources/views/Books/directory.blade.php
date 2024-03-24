@@ -21,7 +21,7 @@
                     @foreach($data['books'] as $item)
 
                         <li class="grid-item">
-                            <a href="{{ url(route('book.book', ['bookID' => 1])) }}" class="link">
+                            <a href="{{ url(route('book.book', ['bookID' => $item['id']])) }}" class="link">
                                 <div class="list-item">
                                     <img src="{{ asset('BookCover/' . $item['img']['src']) }}"
                                          alt="{{$item['img']['alt']}}"
