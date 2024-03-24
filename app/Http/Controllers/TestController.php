@@ -23,11 +23,11 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-
         return view('test');
     }
     public function submit(Request $request)
     {
+        dump($request->input('rating'));
         dd("working");
 
     }

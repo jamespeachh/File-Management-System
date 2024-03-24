@@ -75,8 +75,8 @@
     <label for="website">website</label>
     <input type="text" id="website" name="website"><br>
     <input type="submit">
-
 </form>
+
 {{--possibly one day make a loop with check boxes that add or take away different books--}}
 </body>
 </html>
