@@ -17,7 +17,7 @@
         <a href="{{ url(route('home')) }}">Home</a>
         <a href="{{ url(route('directory')) }}">Directory</a></br></br>
         @foreach($data['books'] as $item)
-            <a href="{{ url(route('book', ['bookID' => $item['id'], 'pageNumber' => 1])) }}" class="link">
+            <a href="{{ url(route('book', ['bookID' => $item['id']])) }}" class="link">
                 {{ $item['title'] }}
             </a>
         @endforeach
