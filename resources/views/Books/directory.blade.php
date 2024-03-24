@@ -22,6 +22,8 @@
 
                         <li class="grid-item">
                             <a href="{{ url(route('book.book', ['bookID' => $item['id']])) }}" class="link">
+                                {{$item['id']}}
+                                {{url(route('book.book', ['bookID' => $item['id']]))}}
                                 <div class="list-item">
                                     <img src="{{ asset('BookCover/' . $item['img']['src']) }}"
                                          alt="{{$item['img']['alt']}}"
