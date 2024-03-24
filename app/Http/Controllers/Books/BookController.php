@@ -24,8 +24,6 @@ class BookController extends Controller
          $BTXTCache = new BookTxtFileService;
          $query_builder = new GetBookInformation;
 
-         dump($request);
-
          if (!$request->has('bookID'))
          {
              return redirect()->route('directory', ['alertMessage'=>1]);
@@ -38,9 +36,7 @@ class BookController extends Controller
          {
 
              $pageNumber = $this->getPageNumber($book);
-             dump('request ' . $pageNumber);
          } else $pageNumber = $request->query('pageNumber');
-         dump('after '.$pageNumber);
          if ($request->has('reported'))
          {
              Log::error('');
@@ -65,7 +61,8 @@ class BookController extends Controller
              ProcessBookPages::dispatch($bookID, intval($pageNumber) + 1)->afterResponse();
          UpsertUserInformation::dispatch($bookID, $pageNumber)->afterResponse();
          error_log('sending to view');
-         die();
+
+
          return view('Books.index', [
              'fileContents' => $bookTxtFileContents,
              'pageNum' => $pageNumber,
@@ -100,7 +97,6 @@ class BookController extends Controller
             ->where('user_id', $userID)
             ->get()
             ->toArray();
-        dump('getPageNumber ', $mappings);
 
         if(count($mappings)!=0){
             return $mappings[0]['page_number'];

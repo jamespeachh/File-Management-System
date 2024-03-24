@@ -48,7 +48,6 @@ class DirectoryController extends Controller
                 $alertMessage=2;
             }
         }
-        dump($items, $data);
         return view('Books.directory', ['data'=>$data, 'alertExists'=>$alert, 'items'=>$items, 'alertMessage'=>$alertMessage, 'name'=>'']);
 
     }
