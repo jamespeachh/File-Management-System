@@ -139,14 +139,14 @@ Route::get('/tempPassword/', function (Request $request) {
 })->name('sendPassword');
 
 
-Route::middleware('auth')->name('profile.')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('destroy');
-    Route::patch('/profile', [ProfileController::class, 'updatePFP'])->name('update-pfp');
-});
+//Route::middleware('auth')->name('profile.')->group(function () {
+//    Route::get('/profile', [ProfileController::class, 'edit'])->name('edit');
+//    Route::patch('/profile', [ProfileController::class, 'update'])->name('update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('destroy');
+//    Route::patch('/profile', [ProfileController::class, 'updatePFP'])->name('update-pfp');
+//});
 
-Route::prefix('profile')->name('profile.')->group(function () {
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
     Route::controller(ProfileController::class)
         ->group(function () {
             Route::get('/', 'edit')->name('edit');

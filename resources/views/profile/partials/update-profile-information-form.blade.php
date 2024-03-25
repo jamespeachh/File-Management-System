@@ -15,6 +15,7 @@
 
     <form action="{{ route('profile.updatepfp') }}">
         @csrf
+        @method('patch')
         <label for="pfp">New Profile picture</label>
         <input type="file" name="pfp" accept=".jpg,.png,.jpeg,.tiff,.gif,.svg" />
         <input type="submit">
