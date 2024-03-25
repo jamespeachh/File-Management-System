@@ -14,11 +14,15 @@
 
 </head>
 <body>
-
     @include('bladeTemplates.header')
     <div class="text-container">
         <div class="text-content">
-
+            <label for="numbers">Chapters</label>
+            <select name="numbers" onchange="redirectToPage(this.value)">
+            @for ($i = 1; $i <= $data['pages']; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+            </select>
             <a href="{{ url(route('book', ['bookID'=>$bookID,'pageNumber'=>$pageNum, 'reported'=>1])) }}">
                 Report page
             </a>
@@ -49,6 +53,10 @@
             top: 0,
             behavior: 'smooth' // Optional: smooth scrolling behavior
         });
-    }</script>
+    }
+    function redirectToPage(selectedValue) {
+        window.location.href = {{$url}}+'&pageNumber='+selectedValue;
+    }
+</script>
 </body>
 </html>
