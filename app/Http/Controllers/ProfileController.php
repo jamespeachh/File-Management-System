@@ -63,4 +63,19 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function updatePFP(Request $request)
+    {
+        //insert name into sql
+        //insert image into storage
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('uploads', $filename); // Store file in storage/uploads directory
+            dd($request);
+            return 'File uploaded successfully.';
+        } else {
+            return 'No file uploaded.';
+        }
+    }
 }

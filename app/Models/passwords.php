@@ -51,7 +51,7 @@ class passwords extends Model
             ->where('username', $username)
             ->where('website', $site)
             ->get()
-            ->toArray();
+            ->toArray()[0];
     }
 
 }
