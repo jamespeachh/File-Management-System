@@ -40,11 +40,16 @@ class passwords extends Model
         $site = Crypt::encryptString($site);
 
 
-        return $this->query()->insert([
+        $this->query()->insert([
             'password' => $password,
             'username' => $username,
             'website' => $site,
         ]);
+        return $this->query()
+            ->select('id')
+            ->where('password', $password)
+            ->where('username', $username)
+            ->where('website', $site);
     }
 
 }
