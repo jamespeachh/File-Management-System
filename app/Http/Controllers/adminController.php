@@ -117,7 +117,8 @@ class adminController extends Controller
         }
         if($password != null && $username != null && $website != null)
         {
-            $p->addPassword($password, $username, $website);
+            $final = $p->addPassword($password, $username, $website);
+            dd($final);
         } else dd('password not submitted');
     }
 
