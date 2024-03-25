@@ -145,3 +145,13 @@ Route::middleware('auth')->name('profile.')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('destroy');
     Route::patch('/profile', [ProfileController::class, 'updatePFP'])->name('update-pfp');
 });
+
+Route::prefix('profile')->name('profile.')->group(function () {
+    Route::controller(ProfileController::class)
+        ->group(function () {
+            Route::get('/', 'edit')->name('edit');
+            Route::patch('/', 'update')->name('update');
+            Route::delete('/', 'destroy')->name('destroy');
+            Route::patch('/', 'updatePFP')->name('updatepfp');
+        });
+});

@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form action="{{ route('profile.update-pfp') }}">
+    <form action="{{ route('profile.updatepfp') }}">
         @csrf
         <label for="pfp">New Profile picture</label>
         <input type="file" name="pfp" accept=".jpg,.png,.jpeg,.tiff,.gif,.svg" />
