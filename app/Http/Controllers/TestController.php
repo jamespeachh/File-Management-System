@@ -9,6 +9,7 @@ use App\Models\category_book_mappings;
 use App\Models\passwords;
 use App\Models\User;
 use App\Services\Cache\GetBookFileFromSQL;
+use App\Services\yclDB\getCommentService;
 use Faker\Core\File;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Cache;
@@ -23,7 +24,12 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        return view('test');
+        $b = new book();
+        $book1 = $b->query()->select()
+            ->where('id', '=', 1)
+            ->get()
+            ->toArray()[0];
+        return view('test', ['book1'=>$book1]);
     }
     public function submit(Request $request)
     {
