@@ -32,18 +32,18 @@ class adminController extends Controller
 
     public function insertOrReplace($pages, $bookTitle, $bookID)
     {
-        for($i=1; $i<=$pages; $i++)
-        {
-            $curBook = Storage::disk('books')
-                ->get($bookTitle.'/'.$bookTitle.'_'.$i.'.txt');
-
-            dd("do not have wipe yet, just wait or change this");
-            BookBody::query()->insert([
-                'book_id'=>$bookID,
-                'page_number'=>$i,
-                'body_text'=>$curBook
-            ]);
-        }
+//        for($i=1; $i<=$pages; $i++)
+//        {
+//            $curBook = Storage::disk('books')
+//                ->get($bookTitle.'/'.$bookTitle.'_'.$i.'.txt');
+//
+//            dd("do not have wipe yet, just wait or change this");
+//            BookBody::query()->insert([
+//                'book_id'=>$bookID,
+//                'page_number'=>$i,
+//                'body_text'=>$curBook
+//            ]);
+//        }
     }
 
     public function pullChanges()
