@@ -17,7 +17,7 @@
     @include('bladeTemplates.header')
     <div class="text-container">
         <div class="text-content">
-            @include('bladeTemplates.chapter-select')
+{{--            @include('bladeTemplates.chapter-select')--}}
             <a href="{{ url(route('book', ['bookID'=>$bookID,'pageNumber'=>$pageNum, 'reported'=>1])) }}">
                 Report page
             </a>
