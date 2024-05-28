@@ -41,19 +41,19 @@ class TestController extends Controller
 //        dd("working");
 
         // Validate the request
-        dump(
-        $request->validate([
-            'onSite' => 'required|string',
-            'book' => 'nullable|integer',
-            'title' => 'nullable|string|max:64',
-            'author' => 'nullable|string|max:64',
-            'summary' => 'nullable|string|max:255',
-            'addBook' => 'nullable|boolean',
-            'read' => 'nullable|boolean',
-            'rateqm' => 'nullable|boolean',
-            'rate' => 'nullable|numeric|min:0|max:10',
-        ])
-        );
+//        dump(
+//        $request->validate([
+//            'onSite' => 'required|string',
+//            'book' => 'nullable|integer',
+//            'title' => 'nullable|string|max:64',
+//            'author' => 'nullable|string|max:64',
+//            'summary' => 'nullable|string|max:255',
+//            'addBook' => 'nullable|boolean',
+//            'read' => 'nullable|boolean',
+//            'rateqm' => 'nullable|boolean',
+//            'rate' => 'nullable|numeric|min:0|max:10',
+//        ])
+//        );
 
         // Prepare the data for insertion
         dump(
