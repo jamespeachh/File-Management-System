@@ -107,11 +107,11 @@ Route::prefix('test')->name('test.')->group(function () {
         });
 });
 
-    Route::get('/', [TestController::class, 'index'])
-        ->name('test');
-    //    ->middleware('auth');
-    Route::post('/test-submit', [TestController::class, 'submit'])
-        ->name('test-submit');
+//    Route::get('/', [TestController::class, 'index'])
+//        ->name('test');
+//    //    ->middleware('auth');
+//    Route::post('/test-submit', [TestController::class, 'submit'])
+//        ->name('test-submit');
 
 Route::get('/home',function () {
     return view('welcome');

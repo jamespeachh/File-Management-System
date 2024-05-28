@@ -98,11 +98,13 @@
 </style>
 
 <div class="form-container">
-    <form>
+    <form method="POST" action="{{ route('test-submit') }}">
+        @csrf
         <div class="form-section">
             <!-- Is this book on the site yet? -->
             <label for="onSite" class="review-form-label">Is this book on the site yet?</label>
             <select id="onSite" name="onSite" onchange="toggleFields()">
+                <option value=""></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select>
@@ -112,8 +114,9 @@
         <div id="bookChoice" class="form-section hidden">
             <label for="book" class="review-form-label">Choose book:</label>
             <select id="book" name="book">
+                <option value=""></option>
                 @foreach($books as $book)
-                    <option value="{{$book["id"]}}">{{$book["title"]}}</option>
+                    <option value="{{$book["id"]}}">{{$book["formatted_title"]}}</option>
                 @endforeach
                 <option value="1">Book 1</option>
                 <option value="2">Book 2</option>
@@ -138,7 +141,7 @@
         </div>
 
         <!-- Read? -->
-        <div class="form-section">
+        <div id="readSection" class="form-section hidden">
             <label for="read" class="review-form-label">
                 <input type="checkbox" id="read" name="read" onchange="toggleRating()">
                 Have you read this book yet?
@@ -169,6 +172,7 @@
     function toggleFields() {
         const onSite = document.getElementById('onSite').value;
         document.getElementById('bookChoice').classList.toggle('hidden', onSite !== 'yes');
+        document.getElementById('readSection').classList.toggle('hidden', onSite !== 'yes' && onSite !== 'no');
         document.getElementById('bookDetails').classList.toggle('hidden', onSite !== 'no');
     }
 
