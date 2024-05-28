@@ -25,11 +25,11 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-//        $b = new book();
-//        $books = $b->query()->select()
-//            ->get()
-//            ->toArray();
-        $books = [["id"=>1,"formatted_title"=>"book 1"],["id"=>2,"formatted_title"=>"book 2"],["id"=>3,"formatted_title"=>"book 3"],["id"=>4,"formatted_title"=>"book 4"]];
+        $b = new book();
+        $books = $b->query()->select()
+            ->get()
+            ->toArray();
+//        $books = [["id"=>1,"formatted_title"=>"book 1"],["id"=>2,"formatted_title"=>"book 2"],["id"=>3,"formatted_title"=>"book 3"],["id"=>4,"formatted_title"=>"book 4"]];
         return view('test', ['books'=>$books]);
     }
 
