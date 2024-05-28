@@ -112,6 +112,9 @@
         <div id="bookChoice" class="form-section hidden">
             <label for="book" class="review-form-label">Choose book:</label>
             <select id="book" name="book">
+                @foreach($books as $book)
+                    <option value="{{$book["id"]}}">{{$book["title"]}}</option>
+                @endforeach
                 <option value="1">Book 1</option>
                 <option value="2">Book 2</option>
             </select>
