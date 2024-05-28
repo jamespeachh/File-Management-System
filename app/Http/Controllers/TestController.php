@@ -26,10 +26,10 @@ class TestController extends Controller
     public function index(Request $request)
     {
         $b = new book();
-        $books = $b->query()->select()
-            ->get()
-            ->toArray();
-//        $books = [["id"=>1,"formatted_title"=>"book 1"],["id"=>2,"formatted_title"=>"book 2"],["id"=>3,"formatted_title"=>"book 3"],["id"=>4,"formatted_title"=>"book 4"]];
+//        $books = $b->query()->select()
+//            ->get()
+//            ->toArray();
+        $books = [["id"=>1,"formatted_title"=>"book 1"],["id"=>2,"formatted_title"=>"book 2"],["id"=>3,"formatted_title"=>"book 3"],["id"=>4,"formatted_title"=>"book 4"]];
         return view('test', ['books'=>$books]);
     }
 
@@ -51,7 +51,7 @@ class TestController extends Controller
             'addBook' => 'nullable|boolean',
             'read' => 'nullable|boolean',
             'rateqm' => 'nullable|boolean',
-            'rate' => 'nullable|numeric|min:1|max:10',
+            'rate' => 'nullable|numeric|min:0|max:10',
         ])
         );
 
