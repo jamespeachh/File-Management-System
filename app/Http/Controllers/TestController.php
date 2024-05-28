@@ -38,9 +38,10 @@ class TestController extends Controller
     {
         $li = new list_items();
 
-        dd("working");
+//        dd("working");
 
         // Validate the request
+        dump(
         $request->validate([
             'onSite' => 'required|string',
             'book' => 'nullable|integer',
@@ -51,9 +52,11 @@ class TestController extends Controller
             'read' => 'nullable|boolean',
             'rateqm' => 'nullable|boolean',
             'rate' => 'nullable|numeric|min:1|max:10',
-        ]);
+        ])
+        );
 
         // Prepare the data for insertion
+        dump(
         $data = [
             'list_id' => $request->input('list_id'), // Assuming you have a list_id in your form
             'user_id' => auth()->id(), // Assuming the user is authenticated
@@ -65,10 +68,11 @@ class TestController extends Controller
             'want_book_added' => $request->input('addBook', false) ? 1 : 0,
             'status' => $request->input('read') ? 'read' : 'not read',
             'rating' => $request->input('rateqm') ? $request->input('rate') : null,
-        ];
+        ]);
 
         // Insert the data into the database using Eloquent
-        $li->query()->insert($data);
+        dump(
+        $li->query()->insert($data));
 
 //        dd($onSite,$book,$title,$author,$summary,$addBook,$read,$rate);
         dd("working");
