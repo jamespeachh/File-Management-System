@@ -25,11 +25,10 @@ class TestController extends Controller
     public function index(Request $request)
     {
         $b = new book();
-        $book1 = $b->query()->select()
-            ->where('id', '=', 1)
+        $books = $b->query()->select()
             ->get()
-            ->toArray()[0];
-        return view('test', ['book1'=>$book1]);
+            ->toArray();
+        return view('test', ['books'=>$books]);
     }
     public function submit(Request $request)
     {

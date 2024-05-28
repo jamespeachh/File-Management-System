@@ -145,3 +145,13 @@ Route::middleware('auth')->name('profile.')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/profile', [ProfileController::class, 'updatePFP'])->name('profile.updatepfp');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Summer reading list !!!
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->name('summer.')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('summer.edit');
+});
