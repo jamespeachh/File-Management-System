@@ -98,7 +98,7 @@
 </style>
 
 <div class="form-container">
-    <form method="POST" action="{{ route('test-submit') }}">
+    <form method="POST" action="{{ route('test.test-submit') }}">
         @csrf
         <div class="form-section">
             <!-- Is this book on the site yet? -->

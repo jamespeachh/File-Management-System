@@ -27,7 +27,7 @@ then
     output=$(php artisan view:cache)
     echo "             ★★★               View Cached!               ★★★                "
     output=$(php artisan route:cache)
-    echo "             ★★★             Route is Cached!               ★★★                "
+    echo "             ★★★             Route is Cached!             ★★★                "
     echo "└─────────────────────────────────────────────────────────────────────────────┘"
     echo "Jobs scheduled:"
     php artisan schedule:list
