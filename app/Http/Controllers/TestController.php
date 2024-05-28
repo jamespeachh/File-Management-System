@@ -48,7 +48,7 @@ class TestController extends Controller
         $addBook=$request->input('addBook', false) ? 1 : 0;
         if($onSite == 1){
             $b = new book();
-            $title = $b->query()->select()->where("id",$bookID)->get()->toArray()[0];
+            $title = $b->query()->select()->where("id",$bookID)->get()->toArray()[0]['formatted_title'];
             $author = "";
             $summary="";
             $addBook=0;
