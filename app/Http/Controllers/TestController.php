@@ -68,7 +68,7 @@ class TestController extends Controller
         ];
 
         // Insert the data into the database using Eloquent
-        $li->create($data);
+        $li->query()->insert($data);
 
 //        dd($onSite,$book,$title,$author,$summary,$addBook,$read,$rate);
         dd("working");
