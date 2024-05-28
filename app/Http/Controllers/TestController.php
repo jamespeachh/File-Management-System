@@ -38,7 +38,7 @@ class TestController extends Controller
     {
         $li = new list_items();
 
-
+        dd("working");
 
         // Validate the request
         $request->validate([
