@@ -52,10 +52,11 @@ class TestController extends Controller
             $author = "";
             $summary="";
             $addBook=0;
+        } else {
+            $bookID = Null;
         }
 
         // Prepare the data for insertion
-        dump(
         $data = [
             'list_id' => $request->input('list_id'), // Assuming you have a list_id in your form
             'user_id' => auth()->id(), // Assuming the user is authenticated
@@ -67,11 +68,10 @@ class TestController extends Controller
             'want_book_added' => $addBook,
             'status' => $request->input('read') ? 'read' : 'not read',
             'rating' => $request->input('rateqm') ? $request->input('rate') : null,
-        ]);
+        ];
 
         // Insert the data into the database using Eloquent
-        dump(
-        $li->query()->insert($data));
+        $li->query()->insert($data);
 
 //        dd($onSite,$book,$title,$author,$summary,$addBook,$read,$rate);
         dd("working");
