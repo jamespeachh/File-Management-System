@@ -28,6 +28,7 @@ class TestController extends Controller
         $books = $b->query()->select()
             ->get()
             ->toArray();
+//        $books = [["id"=>1,"title"=>"book 1"],["id"=>2,"title"=>"book 2"],["id"=>3,"title"=>"book 3"],["id"=>4,"title"=>"book 4"]];
         return view('test', ['books'=>$books]);
     }
     public function submit(Request $request)

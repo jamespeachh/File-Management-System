@@ -112,9 +112,8 @@
         <div id="bookChoice" class="form-section hidden">
             <label for="book" class="review-form-label">Choose book:</label>
             <select id="book" name="book">
-                @foreach($books as $book)
-                    <option value="{{$book['id']}}">{{$book['title']}}</option>
-                @endforeach
+                <option value="1">Book 1</option>
+                <option value="2">Book 2</option>
             </select>
         </div>
 
@@ -139,17 +138,23 @@
         <div class="form-section">
             <label for="read" class="review-form-label">
                 <input type="checkbox" id="read" name="read" onchange="toggleRating()">
-                Read?
+                Have you read this book yet?
             </label>
+            <div id="ratingQuestion" class="hidden">
+                <label for="rateqm" class="review-form-label">
+                    <input type="checkbox" id="rateqm" name="rateqm" onchange="toggleSlider()">
+                    Would you like to rate this book?
+                </label>
+            </div>
         </div>
 
         <!-- Rate this book -->
         <div id="ratingSection" class="form-section hidden">
-            <label for="rate" class="review-form-label">Rate this book:</label>
+            <label for="rate" class="review-form-label">Rating:</label>
             <input type="range" id="rate" name="rate" min="1" max="10" step="1" oninput="updateStars(this.value)">
             <div id="starRating" class="stars">
                 <span style="width: 0%;">★★★★★</span><br>
-                <div class="tooltip" id="tooltip">Rating: 0</div>
+                <div class="tooltip" id="tooltip">Rating: 0/5</div>
             </div>
         </div>
 
@@ -166,19 +171,19 @@
 
     function toggleRating() {
         const readCheckbox = document.getElementById('read').checked;
-        document.getElementById('ratingSection').classList.toggle('hidden', !readCheckbox);
+        document.getElementById('ratingQuestion').classList.toggle('hidden', !readCheckbox);
+    }
+
+    function toggleSlider() {
+        const rateCheckbox = document.getElementById('rateqm').checked;
+        document.getElementById('ratingSection').classList.toggle('hidden', !rateCheckbox);
     }
 
     function updateStars(value) {
         const percentage = (value / 10) * 100;
         document.querySelector('#starRating span').style.width = `${percentage}%`;
-        document.getElementById('tooltip').textContent = `Rating: ${value / 2}`;
+        document.getElementById('tooltip').textContent = `Rating: ${value / 2}/5`;
     }
 </script>
 
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
 
