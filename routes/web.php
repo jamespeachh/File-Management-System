@@ -5,6 +5,7 @@ use App\Http\Controllers\Books\BookController;
 use App\Http\Controllers\Books\DirectoryController;
 use App\Http\Controllers\Books\ImportController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReadingList;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
@@ -149,9 +150,13 @@ Route::middleware('auth')->name('profile.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Summer reading list !!!
+| Reading list !!!
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->name('summer.')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('summer.edit');
+Route::prefix('reading')->name('reading.')->middleware('auth')->group(function () {
+    Route::controller(ReadingList::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/submit', 'submit')->name('reading-list-submit');
+        });
 });
