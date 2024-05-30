@@ -11,11 +11,16 @@ class ReadingList extends Controller
     public function index()
     {
         $b = new book();
+        $li = new list_items();
         $books = $b->query()->select()
             ->get()
             ->toArray();
+
+        $listItems = $li->query()->select()
+            ->get()
+            ->toArray();
 //        $books = [];
-        return view('reading-list', ['books'=>$books]);
+        return view('reading-list', ['books'=>$books, 'listItems'=>$listItems]);
     }
 
 
