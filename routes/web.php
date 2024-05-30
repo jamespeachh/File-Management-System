@@ -153,7 +153,7 @@ Route::middleware('auth')->name('profile.')->group(function () {
 | Reading list !!!
 |--------------------------------------------------------------------------
 */
-Route::prefix('reading')->name('reading.')->group(function () {
+Route::prefix('reading')->name('reading.')->middleware('auth')->group(function () {
     Route::controller(ReadingList::class)
         ->group(function () {
             Route::get('/', 'index')->name('index');
