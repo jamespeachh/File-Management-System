@@ -50,6 +50,7 @@ class ReadingList extends Controller
             'want_book_added' => $addBook,
             'status' => $request->input('read') ? 'read' : 'not read',
             'rating' => $request->input('rateqm') ? $request->input('rate') : null,
+            'active' => 1
         ];
 
         // Insert the data into the database using Eloquent

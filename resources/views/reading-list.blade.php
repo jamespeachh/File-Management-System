@@ -9,5 +9,6 @@
 </head>
 <body>
 @include("bladeTemplates.summer-reading-form")
+@include("bladeTemplates.summer-reading-list")
 </body>
 </html>

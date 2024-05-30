@@ -23,7 +23,8 @@ class list_items extends Model
         'summary',
         'want_book_added',
         'status',
-        'rating'
+        'rating',
+        'active'
     ];
 
 }
