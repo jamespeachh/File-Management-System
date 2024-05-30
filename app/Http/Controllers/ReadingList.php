@@ -10,12 +10,12 @@ class ReadingList extends Controller
 {
     public function index()
     {
-        $b = new book();
-        $books = $b->query()->select()
-            ->get()
-            ->toArray();
-
-        return view('test', ['books'=>$books]);
+//        $b = new book();
+//        $books = $b->query()->select()
+//            ->get()
+//            ->toArray();
+        $books = [];
+        return view('reading-list', ['books'=>$books]);
     }
 
 

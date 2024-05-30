@@ -104,21 +104,19 @@
 <div class="stylish-list-container">
     <ul class="stylish-list">
         <li>
+            <span class="list-item-text" style="text-align:center;font-weight:700;">Summer Reading List!</span>
+        </li>
+        @foreach($books as $book)
+            <li>
+                <span class="list-item-text">{{$book['formatted_title']}}</span>
+                <div class="list-item-actions">
+                    <button class="list-item-button">Edit</button>
+                    <button class="list-item-button">Delete</button>
+                </div>
+            </li>
+        @endforeach
+        <li>
             <span class="list-item-text">Item 1</span>
-            <div class="list-item-actions">
-                <button class="list-item-button">Edit</button>
-                <button class="list-item-button">Delete</button>
-            </div>
-        </li>
-        <li>
-            <span class="list-item-text">Item 2</span>
-            <div class="list-item-actions">
-                <button class="list-item-button">Edit</button>
-                <button class="list-item-button">Delete</button>
-            </div>
-        </li>
-        <li>
-            <span class="list-item-text">Item 3</span>
             <div class="list-item-actions">
                 <button class="list-item-button">Edit</button>
                 <button class="list-item-button">Delete</button>
