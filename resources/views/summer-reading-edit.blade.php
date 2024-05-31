@@ -153,8 +153,16 @@
             </label>
             <div id="ratingQuestion" class="">
                 <label for="rateqm" class="review-form-label">
-                    <input type="checkbox" id="rateqm" name="rateqm" onchange="toggleSlider()">
-                    <script>toggleSlider()</script>
+                    <input
+                        type="checkbox"
+                        id="rateqm"
+                        name="rateqm"
+                        onchange="toggleSlider()"
+                        @if($item['rating'] != Null)
+                            checked
+                        @endif
+                    >
+
                     Would you like to rate this book?
                 </label>
             </div>
@@ -169,7 +177,6 @@
                 <div class="tooltip" id="tooltip">Rating: {{$item['rating']/2}}/5</div>
             </div>
         </div>
-        {{($item['rating'] / 10) * 100}}
         <button type="submit">Submit</button>
     </form>
 </div>
