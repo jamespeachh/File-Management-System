@@ -104,6 +104,7 @@
             <!-- Is this book on the site yet? -->
             <label for="onSite" class="review-form-label">Is this book on the site yet?</label>
             <select id="onSite" name="onSite" onchange="toggleFields()">
+                <script>toggleFields()</script>
                 <option value="{{$item['onSiteValue']}}">{{$item['onSiteDisplay']}}</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
