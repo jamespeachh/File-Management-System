@@ -27,4 +27,12 @@ class list_items extends Model
         'active'
     ];
 
+    public function ActiveItemsByUser($userId) : array
+    {
+        return $this->query()->select()->where('active', 1)->where('user_id',$userId)->get()->toArray();
+    }
+    public function ActiveItemsByItemId($id) : array
+    {
+        return $this->query()->select()->where('active', 1)->where('id',$id)->get()->toArray();
+    }
 }

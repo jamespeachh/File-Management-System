@@ -12,14 +12,13 @@ class ReadingList extends Controller
     {
         $b = new book();
         $li = new list_items();
-        $books = $b->query()->select()
-            ->get()
-            ->toArray();
+//        $books = $b->query()->select()
+//            ->get()
+//            ->toArray();
 
-        $listItems = $li->query()->select()
-            ->get()
-            ->toArray();
-//        $books = [];
+//        $listItems = $li->ActiveItemsByUser(auth()->id());
+        $listItems = [];
+        $books = [];
         return view('reading-list', ['books'=>$books, 'listItems'=>$listItems]);
     }
 
@@ -37,9 +36,9 @@ class ReadingList extends Controller
         if($onSite == 1){
             $b = new book();
             $title = $b->query()->select()->where("id",$bookID)->get()->toArray()[0]['formatted_title'];
-            $author = "";
-            $summary="";
-            $addBook=0;
+            $author = Null;
+            $summary = Null;
+            $addBook = 0;
         } else {
             $bookID = Null;
         }
@@ -62,5 +61,33 @@ class ReadingList extends Controller
         $li->query()->insert($data);
 
         return redirect()->back()->with('success', 'Form submitted successfully!');
+    }
+
+    public function edit(Request $request)
+    {
+        $b = new book();
+        $li = new list_items();
+
+        $listItemId = $request->input('listItemId');
+        $books = $b->query()->select()
+            ->get()
+            ->toArray();
+
+        $item = $li->ActiveItemsByItemId($listItemId);
+
+        $data = [
+            'listId' => $listItemId,
+            'bookId' => $item['book_id'],
+            'bookTitle' => $item['title'],
+            'bookAuthor' => $item['author'],
+            'bookSummary' => $item['summary'],
+            'onSiteValue' => $item['onSite'],
+            'onSiteDisplay' => $item['onSite'] == '1' ? 'on' : 'off',
+            'wantBookAdded' => $item['want_book_added'],
+            'status' => $item['status'],
+            'rating' => $item['rating'],
+        ];
+
+        return view('summer-reading-edit', ['item'=>$data, 'books'=>$books]);
     }
 }

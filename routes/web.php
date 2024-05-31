@@ -153,10 +153,11 @@ Route::middleware('auth')->name('profile.')->group(function () {
 | Reading list !!!
 |--------------------------------------------------------------------------
 */
-Route::prefix('reading')->name('reading.')->middleware('auth')->group(function () {
+Route::prefix('reading')->name('reading.')->group(function () {
     Route::controller(ReadingList::class)
         ->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/edit', 'edit')->name('edit-item');
             Route::post('/submit', 'submit')->name('reading-list-submit');
         });
 });
