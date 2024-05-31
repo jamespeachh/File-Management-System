@@ -165,11 +165,11 @@
             <label for="rate" class="review-form-label">Rating:</label>
             <input type="range" id="rate" name="rate" min="1" max="10" step="1" oninput="updateStars(this.value)" value="{{$item['rating']}}">
             <div id="starRating" class="stars">
-                <span style="width: {{($item['rating']/2 / 10) * 100}} / 10 * 100%;">★★★★★</span><br>
+                <span style="width: {{($item['rating']/2 / 10) * 100}}%;">★★★★★</span><br>
                 <div class="tooltip" id="tooltip">Rating: {{$item['rating']/2}}/5</div>
             </div>
         </div>
-
+        {{($item['rating']/2 / 10) * 100}}
         <button type="submit">Submit</button>
     </form>
 </div>
