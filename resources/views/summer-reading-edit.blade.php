@@ -101,7 +101,7 @@
     <form method="POST" action="{{ route('reading.reading-list-submit') }}">
         @csrf
 
-        @if($item['onSite'] == 1)
+        @if($item['onSiteValue'] == 1)
             <div id="bookChoice" class="form-section">
                 <label for="book" class="review-form-label">Choose book:</label>
                 <select id="book" name="book">
@@ -112,7 +112,7 @@
                 </select>
             </div>
         @endif
-        @if($item['onSite'] == 0)
+        @if($item['onSiteValue'] == 0)
             <!-- If No, provide book details -->
             <div id="bookDetails" class="form-section">
                 <label for="title" class="review-form-label">Title:</label>
