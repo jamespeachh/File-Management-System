@@ -133,7 +133,14 @@
             <textarea id="summary" name="summary">{{$item['bookSummary']}}</textarea>
 
             <label for="addBook" class="review-form-label">
-                <input type="checkbox" id="addBook" name="addBook" @if($item['wantBookAdded'])checked@endif>
+                <input
+                    type="checkbox"
+                    id="addBook"
+                    name="addBook"
+                    @if($item['wantBookAdded'])
+                        checked
+                    @endif
+                >
                 Would you like this book added?
             </label>
         </div>
@@ -141,7 +148,15 @@
         <!-- Read? -->
         <div id="readSection" class="form-section hidden">
             <label for="read" class="review-form-label">
-                <input type="checkbox" id="read" name="read" onchange="toggleRating()" @if($item['status'])checked@endif>
+                <input
+                    type="checkbox"
+                    id="read"
+                    name="read"
+                    onchange="toggleRating()"
+                    @if($item['status'])
+                        checked
+                    @endif
+                >
                 Have you read this book yet?
             </label>
             <div id="ratingQuestion" class="hidden">
