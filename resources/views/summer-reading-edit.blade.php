@@ -157,11 +157,15 @@
                         checked
                     @endif
                 >
+                @if($item['status'])
+                    <script>toggleRating()</script>
+                @endif
                 Have you read this book yet?
             </label>
             <div id="ratingQuestion" class="hidden">
                 <label for="rateqm" class="review-form-label">
                     <input type="checkbox" id="rateqm" name="rateqm" onchange="toggleSlider()">
+                    <script>toggleSlider()</script>
                     Would you like to rate this book?
                 </label>
             </div>

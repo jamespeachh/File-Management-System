@@ -82,7 +82,7 @@ class ReadingList extends Controller
             'bookAuthor' => $item['author'],
             'bookSummary' => $item['summary'],
             'onSiteValue' => $item['on_site'],
-            'onSiteDisplay' => $item['on_site'] == '1' ? 'on' : 'off',
+            'onSiteDisplay' => $item['on_site'] == '1' ? 'Yes' : 'No',
             'wantBookAdded' => $item['want_book_added'],
             'status' => $item['status'],
             'rating' => $item['rating'],
