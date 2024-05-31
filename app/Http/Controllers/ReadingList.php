@@ -12,13 +12,13 @@ class ReadingList extends Controller
     {
         $b = new book();
         $li = new list_items();
-//        $books = $b->query()->select()
-//            ->get()
-//            ->toArray();
+        $books = $b->query()->select()
+            ->get()
+            ->toArray();
 
-//        $listItems = $li->ActiveItemsByUser(auth()->id());
-        $listItems = [];
-        $books = [];
+        $listItems = $li->ActiveItemsByUser(auth()->id());
+//        $listItems = [];
+//        $books = [];
         return view('reading-list', ['books'=>$books, 'listItems'=>$listItems]);
     }
 
@@ -73,7 +73,7 @@ class ReadingList extends Controller
             ->get()
             ->toArray();
 
-        $item = $li->ActiveItemsByItemId($listItemId);
+        $item = $li->ActiveItemsByItemId($listItemId)[0];
 
         $data = [
             'listId' => $listItemId,
