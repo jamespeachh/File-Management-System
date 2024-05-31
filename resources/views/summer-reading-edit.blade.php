@@ -104,15 +104,15 @@
             <!-- Is this book on the site yet? -->
             <label for="onSite" class="review-form-label">Is this book on the site yet?</label>
             <select id="onSite" name="onSite" onchange="toggleFields()">
-                <script>toggleFields()</script>
                 <option value="{{$item['onSiteValue']}}">{{$item['onSiteDisplay']}}</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
+                <script>toggleFields()</script>
             </select>
         </div>
 
         <!-- If Yes, choose book -->
-        <div id="bookChoice" class="form-section hidden">
+        <div id="bookChoice" class="form-section">
             <label for="book" class="review-form-label">Choose book:</label>
             <select id="book" name="book">
                 <option value="{{$item['bookId']}}">{{$item['bookTitle']}}</option>
@@ -123,7 +123,7 @@
         </div>
 
         <!-- If No, provide book details -->
-        <div id="bookDetails" class="form-section hidden">
+        <div id="bookDetails" class="form-section">
             <label for="title" class="review-form-label">Title:</label>
             <input type="text" id="title" name="title" value="{{$item['bookTitle']}}">
 
@@ -147,7 +147,7 @@
         </div>
 
         <!-- Read? -->
-        <div id="readSection" class="form-section hidden">
+        <div id="readSection" class="form-section">
             <label for="read" class="review-form-label">
                 <input
                     type="checkbox"
@@ -163,7 +163,7 @@
                 @endif
                 Have you read this book yet?
             </label>
-            <div id="ratingQuestion" class="hidden">
+            <div id="ratingQuestion" class="">
                 <label for="rateqm" class="review-form-label">
                     <input type="checkbox" id="rateqm" name="rateqm" onchange="toggleSlider()">
                     <script>toggleSlider()</script>
@@ -173,12 +173,12 @@
         </div>
 
         <!-- Rate this book -->
-        <div id="ratingSection" class="form-section hidden">
+        <div id="ratingSection" class="form-section">
             <label for="rate" class="review-form-label">Rating:</label>
             <input type="range" id="rate" name="rate" min="1" max="10" step="1" oninput="updateStars(this.value)" value="{{$item['rating']}}">
             <div id="starRating" class="stars">
                 <span style="width: 0%;">★★★★★</span><br>
-                <div class="tooltip" id="tooltip">Rating: 0/5</div>
+                <div class="tooltip" id="tooltip">Rating: {{$item['rating']/2}}/5</div>
             </div>
         </div>
 
