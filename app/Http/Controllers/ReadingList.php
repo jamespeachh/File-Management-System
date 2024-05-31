@@ -15,8 +15,8 @@ class ReadingList extends Controller
         $books = $b->query()->select()
             ->get()
             ->toArray();
-
-        $listItems = $li->ActiveItemsByUser(auth()->id());
+        dump(auth()->id());
+        dump($listItems = $li->ActiveItemsByUser(auth()->id()));
 //        $listItems = [];
 //        $books = [];
         return view('reading-list', ['books'=>$books, 'listItems'=>$listItems]);

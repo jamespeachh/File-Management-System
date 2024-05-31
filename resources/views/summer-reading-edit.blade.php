@@ -100,52 +100,43 @@
 <div class="form-container">
     <form method="POST" action="{{ route('reading.reading-list-submit') }}">
         @csrf
-        <div class="form-section">
-            <!-- Is this book on the site yet? -->
-            <label for="onSite" class="review-form-label">Is this book on the site yet?</label>
-            <select id="onSite" name="onSite" onchange="toggleFields()">
-                <option value="{{$item['onSiteValue']}}">{{$item['onSiteDisplay']}}</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <script>toggleFields()</script>
-            </select>
-        </div>
 
-        <!-- If Yes, choose book -->
-        <div id="bookChoice" class="form-section">
-            <label for="book" class="review-form-label">Choose book:</label>
-            <select id="book" name="book">
-                <option value="{{$item['bookId']}}">{{$item['bookTitle']}}</option>
-                @foreach($books as $book)
-                    <option value="{{$book["id"]}}">{{$book["formatted_title"]}}</option>
-                @endforeach
-            </select>
-        </div>
+        @if($item['onSite'] == 1)
+            <div id="bookChoice" class="form-section">
+                <label for="book" class="review-form-label">Choose book:</label>
+                <select id="book" name="book">
+                    <option value="{{$item['bookId']}}">{{$item['bookTitle']}}</option>
+                    @foreach($books as $book)
+                        <option value="{{$book["id"]}}">{{$book["formatted_title"]}}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
+        @if($item['onSite'] == 0)
+            <!-- If No, provide book details -->
+            <div id="bookDetails" class="form-section">
+                <label for="title" class="review-form-label">Title:</label>
+                <input type="text" id="title" name="title" value="{{$item['bookTitle']}}">
 
-        <!-- If No, provide book details -->
-        <div id="bookDetails" class="form-section">
-            <label for="title" class="review-form-label">Title:</label>
-            <input type="text" id="title" name="title" value="{{$item['bookTitle']}}">
+                <label for="author" class="review-form-label">Author:</label>
+                <input type="text" id="author" name="author" value="{{$item['bookAuthor']}}">
 
-            <label for="author" class="review-form-label">Author:</label>
-            <input type="text" id="author" name="author" value="{{$item['bookAuthor']}}">
+                <label for="summary" class="review-form-label">Summary:</label>
+                <textarea id="summary" name="summary">{{$item['bookSummary']}}</textarea>
 
-            <label for="summary" class="review-form-label">Summary:</label>
-            <textarea id="summary" name="summary">{{$item['bookSummary']}}</textarea>
-
-            <label for="addBook" class="review-form-label">
-                <input
-                    type="checkbox"
-                    id="addBook"
-                    name="addBook"
-                    @if($item['wantBookAdded'])
-                        checked
-                    @endif
-                >
-                Would you like this book added?
-            </label>
-        </div>
-
+                <label for="addBook" class="review-form-label">
+                    <input
+                        type="checkbox"
+                        id="addBook"
+                        name="addBook"
+                        @if($item['wantBookAdded'])
+                            checked
+                        @endif
+                    >
+                    Would you like this book added?
+                </label>
+            </div>
+        @endif
         <!-- Read? -->
         <div id="readSection" class="form-section">
             <label for="read" class="review-form-label">
@@ -158,9 +149,6 @@
                         checked
                     @endif
                 >
-                @if($item['status'])
-                    <script>toggleRating()</script>
-                @endif
                 Have you read this book yet?
             </label>
             <div id="ratingQuestion" class="">
@@ -177,7 +165,7 @@
             <label for="rate" class="review-form-label">Rating:</label>
             <input type="range" id="rate" name="rate" min="1" max="10" step="1" oninput="updateStars(this.value)" value="{{$item['rating']}}">
             <div id="starRating" class="stars">
-                <span style="width: 0%;">★★★★★</span><br>
+                <span style="width: {{($item['rating']/2 / 10) * 100}} / 10 * 100%;">★★★★★</span><br>
                 <div class="tooltip" id="tooltip">Rating: {{$item['rating']/2}}/5</div>
             </div>
         </div>

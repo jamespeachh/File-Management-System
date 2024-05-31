@@ -115,13 +115,13 @@
                 </div>
             </li>
         @endforeach
-        <li>
-            <span class="list-item-text">Item 1</span>
-            <div class="list-item-actions">
-                <button class="list-item-button" onclick="window.location.href='{{ url(route('reading.edit-item', ['listItemId'=>2])) }}'">Edit</button>
-                <button class="list-item-button">Delete</button>
-            </div>
-        </li>
+{{--        <li>--}}
+{{--            <span class="list-item-text">Item 1</span>--}}
+{{--            <div class="list-item-actions">--}}
+{{--                <button class="list-item-button" onclick="window.location.href='{{ url(route('reading.edit-item', ['listItemId'=>2])) }}'">Edit</button>--}}
+{{--                <button class="list-item-button">Delete</button>--}}
+{{--            </div>--}}
+{{--        </li>--}}
     </ul>
 </div>
 </body>
