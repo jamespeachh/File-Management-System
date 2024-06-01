@@ -91,6 +91,9 @@ class ReadingList extends Controller
     }
     public function submitItem(Request $request)
     {
+        //have you read this book yet
+        //Would you like to rate this book?
+        //Rating
         dd("hiee");
     }
 }
