@@ -116,7 +116,6 @@
                     <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
                     <p>
                         {{($listItem['rating'] / 10) * 100}}
-                        {{($listItem['rating']}}
                     </p>
 
                 </div>
