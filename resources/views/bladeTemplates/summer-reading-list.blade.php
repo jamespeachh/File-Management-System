@@ -110,9 +110,12 @@
             <li>
                 <span class="list-item-text">{{$listItem['title']}}</span>
                 <div class="list-item-actions">
-                    <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
                     <button class="list-item-button" onclick="window.location.href='{{ url(route('reading.edit-item', ['listItemId'=>$listItem['id']])) }}'">Edit</button>
                     <button class="list-item-button">Delete</button>
+                    <br>
+                    <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
+                    {{($listItem['rating'] / 10) * 100}}
+                    {{($listItem['rating']}}
                 </div>
             </li>
         @endforeach
