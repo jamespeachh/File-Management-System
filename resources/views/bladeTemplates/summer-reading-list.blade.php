@@ -114,8 +114,11 @@
                     <button class="list-item-button">Delete</button>
                     <br>
                     <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
-                    {{($listItem['rating'] / 10) * 100}}
-                    {{($listItem['rating']}}
+                    <p>
+                        {{($listItem['rating'] / 10) * 100}}
+                        {{($listItem['rating']}}
+                    </p>
+
                 </div>
             </li>
         @endforeach
