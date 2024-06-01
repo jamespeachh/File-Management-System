@@ -98,7 +98,7 @@
 </style>
 
 <div class="form-container">
-    <form method="POST" action="{{ route('reading.reading-list-submit') }}">
+    <form method="POST" action="{{ route('reading.submit-edit-item') }}">
         @csrf
 
         @if($item['onSiteValue'] == 1)
