@@ -102,21 +102,15 @@
         @csrf
 
         @if($item['onSiteValue'] == 1)
-            <div id="bookChoice" class="form-section">
-                <label for="book" class="review-form-label">Choose book:</label>
-                <select id="book" name="book">
-                    <option value="{{$item['bookId']}}">{{$item['bookTitle']}}</option>
-                    @foreach($books as $book)
-                        <option value="{{$book["id"]}}">{{$book["formatted_title"]}}</option>
-                    @endforeach
-                </select>
+            <div class="form-section">
+                <p style="text-align:center;font-weight:700;">{{$item['bookTitle']}}</p>
             </div>
         @endif
         @if($item['onSiteValue'] == 0)
             <!-- If No, provide book details -->
             <div id="bookDetails" class="form-section">
                 <label for="title" class="review-form-label">Title:</label>
-                <input type="text" id="title" name="title" value="{{$item['bookTitle']}}">
+                <input type="text" id="title" name="title" value="{{$item['bookTitle']}}" readonly>
 
                 <label for="author" class="review-form-label">Author:</label>
                 <input type="text" id="author" name="author" value="{{$item['bookAuthor']}}">
