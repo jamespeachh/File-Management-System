@@ -15,8 +15,7 @@ class ReadingList extends Controller
         $books = $b->query()->select()
             ->get()
             ->toArray();
-        dump(auth()->id());
-        dump($listItems = $li->ActiveItemsByUser(auth()->id()));
+        $listItems = $li->ActiveItemsByUser(auth()->id());
 //        $listItems = [];
 //        $books = [];
         return view('reading-list', ['books'=>$books, 'listItems'=>$listItems]);
@@ -89,5 +88,9 @@ class ReadingList extends Controller
         ];
 
         return view('summer-reading-edit', ['item'=>$data, 'books'=>$books]);
+    }
+    public function submitItem(Request $request)
+    {
+        dd("hiee");
     }
 }

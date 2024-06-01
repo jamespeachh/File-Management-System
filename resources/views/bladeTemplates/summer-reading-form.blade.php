@@ -101,6 +101,9 @@
     <form method="POST" action="{{ route('reading.reading-list-submit') }}">
         @csrf
         <div class="form-section">
+            <p style="text-align:center;font-weight:700;">Add a new book to your list!</p>
+        </div>
+        <div class="form-section">
             <!-- Is this book on the site yet? -->
             <label for="onSite" class="review-form-label">Is this book on the site yet?</label>
             <select id="onSite" name="onSite" onchange="toggleFields()">
