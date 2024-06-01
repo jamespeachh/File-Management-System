@@ -98,6 +98,16 @@
         .list-item-button:hover {
             background-color: #99003d;
         }
+        .stars {
+            unicode-bidi: bidi-override;
+            color: #ccc;
+            font-size: 25px;
+            height: 25px;
+            width: 125px;
+            margin: 0 auto 15px auto;
+            position: relative;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
@@ -112,12 +122,10 @@
                 <div class="list-item-actions">
                     <button class="list-item-button" onclick="window.location.href='{{ url(route('reading.edit-item', ['listItemId'=>$listItem['id']])) }}'">Edit</button>
                     <button class="list-item-button">Delete</button>
-                    <br>
+                </div>
+                <br>
+                <div class="stars">
                     <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
-                    <p>
-                        {{($listItem['rating'] / 10) * 100}}
-                    </p>
-
                 </div>
             </li>
         @endforeach
