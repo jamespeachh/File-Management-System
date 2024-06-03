@@ -121,5 +121,7 @@ class ReadingList extends Controller
         $listItemId = $request->input('listItemId');
 
         $li->updateItemById($listItemId, ['active'=>0]);
+
+        return redirect()->route('reading.index');
     }
 }
