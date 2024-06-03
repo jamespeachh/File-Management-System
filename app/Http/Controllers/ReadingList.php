@@ -80,8 +80,7 @@ class ReadingList extends Controller
             'bookTitle' => $item['title'],
             'bookAuthor' => $item['author'],
             'bookSummary' => $item['summary'],
-            'onSiteValue' => $item['on_site'],
-            'onSiteDisplay' => $item['on_site'] == '1' ? 'Yes' : 'No',
+            'onSiteValue' => $item['on_site'] == '1' ? 'Yes' : 'No',
             'wantBookAdded' => $item['want_book_added'],
             'status' => $item['status'],
             'rating' => $item['rating'],
@@ -102,7 +101,7 @@ class ReadingList extends Controller
         if($rateqm == 1){
             $rate = $request->input('rate');
         }
-        if($onSite != 1){
+        if($onSite != 'Yes'){
             $author = $request->input('author');
             $summary = $request->input('summary');
             dd($li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]));

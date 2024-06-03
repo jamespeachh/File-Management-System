@@ -101,12 +101,12 @@
     <form method="POST" action="{{ route('reading.submit-edit-item') }}">
         @csrf
 
-        @if($item['onSiteValue'] == 1)
+        @if($item['onSiteValue'] == 'Yes')
             <div class="form-section">
                 <p style="text-align:center;font-weight:700;">{{$item['bookTitle']}}</p>
             </div>
         @endif
-        @if($item['onSiteValue'] == 0)
+        @if($item['onSiteValue'] == 'No')
             <!-- If No, provide book details -->
             <div id="bookDetails" class="form-section">
                 <label for="title" class="review-form-label">Title:</label>
@@ -172,7 +172,7 @@
             </div>
         </div>
 {{--        HIDDEN FIELDS --}}
-        <div>{{$item['onSiteValue']}}br
+        <div>{{$item['onSiteValue']}} <br>
             {{$item['listId']}}</div>
         <input type="hidden" id="onSite" name="onSite" value="{{$item['onSiteValue']}}">
         <input type="hidden" id="listID" name="listID" value="{{$item['listId']}}">
