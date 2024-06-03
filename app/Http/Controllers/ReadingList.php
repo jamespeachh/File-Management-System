@@ -90,24 +90,24 @@ class ReadingList extends Controller
     }
     public function submitItem(Request $request)
     {
-        dump($li = new list_items());
+        $li = new list_items();
 
-        dump($listId = $request->input('listID'));
-        dump($onSite = $request->input('onSite'));
-        dump($rateqm = $request->input('rateqm'));
-        dump($read = $request->input('read'));
+        $listId = $request->input('listID');
+        $onSite = $request->input('onSite');
+        $rateqm = $request->input('rateqm');
+        $read = $request->input('read');
         $rate = null;
 
         if($rateqm == 'on'){
-            dump("RATING // // // // ",$rate = $request->input('rate'));
+            $rate = $request->input('rate');
         }
         if($onSite != 'Yes'){
             $addBook = $request->input('addBook');
             $author = $request->input('author');
             $summary = $request->input('summary');
-            dd($li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'want_book_added'=>$addBook]));
+            $li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'want_book_added'=>$addBook]);
         }else{
-            dd($li->UpdateItemById($listId, ['status'=>$read, 'rating'=>$rate]));
+            $li->UpdateItemById($listId, ['status'=>$read, 'rating'=>$rate]);
         }
         //have you read this book yet
         //Would you like to rate this book?
