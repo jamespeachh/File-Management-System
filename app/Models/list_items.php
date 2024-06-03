@@ -38,10 +38,6 @@ class list_items extends Model
 
     public function UpdateItemById($id,$data) : bool
     {
-        dump($this->query()->select());
-        dump($data);
-        dump($this->ActiveItemsByItemId($id));
-        dump($id);
         return $this->query()->where('id', $id)->update($data);
     }
 }
