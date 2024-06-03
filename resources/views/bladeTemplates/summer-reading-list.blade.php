@@ -258,10 +258,10 @@
         @foreach($listItems as $listItem)
             <li>
                 <div class="book-details">
-                    <span class="list-item-text {{ $listItem['status'] ? 'read' : '' }}">
+                    <span class="list-item-text {{$listItems['status']}}">
                         {{$listItem['title']}}
                     </span>
-                    @if($listItem['status'])
+                    @if($listItem['status'] == 'read')
                         <span class="checkmark">&#10003;</span>
                     @endif
                     <div class="stars">
