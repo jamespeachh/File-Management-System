@@ -6,9 +6,34 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Summer Reading</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 20px;
+        }
+        .form-container,
+        .list-container {
+            width: 48%; /* Adjust widths as necessary */
+        }
+        .form-container form {
+            width: 100%;
+        }
+        .list-container table {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-@include("bladeTemplates.summer-reading-form")
-@include("bladeTemplates.summer-reading-list")
+<div class="container">
+    <div class="form-container">
+        @include("bladeTemplates.summer-reading-form")
+    </div>
+    <div class="list-container">
+        @include("bladeTemplates.summer-reading-list")
+    </div>
+</div>
 </body>
 </html>
