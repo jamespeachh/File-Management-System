@@ -120,6 +120,125 @@
         .read {
             text-decoration: line-through;
         }
+        @media (max-width: 600px) {
+            input[type="text"],
+            textarea,
+            select {
+                width: calc(100% - 12px);
+                padding: 5px;
+                border: 1px solid #cc0052;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            textarea {
+                resize: vertical;
+            }
+            input[type="checkbox"] {
+                margin-right: 5px;
+            }
+            input[type="range"] {
+                width: 100%;
+            }
+            button {
+                background-color: #cc0052;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 15px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #99003d;
+            }
+
+            /* Stylish List */
+            .stylish-list-container {
+                background-color: #fff;
+                border: 2px solid #cc0052;
+                border-radius: 15px;
+                padding: 20px;
+                width: 90%;
+                margin: auto;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                color: #800000;
+            }
+            .stylish-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .stylish-list li {
+                background-color: #ffe6e6;
+                border: 1px solid #cc0052;
+                border-radius: 10px;
+                padding: 10px;
+                margin-bottom: 10px;
+                display: block; /* Changed to block for mobile */
+            }
+            .stylish-list li:last-child {
+                margin-bottom: 0;
+            }
+            .list-item-text {
+                flex-grow: 1;
+                display: block; /* Ensure text spans full width on mobile */
+                margin-bottom: 10px;
+            }
+            .list-item-actions {
+                display: flex;
+                justify-content: space-between; /* Spread buttons apart */
+                width: 100%;
+            }
+            .list-item-button {
+                background-color: #cc0052;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            .list-item-button:hover {
+                background-color: #99003d;
+            }
+            .stars {
+                unicode-bidi: bidi-override;
+                color: #ccc;
+                font-size: 20px; /* Adjust font size for mobile */
+                height: 20px;    /* Adjust height for mobile */
+                width: 100px;    /* Adjust width for mobile */
+                margin: 10px 0;
+                position: relative;
+                padding: 0;
+            }
+            .stars span {
+                display: block;
+                left: 0;
+                overflow: hidden;
+                position: absolute;
+                top: 0;
+            }
+            .stars span:before {
+                content: "★★★★★";
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                color: gold;
+                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Black border */
+            }
+            .book-details {
+                flex-grow: 1;
+            }
+            .checkmark {
+                color: green;
+                font-size: 20px;
+                margin-left: 10px;
+            }
+            .read {
+                text-decoration: line-through;
+            }
+        }
+
     </style>
 </head>
 <body>
