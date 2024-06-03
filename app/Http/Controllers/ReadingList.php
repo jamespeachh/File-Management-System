@@ -96,10 +96,10 @@ class ReadingList extends Controller
         dump($onSite = $request->input('onSite'));
         dump($rateqm = $request->input('rateqm'));
         dump($read = $request->input('read'));
-        dump($rate = null);
+        $rate = null;
 
         if($rateqm == 1){
-            $rate = $request->input('rate');
+            dump($rate = $request->input('rate'));
         }
         if($onSite != 'Yes'){
             $addBook = $request->input('addBook');
