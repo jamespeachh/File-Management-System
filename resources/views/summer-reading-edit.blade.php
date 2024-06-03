@@ -96,12 +96,29 @@
         display: none;
     }
     @media (max-width: 600px) {
-        .form-container {
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+        .container {
+            flex-direction: column;
+            padding: 10px;
+            gap: 10px;
+        }
+        .form-container,
+        .form-container-grid,
+        .list-container-grid {
             width: 100%;
             padding: 10px;
+            box-sizing: border-box;
             border: 1px solid #cc0052; /* Dark pink */
             border-radius: 10px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-container form,
+        .list-container table {
+            width: 100%;
         }
         .form-section {
             padding: 10px;
@@ -117,7 +134,7 @@
         input[type="text"],
         textarea,
         select {
-            width: calc(100% - 10px);
+            width: 100%;
             padding: 5px;
             margin-bottom: 8px;
             font-size: 14px;
@@ -126,7 +143,7 @@
             resize: vertical;
         }
         input[type="checkbox"] {
-            margin-right: 3px;
+            margin-right: 5px;
             transform: scale(1.2);
         }
         input[type="range"] {
