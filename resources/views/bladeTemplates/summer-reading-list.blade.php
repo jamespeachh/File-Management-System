@@ -258,7 +258,11 @@
         @foreach($listItems as $listItem)
             <li>
                 <div class="book-details">
-                    <span class="list-item-text {{$listItem['status']}}">
+                    <span class="list-item-text
+                    @if($listItem['status'] == 'read')
+                    read
+                    @endif
+                    ">
                         {{$listItem['title']}}
                     </span>
                     @if($listItem['status'] == 'read')
