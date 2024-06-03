@@ -95,6 +95,58 @@
     .hidden {
         display: none;
     }
+    @media (max-width: 600px) {
+        .form-container {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cc0052; /* Dark pink */
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-section {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .form-section p {
+            font-size: 16px;
+        }
+        .review-form-label {
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: calc(100% - 10px);
+            padding: 5px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input[type="checkbox"] {
+            margin-right: 3px;
+            transform: scale(1.2);
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .stars {
+            font-size: 20px;
+            height: 20px;
+            width: 100px;
+            margin: 5px auto;
+        }
+        button {
+            padding: 8px 10px;
+            font-size: 14px;
+        }
+        .tooltip {
+            font-size: 10px;
+            padding: 3px;
+        }
+    }
 </style>
 
 <div class="form-container">
