@@ -120,6 +120,13 @@
         <li>
             <span class="list-item-text" style="text-align:center;font-weight:700;">Summer Reading List!</span>
         </li>
+        @if($listItems == [])
+            <li>
+                <div class="book-details">
+                    <span class="list-item-text" style="text-align:center;">Add a book to see list items here</span>
+                </div>
+            </li>
+        @endif
         @foreach($listItems as $listItem)
             <li>
                 <div class="book-details">
