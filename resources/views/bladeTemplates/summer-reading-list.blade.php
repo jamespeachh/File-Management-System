@@ -112,6 +112,11 @@
         .book-details {
             flex-grow: 1;
         }
+        .checkmark {
+            color: green;
+            font-size: 20px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +135,12 @@
         @foreach($listItems as $listItem)
             <li>
                 <div class="book-details">
-                    <span class="list-item-text">{{$listItem['title']}}</span>
+                    <span class="list-item-text">
+                        {{$listItem['title']}}
+                        @if($listItem['read'])
+                            <span class="checkmark">&#10003;</span>
+                        @endif
+                    </span>
                     <div class="stars">
                         <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
                     </div>
