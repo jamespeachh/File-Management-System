@@ -125,7 +125,7 @@
                 <div class="book-details">
                     <span class="list-item-text">{{$listItem['title']}}</span>
                     <div class="stars">
-                        <span style="width: {{($listItem['rating'] / 5) * 100}}%;">★★★★★</span>
+                        <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
                     </div>
                 </div>
                 <div class="list-item-actions">

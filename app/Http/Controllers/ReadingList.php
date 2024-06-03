@@ -94,6 +94,6 @@ class ReadingList extends Controller
         //have you read this book yet
         //Would you like to rate this book?
         //Rating
-        dd("hiee");
+        dd($request);
     }
 }
