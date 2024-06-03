@@ -99,7 +99,7 @@ class ReadingList extends Controller
         $rate = null;
 
         if($rateqm == 1){
-            dump($rate = $request->input('rate'));
+            dump("RATING // // // // ",$rate = $request->input('rate'));
         }
         if($onSite != 'Yes'){
             $addBook = $request->input('addBook');
