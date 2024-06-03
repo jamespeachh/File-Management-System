@@ -140,10 +140,10 @@
                 <div class="book-details">
                     <span class="list-item-text {{ $listItem['status'] ? 'read' : '' }}">
                         {{$listItem['title']}}
-                        @if($listItem['status'])
-                            <span class="checkmark">&#10003;</span>
-                        @endif
                     </span>
+                    @if($listItem['status'])
+                        <span class="checkmark">&#10003;</span>
+                    @endif
                     <div class="stars">
                         <span style="width: {{($listItem['rating'] / 10) * 100}}%;">★★★★★</span>
                     </div>
