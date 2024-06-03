@@ -91,9 +91,27 @@ class ReadingList extends Controller
     }
     public function submitItem(Request $request)
     {
+        $li = new list_items();
+
+        $listId = $request->input('listId');
+        $onSite = $request->input('onSite');
+        $rateqm = $request->input('rateqm');
+        $read = $request->input('read');
+        $rate = null;
+
+        if($rateqm == 1){
+            $rate = $request->input('rate');
+        }
+        if($onSite != 1){
+            $author = $request->input('author');
+            $summary = $request->input('summary');
+            $li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]);
+        }else{
+            $li->UpdateItemById($listId, ['status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]);
+        }
         //have you read this book yet
         //Would you like to rate this book?
         //Rating
-        dd($request);
+        $this->index();
     }
 }

@@ -35,4 +35,9 @@ class list_items extends Model
     {
         return $this->query()->select()->where('active', 1)->where('id',$id)->get()->toArray();
     }
+
+    public function UpdateItemById($id,$data) : bool
+    {
+        return $this->query()->where('id', $id)->update($data);
+    }
 }

@@ -171,6 +171,9 @@
                 <div class="tooltip" id="tooltip">Rating: {{$item['rating']/2}}/5</div>
             </div>
         </div>
+{{--        HIDDEN FIELDS --}}
+        <input type="hidden" id="onSite" name="onSite" value="{{$item['onSiteValue']}}">
+        <input type="hidden" id="listID" name="listID" value="{{$item['listId']}}">
         <button type="submit">Submit</button>
     </form>
 </div>
