@@ -92,7 +92,7 @@ class ReadingList extends Controller
     {
         dump($li = new list_items());
 
-        dump($listId = $request->input('listId'));
+        dump($listId = $request->input('listID'));
         dump($onSite = $request->input('onSite'));
         dump($rateqm = $request->input('rateqm'));
         dump($read = $request->input('read'));
