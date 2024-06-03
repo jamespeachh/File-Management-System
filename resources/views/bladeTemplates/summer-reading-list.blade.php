@@ -270,7 +270,7 @@
                 </div>
                 <div class="list-item-actions">
                     <button class="list-item-button" onclick="window.location.href='{{ url(route('reading.edit-item', ['listItemId'=>$listItem['id']])) }}'">Edit</button>
-                    <button class="list-item-button">Delete</button>
+                    <button class="list-item-button" onclick="window.location.href='{{ url(route('reading.delete-item', ['listItemId'=>$listItem['id']])) }}'">Delete</button>
                 </div>
             </li>
         @endforeach

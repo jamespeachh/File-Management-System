@@ -158,6 +158,7 @@ Route::prefix('reading')->name('reading.')->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/edit', 'edit')->name('edit-item');
+            Route::get('/delete', 'delete')->name('delete-item');
             Route::post('/submit-item', 'submitItem')->name('submit-edit-item');
             Route::post('/submit', 'submit')->name('reading-list-submit');
         });

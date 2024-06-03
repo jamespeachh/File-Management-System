@@ -88,7 +88,7 @@ class ReadingList extends Controller
 
         return view('summer-reading-edit', ['item'=>$data, 'books'=>$books]);
     }
-    public function submitItem(Request $request)
+    public function submitItem(Request $request): \Illuminate\Http\RedirectResponse
     {
         $li = new list_items();
 
@@ -113,5 +113,13 @@ class ReadingList extends Controller
         //Would you like to rate this book?
         //Rating
         return redirect()->route('reading.index');
+    }
+
+    public function delete(Request $request)
+    {
+        $li = new list_items();
+        $listItemId = $request->input('listItemId');
+
+        $li->updateItemById($listItemId, ['active'=>0]);
     }
 }
