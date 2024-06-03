@@ -26,6 +26,21 @@
         .list-container table {
             width: 100%;
         }
+        @media (max-width: 600px) {
+            .container {
+                display: block;
+                padding: 10px;
+            }
+            .form-container-grid,
+            .list-container-grid {
+                width: 100%;
+                margin-bottom: 20px; /* Add some space between the form and list */
+            }
+            .form-container form,
+            .list-container table {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
