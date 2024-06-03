@@ -91,13 +91,13 @@ class ReadingList extends Controller
     }
     public function submitItem(Request $request)
     {
-        $li = new list_items();
+        dump($li = new list_items());
 
-        $listId = $request->input('listId');
-        $onSite = $request->input('onSite');
-        $rateqm = $request->input('rateqm');
-        $read = $request->input('read');
-        $rate = null;
+        dump($listId = $request->input('listId'));
+        dump($onSite = $request->input('onSite'));
+        dump($rateqm = $request->input('rateqm'));
+        dump($read = $request->input('read'));
+        dump($rate = null);
 
         if($rateqm == 1){
             $rate = $request->input('rate');
