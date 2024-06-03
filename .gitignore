@@ -24,3 +24,5 @@ Homestead.json
 
 # Binary
 .DS_Store
+
+pushChanges.sh

@@ -14,10 +14,10 @@
             padding: 20px;
             gap: 20px;
         }
-        .form-container {
+        .form-container-grid {
             width: 25%;
         }
-        .list-container {
+        .list-container-grid {
             width: 72%;
         }
         .form-container form {
@@ -30,10 +30,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="form-container">
+    <div class="form-container-grid">
         @include("bladeTemplates.summer-reading-form")
     </div>
-    <div class="list-container">
+    <div class="list-container-grid">
         @include("bladeTemplates.summer-reading-list")
     </div>
 </div>
