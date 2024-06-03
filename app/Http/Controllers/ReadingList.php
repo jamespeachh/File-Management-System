@@ -105,9 +105,9 @@ class ReadingList extends Controller
         if($onSite != 1){
             $author = $request->input('author');
             $summary = $request->input('summary');
-            $li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]);
+            dd($li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]));
         }else{
-            $li->UpdateItemById($listId, ['status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]);
+            dd($li->UpdateItemById($listId, ['status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]));
         }
         //have you read this book yet
         //Would you like to rate this book?
