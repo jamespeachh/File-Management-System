@@ -140,7 +140,7 @@
                 <div class="book-details">
                     <span class="list-item-text {{ $listItem['read'] ? 'read' : '' }}">
                         {{$listItem['title']}}
-                        @if($listItem['read'])
+                        @if($listItem['status'])
                             <span class="checkmark">&#10003;</span>
                         @endif
                     </span>
