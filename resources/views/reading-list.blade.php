@@ -14,9 +14,11 @@
             padding: 20px;
             gap: 20px;
         }
-        .form-container,
+        .form-container {
+            width: 25%;
+        }
         .list-container {
-            width: 48%; /* Adjust widths as necessary */
+            width: 72%;
         }
         .form-container form {
             width: 100%;
