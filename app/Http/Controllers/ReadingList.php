@@ -98,7 +98,7 @@ class ReadingList extends Controller
         dump($read = $request->input('read'));
         $rate = null;
 
-        if($rateqm == 1){
+        if($rateqm == 'on'){
             dump("RATING // // // // ",$rate = $request->input('rate'));
         }
         if($onSite != 'Yes'){
