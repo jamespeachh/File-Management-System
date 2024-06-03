@@ -196,6 +196,7 @@
                 padding: 5px 10px;
                 cursor: pointer;
                 font-size: 12px;
+                height: 20px;
             }
             .list-item-button:hover {
                 background-color: #99003d;
