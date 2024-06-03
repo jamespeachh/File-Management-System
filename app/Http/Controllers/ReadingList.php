@@ -112,6 +112,6 @@ class ReadingList extends Controller
         //have you read this book yet
         //Would you like to rate this book?
         //Rating
-        $this->index();
+        return redirect()->back()->with('success', 'Form submitted successfully!');
     }
 }

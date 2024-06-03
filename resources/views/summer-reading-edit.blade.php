@@ -172,8 +172,6 @@
             </div>
         </div>
 {{--        HIDDEN FIELDS --}}
-        <div>{{$item['onSiteValue']}} <br>
-            {{$item['listId']}}</div>
         <input type="hidden" id="onSite" name="onSite" value="{{$item['onSiteValue']}}">
         <input type="hidden" id="listID" name="listID" value="{{$item['listId']}}">
         <button type="submit">Submit</button>
