@@ -117,6 +117,9 @@
             font-size: 20px;
             margin-left: 10px;
         }
+        .read {
+            text-decoration: line-through;
+        }
     </style>
 </head>
 <body>
@@ -125,7 +128,7 @@
         <li>
             <span class="list-item-text" style="text-align:center;font-weight:700;">Summer Reading List!</span>
         </li>
-        @if($listItems == [])
+        @if(empty($listItems))
             <li>
                 <div class="book-details">
                     <span class="list-item-text" style="text-align:center;">Add a book to see list items here</span>
@@ -135,9 +138,9 @@
         @foreach($listItems as $listItem)
             <li>
                 <div class="book-details">
-                    <span class="list-item-text">
+                    <span class="list-item-text {{ $listItem['read'] ? 'read' : '' }}">
                         {{$listItem['title']}}
-                        @if($listItem['status'])
+                        @if($listItem['read'])
                             <span class="checkmark">&#10003;</span>
                         @endif
                     </span>
