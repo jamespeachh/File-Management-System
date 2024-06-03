@@ -131,10 +131,10 @@
             <label for="title" class="review-form-label">Title:</label>
             <input type="text" id="title" name="title">
 
-            <label for="author" class="review-form-label">Author:</label>
+            <label for="author" class="review-form-label">Author: (optional)</label>
             <input type="text" id="author" name="author">
 
-            <label for="summary" class="review-form-label">Summary:</label>
+            <label for="summary" class="review-form-label">Summary: (optional)</label>
             <textarea id="summary" name="summary"></textarea>
 
             <label for="addBook" class="review-form-label">
