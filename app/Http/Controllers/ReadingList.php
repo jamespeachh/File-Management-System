@@ -102,9 +102,10 @@ class ReadingList extends Controller
             $rate = $request->input('rate');
         }
         if($onSite != 'Yes'){
+            $addBook = $request->input('addBook');
             $author = $request->input('author');
             $summary = $request->input('summary');
-            dd($li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]));
+            dd($li->UpdateItemById($listId, ['author'=>$author, 'summary'=>$summary, 'status'=>$read, 'rating'=>$rate, 'want_book_added'=>$addBook]));
         }else{
             dd($li->UpdateItemById($listId, ['status'=>$read, 'rating'=>$rate, 'on_site'=>$onSite]));
         }
