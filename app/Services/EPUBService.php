@@ -49,8 +49,19 @@ class EPUBService
 
         $epub->close();
 
+        // Create database entry
+        $book = new \App\Models\book();
+        $book->title = $title;
+        $book->formatted_title = $title; // You might want to format this differently
+        $book->pages = count($chapters);
+        $book->cover_pic = 'default.jpg'; // You might want to handle cover images differently
+        $book->save();
+
+        // Clear the book list cache to ensure the new book appears in the directory
+        \Illuminate\Support\Facades\Cache::forget('bookList');
+
         return [
-            'id' => $bookId,
+            'id' => $book->id, // Use the database ID instead of UUID
             'filename' => $epubFilename,
             'title' => $title,
             'author' => $author,
