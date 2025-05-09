@@ -18,14 +18,14 @@ class EPUBService
         $this->epubPath = storage_path('app/epub_books');
     }
 
-    public function addNewBook($title, $author, $chapters)
+    public function addNewBook($title, $author, $chapters, $coverImage = 'default.jpg')
     {
         // Create database entry for the book
         $book = new \App\Models\book();
         $book->title = $title;
         $book->formatted_title = $title;
         $book->pages = count($chapters);
-        $book->cover_pic = 'default.jpg';
+        $book->cover_pic = $coverImage;
         $book->save();
 
         // Insert each chapter into book_body table
@@ -44,7 +44,8 @@ class EPUBService
             'id' => $book->id,
             'title' => $title,
             'author' => $author,
-            'chapters' => count($chapters)
+            'chapters' => count($chapters),
+            'cover_image' => $coverImage
         ];
     }
 

@@ -235,11 +235,13 @@ class adminController extends Controller
         $validator = $request->validate([
             'epub_file' => 'required|file|mimes:epub',
             'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255'
+            'author' => 'required|string|max:255',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         try {
             $epubFile = $request->file('epub_file');
+            $coverImage = $request->file('cover_image');
             
             // Create temp directory if it doesn't exist
             $tempDir = storage_path('app/temp');
@@ -273,12 +275,17 @@ class adminController extends Controller
             if (empty($chapters)) {
                 throw new \Exception("No chapters found in the EPUB file");
             }
+
+            // Handle cover image
+            $coverName = time() . '_' . $coverImage->getClientOriginalName();
+            $coverImage->move(public_path('BookCover'), $coverName);
             
-            // Add the book to the library
+            // Add the book to the library with cover image
             $book = $this->epubService->addNewBook(
                 $request->title,
                 $request->author,
-                $chapters
+                $chapters,
+                $coverName
             );
             
             // Clean up temporary file

@@ -76,24 +76,27 @@
     @endif
 
     <div class="form-section">
-        <h2>Add EPUB Book</h2>
-        <form method="POST" action="{{ route('admin.add-epub') }}" enctype="multipart/form-data">
+        <h3>Add EPUB Book</h3>
+        <form action="{{ route('admin.add-epub') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div>
-                <label for="title">Book Title:</label><br>
-                <input type="text" id="title" name="title" required><br>
+            <div class="form-group">
+                <label for="title">Book Title:</label>
+                <input type="text" name="title" id="title" required>
             </div>
-            <div>
-                <label for="author">Author:</label><br>
-                <input type="text" id="author" name="author" required><br>
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" name="author" id="author" required>
             </div>
-            <div>
-                <label for="epub_file">EPUB File:</label><br>
-                <input type="file" id="epub_file" name="epub_file" accept=".epub" required><br>
+            <div class="form-group">
+                <label for="epub_file">EPUB File:</label>
+                <input type="file" name="epub_file" id="epub_file" accept=".epub" required>
             </div>
-            <div style="margin-top: 10px;">
-                <input type="submit" value="Add Book">
+            <div class="form-group">
+                <label for="cover_image">Cover Image:</label>
+                <input type="file" name="cover_image" id="cover_image" accept="image/*" required>
+                <small>Recommended size: 400x600 pixels. Supported formats: JPG, PNG, GIF</small>
             </div>
+            <button type="submit">Add Book</button>
         </form>
     </div>
 
