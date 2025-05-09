@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookBody;
 use App\Models\passwords;
+use App\Services\EPUBService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -11,6 +12,13 @@ use Illuminate\Support\Facades\URL;
 
 class adminController extends Controller
 {
+    private $epubService;
+
+    public function __construct(EPUBService $epubService)
+    {
+        $this->epubService = $epubService;
+    }
+
     public function index()
     {
         $id = Auth::id();
@@ -220,5 +228,40 @@ class adminController extends Controller
             echo "password";
             dump($results['password']);
         }else abort(401);
+    }
+
+    public function addEpubBook(Request $request)
+    {
+        $validator = $request->validate([
+            'epub_file' => 'required|file|mimes:epub',
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255'
+        ]);
+
+        try {
+            $epubFile = $request->file('epub_file');
+            $epubContent = file_get_contents($epubFile->path());
+            
+            // Save the EPUB file temporarily
+            $tempPath = storage_path('app/temp/' . $epubFile->getClientOriginalName());
+            file_put_contents($tempPath, $epubContent);
+            
+            // Extract chapters from EPUB
+            $chapters = $this->epubService->extractChaptersFromEpub($tempPath);
+            
+            // Add the book to the library
+            $book = $this->epubService->addNewBook(
+                $request->title,
+                $request->author,
+                $chapters
+            );
+            
+            // Clean up temporary file
+            unlink($tempPath);
+            
+            return redirect()->back()->with('success', 'Book added successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to add book: ' . $e->getMessage());
+        }
     }
 }

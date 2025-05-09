@@ -246,4 +246,61 @@ class EPUBService
 </body>
 </html>';
     }
+
+    public function extractChaptersFromEpub($epubPath)
+    {
+        $zip = new ZipArchive();
+        if ($zip->open($epubPath) !== true) {
+            throw new \Exception("Failed to open EPUB file");
+        }
+
+        // Read the OPF file to get the reading order
+        $container = $zip->getFromName('META-INF/container.xml');
+        $containerXml = new DOMDocument();
+        $containerXml->loadXML($container);
+        
+        // Get the content file path
+        $opfPath = $containerXml->getElementsByTagName('rootfile')->item(0)->getAttribute('full-path');
+        $opfContent = $zip->getFromName($opfPath);
+        
+        $opfXml = new DOMDocument();
+        $opfXml->loadXML($opfContent);
+        
+        // Get the spine items (reading order)
+        $spine = $opfXml->getElementsByTagName('spine')->item(0);
+        $items = $spine->getElementsByTagName('itemref');
+        
+        $chapters = [];
+        $manifest = $opfXml->getElementsByTagName('manifest')->item(0);
+        
+        foreach ($items as $item) {
+            $itemId = $item->getAttribute('idref');
+            $contentPath = null;
+            
+            foreach ($manifest->getElementsByTagName('item') as $manifestItem) {
+                if ($manifestItem->getAttribute('id') === $itemId) {
+                    $contentPath = $manifestItem->getAttribute('href');
+                    break;
+                }
+            }
+            
+            if ($contentPath) {
+                // Get the content
+                $content = $zip->getFromName($contentPath);
+                
+                // Convert to plain text
+                $contentDoc = new DOMDocument();
+                $contentDoc->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                
+                // Extract just the body content
+                $body = $contentDoc->getElementsByTagName('body')->item(0);
+                if ($body) {
+                    $chapters[] = $body->nodeValue;
+                }
+            }
+        }
+        
+        $zip->close();
+        return $chapters;
+    }
 } 

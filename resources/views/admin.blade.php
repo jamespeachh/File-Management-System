@@ -25,6 +25,31 @@
             color: #666;
             font-size: 0.9em;
         }
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .form-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +62,40 @@
         <p class="commit-hash"><strong>Hash:</strong> {{ $latestCommit['hash'] }}</p>
     </div>
     @endif
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-error">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <div class="form-section">
+        <h2>Add EPUB Book</h2>
+        <form method="POST" action="{{ route('admin.add-epub') }}" enctype="multipart/form-data">
+            @csrf
+            <div>
+                <label for="title">Book Title:</label><br>
+                <input type="text" id="title" name="title" required><br>
+            </div>
+            <div>
+                <label for="author">Author:</label><br>
+                <input type="text" id="author" name="author" required><br>
+            </div>
+            <div>
+                <label for="epub_file">EPUB File:</label><br>
+                <input type="file" id="epub_file" name="epub_file" accept=".epub" required><br>
+            </div>
+            <div style="margin-top: 10px;">
+                <input type="submit" value="Add Book">
+            </div>
+        </form>
+    </div>
 
     <form method="POST" action="{{ route('admin.submit') }}">
         @csrf

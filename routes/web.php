@@ -163,3 +163,5 @@ Route::prefix('reading')->name('reading.')->middleware('auth')->group(function (
             Route::post('/submit', 'submit')->name('reading-list-submit');
         });
 });
+
+Route::post('/admin/add-epub', [App\Http\Controllers\adminController::class, 'addEpubBook'])->name('admin.add-epub');
