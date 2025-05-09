@@ -100,7 +100,7 @@
         </form>
     </div>
 
-    <form method="POST" action="{{ route('admin.submit') }}">
+    <!-- <form method="POST" action="{{ route('admin.submit') }}">
         @csrf
         <label for="book_bodies">Wipe and replace all the book bodies from files to sql</label>
         <input type="checkbox" id="book_bodies" name="book_bodies"><br>
@@ -159,7 +159,7 @@
         <label for="website">website</label>
         <input type="text" id="website" name="website"><br>
         <input type="submit">
-    </form>
+    </form> -->
 
     {{--possibly one day make a loop with check boxes that add or take away different books--}}
 </body>
