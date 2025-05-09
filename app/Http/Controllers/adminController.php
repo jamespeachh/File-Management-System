@@ -240,14 +240,39 @@ class adminController extends Controller
 
         try {
             $epubFile = $request->file('epub_file');
-            $epubContent = file_get_contents($epubFile->path());
             
-            // Save the EPUB file temporarily
-            $tempPath = storage_path('app/temp/' . $epubFile->getClientOriginalName());
-            file_put_contents($tempPath, $epubContent);
+            // Create temp directory if it doesn't exist
+            $tempDir = storage_path('app/temp');
+            if (!file_exists($tempDir)) {
+                mkdir($tempDir, 0755, true);
+            }
+            
+            // Get the original file name and create a safe version
+            $originalName = $epubFile->getClientOriginalName();
+            $safeName = preg_replace('/[^a-zA-Z0-9._-]/', '', $originalName);
+            $tempPath = $tempDir . '/' . $safeName;
+            
+            // Move the uploaded file to temp directory
+            $epubFile->move($tempDir, $safeName);
+            
+            if (!file_exists($tempPath)) {
+                throw new \Exception("Failed to save temporary file at: " . $tempPath);
+            }
+            
+            // Log the file details for debugging
+            \Log::info('Processing EPUB file:', [
+                'original_name' => $originalName,
+                'temp_path' => $tempPath,
+                'file_size' => filesize($tempPath),
+                'mime_type' => mime_content_type($tempPath)
+            ]);
             
             // Extract chapters from EPUB
             $chapters = $this->epubService->extractChaptersFromEpub($tempPath);
+            
+            if (empty($chapters)) {
+                throw new \Exception("No chapters found in the EPUB file");
+            }
             
             // Add the book to the library
             $book = $this->epubService->addNewBook(
@@ -257,10 +282,23 @@ class adminController extends Controller
             );
             
             // Clean up temporary file
-            unlink($tempPath);
+            if (file_exists($tempPath)) {
+                unlink($tempPath);
+            }
             
             return redirect()->back()->with('success', 'Book added successfully!');
         } catch (\Exception $e) {
+            \Log::error('Failed to add EPUB book: ' . $e->getMessage(), [
+                'exception' => $e,
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+            
+            // Clean up temp file if it exists
+            if (isset($tempPath) && file_exists($tempPath)) {
+                unlink($tempPath);
+            }
+            
             return redirect()->back()->with('error', 'Failed to add book: ' . $e->getMessage());
         }
     }

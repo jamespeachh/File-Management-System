@@ -249,58 +249,129 @@ class EPUBService
 
     public function extractChaptersFromEpub($epubPath)
     {
-        $zip = new ZipArchive();
-        if ($zip->open($epubPath) !== true) {
-            throw new \Exception("Failed to open EPUB file");
+        if (!file_exists($epubPath)) {
+            throw new \Exception("EPUB file not found at: " . $epubPath);
         }
 
-        // Read the OPF file to get the reading order
-        $container = $zip->getFromName('META-INF/container.xml');
-        $containerXml = new DOMDocument();
-        $containerXml->loadXML($container);
+        $zip = new ZipArchive();
+        $result = $zip->open($epubPath);
         
-        // Get the content file path
-        $opfPath = $containerXml->getElementsByTagName('rootfile')->item(0)->getAttribute('full-path');
-        $opfContent = $zip->getFromName($opfPath);
-        
-        $opfXml = new DOMDocument();
-        $opfXml->loadXML($opfContent);
-        
-        // Get the spine items (reading order)
-        $spine = $opfXml->getElementsByTagName('spine')->item(0);
-        $items = $spine->getElementsByTagName('itemref');
-        
-        $chapters = [];
-        $manifest = $opfXml->getElementsByTagName('manifest')->item(0);
-        
-        foreach ($items as $item) {
-            $itemId = $item->getAttribute('idref');
-            $contentPath = null;
-            
-            foreach ($manifest->getElementsByTagName('item') as $manifestItem) {
-                if ($manifestItem->getAttribute('id') === $itemId) {
-                    $contentPath = $manifestItem->getAttribute('href');
-                    break;
-                }
-            }
-            
-            if ($contentPath) {
-                // Get the content
-                $content = $zip->getFromName($contentPath);
-                
-                // Convert to plain text
-                $contentDoc = new DOMDocument();
-                $contentDoc->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                
-                // Extract just the body content
-                $body = $contentDoc->getElementsByTagName('body')->item(0);
-                if ($body) {
-                    $chapters[] = $body->nodeValue;
-                }
-            }
+        if ($result !== true) {
+            $errorMessage = match($result) {
+                ZipArchive::ER_NOZIP => "File is not a zip archive",
+                ZipArchive::ER_INCONS => "Zip archive is inconsistent",
+                ZipArchive::ER_CRC => "CRC error",
+                ZipArchive::ER_OPEN => "Cannot open file",
+                ZipArchive::ER_READ => "Read error",
+                ZipArchive::ER_WRITE => "Write error",
+                ZipArchive::ER_ZIPCLOSED => "Containing zip archive was closed",
+                ZipArchive::ER_NOENT => "No such file",
+                ZipArchive::ER_EXISTS => "File already exists",
+                ZipArchive::ER_INVAL => "Invalid argument",
+                ZipArchive::ER_MEMORY => "Malloc failure",
+                ZipArchive::ER_CHANGED => "Entry has been changed",
+                ZipArchive::ER_COMPNOTSUPP => "Compression method not supported",
+                ZipArchive::ER_EOF => "Premature EOF",
+                ZipArchive::ER_INTERNAL => "Internal error",
+                ZipArchive::ER_INCONS => "Zip archive is inconsistent",
+                ZipArchive::ER_REMOVE => "Cannot remove file",
+                ZipArchive::ER_DELETED => "Entry has been deleted",
+                default => "Unknown error (code: $result)"
+            };
+            throw new \Exception("Failed to open EPUB file: " . $errorMessage);
         }
-        
-        $zip->close();
-        return $chapters;
+
+        try {
+            // Read the OPF file to get the reading order
+            $container = $zip->getFromName('META-INF/container.xml');
+            if (!$container) {
+                throw new \Exception("container.xml not found in EPUB file");
+            }
+
+            $containerXml = new DOMDocument();
+            if (!$containerXml->loadXML($container)) {
+                throw new \Exception("Failed to parse container.xml");
+            }
+            
+            // Get the content file path
+            $rootfile = $containerXml->getElementsByTagName('rootfile')->item(0);
+            if (!$rootfile) {
+                throw new \Exception("No rootfile found in container.xml");
+            }
+
+            $opfPath = $rootfile->getAttribute('full-path');
+            if (!$opfPath) {
+                throw new \Exception("No full-path attribute found in rootfile");
+            }
+
+            $opfContent = $zip->getFromName($opfPath);
+            if (!$opfContent) {
+                throw new \Exception("OPF file not found at: " . $opfPath);
+            }
+            
+            $opfXml = new DOMDocument();
+            if (!$opfXml->loadXML($opfContent)) {
+                throw new \Exception("Failed to parse OPF file");
+            }
+            
+            // Get the spine items (reading order)
+            $spine = $opfXml->getElementsByTagName('spine')->item(0);
+            if (!$spine) {
+                throw new \Exception("No spine found in OPF file");
+            }
+
+            $items = $spine->getElementsByTagName('itemref');
+            if ($items->length === 0) {
+                throw new \Exception("No items found in spine");
+            }
+            
+            $chapters = [];
+            $manifest = $opfXml->getElementsByTagName('manifest')->item(0);
+            if (!$manifest) {
+                throw new \Exception("No manifest found in OPF file");
+            }
+            
+            foreach ($items as $item) {
+                $itemId = $item->getAttribute('idref');
+                if (!$itemId) {
+                    continue;
+                }
+
+                $contentPath = null;
+                foreach ($manifest->getElementsByTagName('item') as $manifestItem) {
+                    if ($manifestItem->getAttribute('id') === $itemId) {
+                        $contentPath = $manifestItem->getAttribute('href');
+                        break;
+                    }
+                }
+                
+                if ($contentPath) {
+                    // Get the content
+                    $content = $zip->getFromName($contentPath);
+                    if (!$content) {
+                        \Log::warning("Content not found for path: " . $contentPath);
+                        continue;
+                    }
+                    
+                    // Convert to plain text
+                    $contentDoc = new DOMDocument();
+                    $contentDoc->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                    
+                    // Extract just the body content
+                    $body = $contentDoc->getElementsByTagName('body')->item(0);
+                    if ($body) {
+                        $chapters[] = $body->nodeValue;
+                    }
+                }
+            }
+            
+            if (empty($chapters)) {
+                throw new \Exception("No readable content found in EPUB file");
+            }
+            
+            return $chapters;
+        } finally {
+            $zip->close();
+        }
     }
 } 
