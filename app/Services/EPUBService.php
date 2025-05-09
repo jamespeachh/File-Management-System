@@ -7,6 +7,7 @@ use ZipArchive;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class EPUBService
 {
@@ -19,50 +20,28 @@ class EPUBService
 
     public function addNewBook($title, $author, $chapters)
     {
-        $bookId = Str::uuid();
-        $epubFilename = $bookId . '.epub';
-        $epubPath = "{$this->epubPath}/{$epubFilename}";
-
-        // Create EPUB file
-        $epub = new ZipArchive();
-        if ($epub->open($epubPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
-            throw new \Exception("Cannot create EPUB file");
-        }
-
-        // Add mimetype file
-        $epub->addFromString('mimetype', 'application/epub+zip');
-
-        // Add container.xml
-        $epub->addFromString('META-INF/container.xml', $this->getContainerXml());
-
-        // Add content.opf with chapters
-        $epub->addFromString('OEBPS/content.opf', $this->getContentOpf($title, $author, $chapters));
-
-        // Add chapters
-        foreach ($chapters as $index => $chapter) {
-            $chapterFilename = sprintf('chapter_%03d.xhtml', $index + 1);
-            $epub->addFromString(
-                'OEBPS/' . $chapterFilename,
-                $this->getChapterXhtml($chapter, $index + 1)
-            );
-        }
-
-        $epub->close();
-
-        // Create database entry
+        // Create database entry for the book
         $book = new \App\Models\book();
         $book->title = $title;
-        $book->formatted_title = $title; // You might want to format this differently
+        $book->formatted_title = $title;
         $book->pages = count($chapters);
-        $book->cover_pic = 'default.jpg'; // You might want to handle cover images differently
+        $book->cover_pic = 'default.jpg';
         $book->save();
+
+        // Insert each chapter into book_body table
+        foreach ($chapters as $index => $chapter) {
+            DB::table('book_body')->insert([
+                'book_id' => $book->id,
+                'page_number' => $index + 1,
+                'body_text' => $chapter
+            ]);
+        }
 
         // Clear the book list cache to ensure the new book appears in the directory
         \Illuminate\Support\Facades\Cache::forget('bookList');
 
         return [
-            'id' => $book->id, // Use the database ID instead of UUID
-            'filename' => $epubFilename,
+            'id' => $book->id,
             'title' => $title,
             'author' => $author,
             'chapters' => count($chapters)
@@ -71,18 +50,56 @@ class EPUBService
 
     public function getBookContent($bookID, $pageNumber)
     {
-        $cacheKey = "epub_book_{$bookID}_page_{$pageNumber}";
+        $cacheKey = "book_content_{$bookID}_page_{$pageNumber}";
         
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
-        $epubFile = $this->getEpubPath($bookID);
-        $content = $this->extractPageContent($epubFile, $pageNumber);
-        
+        // Get the content directly from book_body table
+        $content = DB::table('book_body')
+            ->where('book_id', $bookID)
+            ->where('page_number', $pageNumber)
+            ->value('body_text');
+
+        if (!$content) {
+            throw new \Exception("Content not found for book ID {$bookID}, page {$pageNumber}");
+        }
+
+        // Cache the content
         Cache::put($cacheKey, $content, now()->addHours(24));
         
         return $content;
+    }
+
+    public function getBookMetadata($bookID)
+    {
+        $cacheKey = "book_metadata_{$bookID}";
+        
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        // Get the book metadata from the book table
+        $book = \App\Models\book::find($bookID);
+        if (!$book) {
+            throw new \Exception("Book not found with ID: {$bookID}");
+        }
+
+        // Get the total number of pages from book_body
+        $totalPages = DB::table('book_body')
+            ->where('book_id', $bookID)
+            ->count();
+
+        $metadata = [
+            'id' => $book->id,
+            'title' => $book->formatted_title,
+            'pages' => $totalPages
+        ];
+
+        Cache::put($cacheKey, $metadata, now()->addDays(7));
+        
+        return $metadata;
     }
 
     public function getBookMetadata($bookID)
@@ -103,7 +120,24 @@ class EPUBService
 
     private function getEpubPath($bookID)
     {
-        return "{$this->epubPath}/{$bookID}.epub";
+        // Get the book from the database to verify it exists
+        $book = \App\Models\book::find($bookID);
+        if (!$book) {
+            throw new \Exception("Book not found in database with ID: " . $bookID);
+        }
+
+        $path = "{$this->epubPath}/{$bookID}.epub";
+        
+        // Log the path construction
+        \Log::info('Constructed EPUB path:', [
+            'bookID' => $bookID,
+            'basePath' => $this->epubPath,
+            'fullPath' => $path,
+            'exists' => file_exists($path),
+            'isReadable' => is_readable($path)
+        ]);
+
+        return $path;
     }
 
     private function extractPageContent($epubFile, $pageNumber)
