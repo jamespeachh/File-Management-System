@@ -15,10 +15,37 @@ class adminController extends Controller
     {
         $id = Auth::id();
         if($id == 1){
-            return view('admin');
+            $latestCommit = $this->getLatestCommit();
+            return view('admin', ['latestCommit' => $latestCommit]);
         }
         return view('home');
     }
+
+    private function getLatestCommit()
+    {
+        $commitInfo = [];
+        
+        // Get the latest commit hash
+        $commitHash = trim(shell_exec('git rev-parse HEAD'));
+        if ($commitHash) {
+            $commitInfo['hash'] = $commitHash;
+            
+            // Get the commit message
+            $commitMessage = trim(shell_exec('git log -1 --pretty=%B'));
+            $commitInfo['message'] = $commitMessage;
+            
+            // Get the commit author
+            $commitAuthor = trim(shell_exec('git log -1 --pretty=%an'));
+            $commitInfo['author'] = $commitAuthor;
+            
+            // Get the commit date
+            $commitDate = trim(shell_exec('git log -1 --pretty=%cd'));
+            $commitInfo['date'] = $commitDate;
+        }
+        
+        return $commitInfo;
+    }
+
     private function buildAllBooksFromSFTP()
     {
         $this->insertOrReplace(23, '1984', 1);
